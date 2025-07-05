@@ -110,8 +110,8 @@
                 <div class="d-flex align-items-center justify-content-between tw-gap-4 flex-wrap">
                     <p class="text-heading text-line-1 fw-semibold">
                         &copy; 2025
-                        <a href="https://themeforest.net/user/wowtheme7" class="fw-bold text-gradient-teal hover-underline hover--translate-y-1 active--translate-y-scale-9">WowTheme7</a>
-                        - IT Services. All rights reserved.
+                        <a href="https://shifttechgs.com" class="fw-bold text-gradient-teal hover-underline hover--translate-y-1 active--translate-y-scale-9">ShiftTech</a>
+                        . All rights reserved.
                     </p>
                     <div class="d-flex align-items-center tw-gap-6">
                         <a href="javascript:void(0)" class="text-neutral-600 fw-semibold hover-text-heading hover-text-neutral-900 hover-underline hover--translate-y-1 active--translate-y-scale-9">Faqs</a>
