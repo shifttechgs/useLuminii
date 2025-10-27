@@ -5,7 +5,7 @@
             <div class="row gy-5">
                 <div class="col-xl-3 col-sm-4 col-xs-6" data-aos="fade-up" data-aos-duration="600">
                     <div class="">
-                        <h6 class="fw-medium tw-mb-8 splitTextStyleOne">Collaborate</h6>
+                        <h5 class="fw-medium tw-mb-8 splitTextStyleOne">Collaborate</h5>
                         <ul class="d-flex flex-column tw-gap-4">
                             <li>
                                 <a href="javascript:void(0)" class="hover-arrow-start text-neutral-600 hover-text-heading hover-underline hover--translate-y-1 active--translate-y-scale-9 fw-bold">Partners</a>
@@ -27,48 +27,41 @@
                 </div>
                 <div class="col-xl-2 col-sm-4 col-xs-6" data-aos="fade-up" data-aos-duration="700">
                     <div class="">
-                        <h6 class="fw-medium tw-mb-8 splitTextStyleOne">Features</h6>
+                        <h5 class="fw-medium tw-mb-8 splitTextStyleOne">My account</h5>
                         <ul class="d-flex flex-column tw-gap-4">
                             <li>
-                                <a href="javascript:void(0)" class="hover-arrow-start text-neutral-600 hover-text-heading hover-underline hover--translate-y-1 active--translate-y-scale-9 fw-bold">Scheduling</a>
+                                <a href="javascript:void(0)" class="hover-arrow-start text-neutral-600 hover-text-heading hover-underline hover--translate-y-1 active--translate-y-scale-9 fw-bold">Company</a>
                             </li>
                             <li>
-                                <a href="javascript:void(0)" class="hover-arrow-start text-neutral-600 hover-text-heading hover-underline hover--translate-y-1 active--translate-y-scale-9 fw-bold">Leads & Quotes</a>
+                                <a href="javascript:void(0)" class="hover-arrow-start text-neutral-600 hover-text-heading hover-underline hover--translate-y-1 active--translate-y-scale-9 fw-bold">Customer Success</a>
                             </li>
                             <li>
-                                <a href="javascript:void(0)" class="hover-arrow-start text-neutral-600 hover-text-heading hover-underline hover--translate-y-1 active--translate-y-scale-9 fw-bold">Job Management</a>
+                                <a href="javascript:void(0)" class="hover-arrow-start text-neutral-600 hover-text-heading hover-underline hover--translate-y-1 active--translate-y-scale-9 fw-bold">Resources</a>
                             </li>
                             <li>
-                                <a href="javascript:void(0)" class="hover-arrow-start text-neutral-600 hover-text-heading hover-underline hover--translate-y-1 active--translate-y-scale-9 fw-bold">Invoicing</a>
-                            </li>
-
-                            <li>
-                                <a href="javascript:void(0)" class="hover-arrow-start text-neutral-600 hover-text-heading hover-underline hover--translate-y-1 active--translate-y-scale-9 fw-bold">More..</a>
+                                <a href="javascript:void(0)" class="hover-arrow-start text-neutral-600 hover-text-heading hover-underline hover--translate-y-1 active--translate-y-scale-9 fw-bold">Talk an Expert</a>
                             </li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-xl-2 col-sm-4 col-xs-6" data-aos="fade-up" data-aos-duration="800">
                     <div class="">
-                        <h6 class="fw-medium tw-mb-8 splitTextStyleOne">Industries We Serve</h6>
+                        <h5 class="fw-medium tw-mb-8 splitTextStyleOne">Service</h5>
                         <ul class="d-flex flex-column tw-gap-4">
                             <li>
-                                <a href="javascript:void(0)" class="hover-arrow-start text-neutral-600 hover-text-heading hover-underline hover--translate-y-1 active--translate-y-scale-9 fw-bold">Construction & Contractors</a>
+                                <a href="javascript:void(0)" class="hover-arrow-start text-neutral-600 hover-text-heading hover-underline hover--translate-y-1 active--translate-y-scale-9 fw-bold">Software Development</a>
                             </li>
                             <li>
-                                <a href="javascript:void(0)" class="hover-arrow-start text-neutral-600 hover-text-heading hover-underline hover--translate-y-1 active--translate-y-scale-9 fw-bold">Plumbing</a>
+                                <a href="javascript:void(0)" class="hover-arrow-start text-neutral-600 hover-text-heading hover-underline hover--translate-y-1 active--translate-y-scale-9 fw-bold">Cloud Services</a>
                             </li>
                             <li>
-                                <a href="javascript:void(0)" class="hover-arrow-start text-neutral-600 hover-text-heading hover-underline hover--translate-y-1 active--translate-y-scale-9 fw-bold">Cleaning</a>
+                                <a href="javascript:void(0)" class="hover-arrow-start text-neutral-600 hover-text-heading hover-underline hover--translate-y-1 active--translate-y-scale-9 fw-bold">AI Machine Learning</a>
                             </li>
                             <li>
-                                <a href="javascript:void(0)" class="hover-arrow-start text-neutral-600 hover-text-heading hover-underline hover--translate-y-1 active--translate-y-scale-9 fw-bold">Pool Service</a>
+                                <a href="javascript:void(0)" class="hover-arrow-start text-neutral-600 hover-text-heading hover-underline hover--translate-y-1 active--translate-y-scale-9 fw-bold">Data Security</a>
                             </li>
                             <li>
-                                <a href="javascript:void(0)" class="hover-arrow-start text-neutral-600 hover-text-heading hover-underline hover--translate-y-1 active--translate-y-scale-9 fw-bold">Tree Care</a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)" class="hover-arrow-start text-neutral-600 hover-text-heading hover-underline hover--translate-y-1 active--translate-y-scale-9 fw-bold">More..</a>
+                                <a href="javascript:void(0)" class="hover-arrow-start text-neutral-600 hover-text-heading hover-underline hover--translate-y-1 active--translate-y-scale-9 fw-bold">Software Development</a>
                             </li>
                         </ul>
                     </div>
@@ -76,7 +69,7 @@
                 <div class="col-xl-5 col-lg-6" data-aos="fade-up" data-aos-duration="900">
                     <div class="ps-xl-5">
                         <a href="index.html" class="link hover--translate-y-1 active--translate-y-scale-9 tw-mb-10">
-                            <img src="assets/images/logo/logo-three.png" alt="">
+                            <img src="useluminii/assets/images/logo/useluminii_logo.png" alt="">
                         </a>
                         <form action="#" class="d-flex flex-md-row flex-column tw-gap-5 form-submit">
                             <div class="position-relative flex-grow-1">
@@ -87,7 +80,7 @@
                             </div>
                             <button type="submit" class="btn btn-main hover-style-one button--stroke d-inline-flex align-items-center justify-content-center tw-gap-2 group active--translate-y-2 fw-semibold flex-shrink-0 hover--translate-y-1 active--translate-y-scale-9" data-block="button">
                                 <span class="button__flair"></span>
-                                <span class="button__label">Join Waiting List</span>
+                                <span class="button__label">Sign Up</span>
                                 <span class="text-white tw-text-sm tw-rounded d-flex justify-content-center align-items-center position-relative group-hover-text-main-600 tw-duration-500">
                                     <i class="ph-bold ph-caret-right"></i>
                                 </span>
@@ -110,8 +103,8 @@
                 <div class="d-flex align-items-center justify-content-between tw-gap-4 flex-wrap">
                     <p class="text-heading text-line-1 fw-semibold">
                         &copy; 2025
-                        <a href="https://shifttechgs.com" class="fw-bold text-gradient-teal hover-underline hover--translate-y-1 active--translate-y-scale-9">ShiftTech</a>
-                        . All rights reserved.
+                        <a href="https://themeforest.net/user/wowtheme7" class="fw-bold text-gradient-teal hover-underline hover--translate-y-1 active--translate-y-scale-9">WowTheme7</a>
+                        - IT Services. All rights reserved.
                     </p>
                     <div class="d-flex align-items-center tw-gap-6">
                         <a href="javascript:void(0)" class="text-neutral-600 fw-semibold hover-text-heading hover-text-neutral-900 hover-underline hover--translate-y-1 active--translate-y-scale-9">Faqs</a>
@@ -125,5 +118,4 @@
     </div>
     <!-- Footer Bottom End -->
 </section>
-<!-- ========================== Footer Three Section End ========================= -->
-
+<!-

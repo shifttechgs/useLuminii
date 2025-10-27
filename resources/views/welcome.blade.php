@@ -2,67 +2,112 @@
 @section("content")
 <div class="main ">
 
-    <section class="position-relative bg-image pt-100" image-overlay="10">
-        <div class="background-image-wraper"></div>
-        <div class="container">
-            <div class="row align-items-center justify-content-between">
-                <div class="col-md-10 col-lg-6">
-                    <div class="hero-slider-content text-white py-5">
-                        <h1 class="text-white">All-in-One Job Management System.</h1>
-                        <p class="lead">Effortlessly manage leads,quotes, jobs, invoices and scheduling – all in one place.</p>
-                        <div class="action-btns mt-3">
-                            <div class="action-btns mt-3">
-                                <a href="#" class="btn btn-brand-01">Join Waiting List</a>
-{{--                                <a href="#" class="btn btn-primary">Join Waiting List</a>--}}
-                                <a href="#" class="btn btn-brand-01">Request Call Back</a>
-                            </div>
-                        </div>
-{{--                        <div class="col-md-6 col-lg-5">--}}
-{{--                            <form class="newsletter-form position-relative">--}}
-{{--                                <input type="text" class="input-newsletter form-control" placeholder="Enter your email" name="email" required="" autocomplete="off">--}}
-{{--                                <button type="submit" class="disabled"><i class="fas fa-paper-plane"></i></button>--}}
-{{--                            </form>--}}
-{{--                        </div>--}}
-                        <p class=""> Access all features. No credit card required.</p>
+    <div id="smooth-content">
 
-                    </div>
-                </div>
-                <div class="col-md-12 col-lg-5">
-                    <div class="hero-image-wrap">
-                        <div class="content-img-wrap">
-                            <img class="fancy-radius-1 hero-img-width img-custom-width img-fluid gray-light-bg z--1" src="assets/img/phone-with-men.png" alt="modern desk">
-                            <div class="position-absolute dot-shape">
-                                <img src="assets/img/dot-shape.png" alt="appdash">
-                            </div>
-                            <div class="animation-item d-none d-md-block d-lg-block">
-                                <div class="position-absolute rounded-custom d-flex bg-white hero-animated-card-4">
-                                    <img src="assets/img/invoice.png" alt="widget" class="rounded-custom img-fluid">
-                                </div>
-                                <div class="position-absolute p-4 w-75 rounded-custom d-flex bg-white hero-animated-card-1">
-                                    <p class="gr-text-11 mb-0 text-mirage-2">"Invoicing—all in one intuitive dashboard. It has truly improved our efficiency!”</p>
-                                    <div class="small-card-img ml-3">
-                                        <img src="assets/img/client/3.jpg" alt="" width="80px" class="rounded-circle img-fluid">
+        <!-- =================================== Banner Five section start =================================== -->
+        <section class="banner-five">
+            <div class="tw-pt-100-px tw-mx-48-px position-relative gradient-bg-seven rounded-top-30-px z-1">
+                <img src="assets/images/shapes/wave-line-shadow.png" alt="Wave Line shape" class="position-absolute tw-start-0 w-100 bottom-0 z-n1 pb-120">
+
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-xxl-10">
+                            <div class="text-center">
+                                <div class="max-w-780-px text-center mx-auto">
+                                    <div class="bg-white tw-py-2 tw-px-7 rounded-pill text-main-600 fw-bold text-capitalize tw-leading-none d-inline-flex align-items-center tw-gap-2 tw-mb-405 min-w-max common-shadow-twentyEight" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="600" >
+                                        what we offering
+                                    </div>
+                                    <h1 class="splitTextStyleOne text-heading text-capitalize tw-leading-none">Invest with confidence Grow your future </h1>
+                                    <p class="text-neutral-600 tw-text-xl tw-mt-605 splitTextStyleOne max-w-5 mx-auto fw-medium tw-leading-145 max-w-548-px">In today's competitive business, the demand for efficient and cost-effective IT solutions has never been more critical.</p>
+                                    <div class="d-flex align-items-center justify-content-center tw-gap-405 tw-mt-10">
+                                        <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800">
+                                            <a href="https://play.google.com/store/apps" class="hover--translate-y-1 active--translate-y-scale-9 tw-rounded-2xl common-shadow-twentyEight">
+                                                <img src="assets/images/icons/store-two1.png" alt="App Store">
+                                            </a>
+                                        </div>
+                                        <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800">
+                                            <a href="https://www.apple.com/app-store" class="hover--translate-y-1 active--translate-y-scale-9 tw-rounded-2xl common-shadow-twentyEight">
+                                                <img src="assets/images/icons/store-two2.png" alt="Google Store">
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="position-absolute hero-animated-card-3">
-                                    <img src="assets/img/custom-shape.svg" alt="shape">
-                                </div>
-                                <div class="position-absolute p-4 w-75 rounded-custom d-flex secondary-bg hero-animated-card-2">
-                                    <div class="small-card-img mr-3 text-white">
-                                        <img src="assets/img/client/1.jpg" alt="" width="80px" class="rounded-circle img-fluid">
-                                    </div>
-                                    <p class="gr-text-11 mb-0 text-white">“I can track everything in one place and focus on growing my business.”</p>
+
+                                <div class="tw-mt-14 d-inline-flex">
+                                    <img src="assets/images/thumbs/banner-five-thumb.png" alt="Thumbnail" data-aos="zoom-in" data-aos-anchor-placement="top-bottom" data-aos-duration="1200">
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!--end row-->
-        </div>
+        </section>
+        <!-- =================================== Banner Five section End =================================== -->
 
-    </section>
-      <!--pain points section start-->
+
+{{--        <section class="position-relative bg-image pt-100" image-overlay="10">--}}
+{{--        <div class="background-image-wraper"></div>--}}
+{{--        <div class="container">--}}
+{{--            <div class="row align-items-center justify-content-between">--}}
+{{--                <div class="col-md-10 col-lg-6">--}}
+{{--                    <div class="hero-slider-content text-white py-5">--}}
+{{--                        <h1 class="text-white">All-in-One Job Management System.</h1>--}}
+{{--                        <p class="lead">Effortlessly manage leads,quotes, jobs, invoices and scheduling – all in one place.</p>--}}
+{{--                        <div class="action-btns mt-3">--}}
+{{--                            <div class="action-btns mt-3">--}}
+{{--                                <a href="#" class="btn btn-brand-01">Join Waiting List</a>--}}
+{{--                                <a href="#" class="btn btn-primary">Join Waiting List</a>--}}
+{{--                                <a href="#" class="btn btn-brand-01">Request Call Back</a>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                        <div class="col-md-6 col-lg-5">--}}
+{{--                            <form class="newsletter-form position-relative">--}}
+{{--                                <input type="text" class="input-newsletter form-control" placeholder="Enter your email" name="email" required="" autocomplete="off">--}}
+{{--                                <button type="submit" class="disabled"><i class="fas fa-paper-plane"></i></button>--}}
+{{--                            </form>--}}
+{{--                        </div>--}}
+{{--                        <p class=""> Access all features. No credit card required.</p>--}}
+
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--                <div class="col-md-12 col-lg-5">--}}
+{{--                    <div class="hero-image-wrap">--}}
+{{--                        <div class="content-img-wrap">--}}
+{{--                            <img class="fancy-radius-1 hero-img-width img-custom-width img-fluid gray-light-bg z--1" src="assets/img/phone-with-men.png" alt="modern desk">--}}
+{{--                            <div class="position-absolute dot-shape">--}}
+{{--                                <img src="assets/img/dot-shape.png" alt="appdash">--}}
+{{--                            </div>--}}
+{{--                            <div class="animation-item d-none d-md-block d-lg-block">--}}
+{{--                                <div class="position-absolute rounded-custom d-flex bg-white hero-animated-card-4">--}}
+{{--                                    <img src="assets/img/invoice.png" alt="widget" class="rounded-custom img-fluid">--}}
+{{--                                </div>--}}
+{{--                                <div class="position-absolute p-4 w-75 rounded-custom d-flex bg-white hero-animated-card-1">--}}
+{{--                                    <p class="gr-text-11 mb-0 text-mirage-2">"Invoicing—all in one intuitive dashboard. It has truly improved our efficiency!”</p>--}}
+{{--                                    <div class="small-card-img ml-3">--}}
+{{--                                        <img src="assets/img/client/3.jpg" alt="" width="80px" class="rounded-circle img-fluid">--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                                <div class="position-absolute hero-animated-card-3">--}}
+{{--                                    <img src="assets/img/custom-shape.svg" alt="shape">--}}
+{{--                                </div>--}}
+{{--                                <div class="position-absolute p-4 w-75 rounded-custom d-flex secondary-bg hero-animated-card-2">--}}
+{{--                                    <div class="small-card-img mr-3 text-white">--}}
+{{--                                        <img src="assets/img/client/1.jpg" alt="" width="80px" class="rounded-circle img-fluid">--}}
+{{--                                    </div>--}}
+{{--                                    <p class="gr-text-11 mb-0 text-white">“I can track everything in one place and focus on growing my business.”</p>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--            <!--end row-->--}}
+{{--        </div>--}}
+
+{{--    </section>--}}
+{{--      <!--pain points section start-->--}}
+
+
     <section id="about" class="promo-section  ptb-100">
         <div class="container">
             <div class="row justify-content-center">

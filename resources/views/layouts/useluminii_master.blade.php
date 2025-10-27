@@ -36,10 +36,6 @@
 @include("partials.useluminii_footer")
 
 
-
-
-
-
 <!-- Jquery js -->
 <script src="useluminii/assets/js/jquery-3.7.1.min.js"></script>
 <!-- phosphor Js -->

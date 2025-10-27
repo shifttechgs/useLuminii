@@ -194,7 +194,7 @@
     --main-300: hsl(var(--main-h), var(--main-s), calc(var(--main-l) + (100% - var(--main-l)) * 0.6));
     --main-400: hsl(var(--main-h), var(--main-s), calc(var(--main-l) + (100% - var(--main-l)) * 0.5));
     --main-500: hsl(var(--main-h), var(--main-s), calc(var(--main-l) + (100% - var(--main-l)) * 0.4));
-    --main-600: hsl(var(--main-h), var(--main-s), var(--main-l));
+    --main-600: #081833;
     --main-700: hsl(var(--main-h), var(--main-s), calc(var(--main-l) - var(--main-l) * 0.1));
     --main-800: hsl(var(--main-h), var(--main-s), calc(var(--main-l) - var(--main-l) * 0.2));
     --main-900: hsl(var(--main-h), var(--main-s), calc(var(--main-l) - var(--main-l) * 0.3));
@@ -309,8 +309,8 @@
 }
 
 .accordion.arrow-bg-orange .accordion-button[aria-expanded=true]::before {
-    background-color: hsl(var(--orange)) !important;
-    border-color: hsl(var(--orange)) !important;
+    background-color: #ffcf00 !important;
+    border-color: #ffcf00 !important;
 }
 
 @media (min-width: 576px) {
@@ -338,7 +338,7 @@
 }
 
 .button--stroke:hover {
-    color: #0e100f;
+    color: #ffcf00;
 }
 
 .button--stroke::after {
@@ -473,12 +473,12 @@
 }
 
 .hover-style-five .button__flair::before {
-    background-color: hsl(var(--orange));
+    background-color: #ffcf00;
 }
 
 .btn-orange-outline {
-    border: 1px solid hsl(var(--orange));
-    color: hsl(var(--orange));
+    border: 1px solid #ffcf00;
+    color: #ffcf00;
 }
 
 /* =========================== Button Css End =================== */
@@ -626,9 +626,9 @@ input[type=number] {
 }
 
 .common-check .form-check-input:checked {
-    background-color: hsl(var(--main)) !important;
-    border-color: hsl(var(--main)) !important;
-    box-shadow: none;
+    background: linear-gradient(90deg, #030435 0%, #0f3b99 100%) !important;
+    border-color: #0f3b99 !important;
+    box-shadow: none !important;
 }
 
 .common-check .form-check-input:checked[type=checkbox] {
@@ -641,7 +641,7 @@ input[type=number] {
 }
 
 .common-check-two .form-check-input {
-    border-color: #20BA8B !important;
+    border-color: #030435 !important;
     position: relative;
 }
 
@@ -661,7 +661,7 @@ input[type=number] {
 }
 
 .common-check-two .form-check-input:checked {
-    background: linear-gradient(270deg, #06766E 0%, #20BA8B 100%) !important;
+    background: linear-gradient(90deg, #030435 0%, #0f3b99 100%) !important;
 }
 
 .common-check-two .form-check-input:checked::before {
@@ -687,7 +687,7 @@ input[type=number] {
 }
 
 .form-switch .form-check-input:checked {
-    background-color: #23CD89;
+    background-color: #030435;
 }
 
 .form-switch .form-check-input:checked::before {
@@ -722,6 +722,10 @@ input[type=number] {
 
 .common-tab .nav-link:hover {
     color: var(--main-two-600);
+}
+
+.text-gold {
+    color: #081833 !important;
 }
 
 .active-text-white .nav-link.active {
@@ -1628,7 +1632,7 @@ input:focus, input:focus-visible {
 }
 
 .bg-yellow {
-    background-color: hsl(var(--yellow));
+    background-color: #ffcf00;
 }
 
 .bg-purple {
@@ -1636,7 +1640,7 @@ input:focus, input:focus-visible {
 }
 
 .bg-spring-green {
-    background-color: hsl(var(--spring-green));
+    background-color: #030435;
 }
 
 .bg-goldenrod {
@@ -1644,7 +1648,7 @@ input:focus, input:focus-visible {
 }
 
 .bg-orange {
-    background-color: hsl(var(--orange));
+    background-color: #ffcf00;
 }
 
 .bg-deep-green {
@@ -2102,7 +2106,7 @@ input:focus, input:focus-visible {
 }
 
 .border-spring-green {
-    border-color: hsl(var(--spring-green)) !important;
+    border-color: #030435 !important;
 }
 
 .border-app-landing {
@@ -2287,15 +2291,15 @@ input:focus, input:focus-visible {
 }
 
 .text-yellow {
-    color: hsl(var(--yellow)) !important;
+    color: #ffcf00 !important;
 }
 
 .text-spring-green {
-    color: hsl(var(--spring-green)) !important;
+    color: #030435 !important;
 }
 
 .text-orange {
-    color: hsl(var(--orange)) !important;
+    color: #ffcf00 !important;
 }
 
 .text-blue {
@@ -2323,13 +2327,13 @@ input:focus, input:focus-visible {
 }
 
 .text-gradient-teal {
-    background: linear-gradient(270deg, #06766E 0%, #20BA8B 100%);
+    background: linear-gradient(270deg, #030435  0%, #0f3b99  100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
 .text-stroke-yellow {
-    -webkit-text-fill-color: hsl(var(--yellow)) !important;
+    -webkit-text-fill-color: #ffcf00 !important;
 }
 
 /* Colors class End */
@@ -2472,11 +2476,11 @@ input:focus, input:focus-visible {
 }
 
 .hover-text-yellow:hover {
-    color: hsl(var(--yellow)) !important;
+    color: #ffcf00 !important;
 }
 
 .hover-text-spring-green:hover {
-    color: hsl(var(--spring-green)) !important;
+    color: #030435 !important;
 }
 
 /* Hover color class end */
@@ -3013,7 +3017,7 @@ input:focus, input:focus-visible {
 }
 
 .group:hover .group-hover-text-yellow {
-    color: hsl(var(--yellow)) !important;
+    color: #ffcf00 !important;
 }
 
 .group:hover .group-hover-text-heading {
@@ -5408,6 +5412,8 @@ input:focus, input:focus-visible {
 .rounded-top-30-px {
     border-top-left-radius: 30px;
     border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    border-bottom-left-radius: 30px;
 }
 
 /* Border Radius Css End */
@@ -6507,16 +6513,24 @@ input:focus, input:focus-visible {
 }
 
 .gradient-bg-five {
-    background: linear-gradient(69.92deg, #003D3D 28.63%, #00664E 87.07%, #008C63 112.98%);
+    background: linear-gradient(90deg, #030435 0%, #0f3b99 100%) !important;
 }
 
 .gradient-bg-six, .pagination-style-three .swiper-pagination-bullet {
-    background: linear-gradient(270deg, #06766E 0%, #20BA8B 100%);
+    background: linear-gradient(90deg, #030435 0%, #0f3b99 100%) !important;
 }
 
 .gradient-bg-seven {
-    background: linear-gradient(180deg, #D7F2FF 0%, #F5F5FD 74.92%, #FFFFFF 100%);
+    background: linear-gradient(180deg, #D7F2FF 0%, #F5F5FD 74.92%, #F5F5FD 100%);
 }
+
+.gradient-bg-luminii {
+    background: linear-gradient(180deg, #030435 0%, #090734 20.92%, #0f3b99 100%);
+}
+/*.gradient-bg-luminii {*/
+/*    background: linear-gradient(180deg, #030435 0%, #030435 50%, #1e1e7a  100%);*/
+/*}*/
+
 
 .gradient-bg-eight {
     background: linear-gradient(0deg, #DAF2FF 0%, #DAF2FF 100%);
@@ -6544,7 +6558,7 @@ input:focus, input:focus-visible {
     content: "";
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, #06766E 0%, #20BA8B 100%);
+    background: linear-gradient(90deg, #030435 0%, #0f3b99 100%);
     border-radius: inherit;
     inset-block-start: 0;
     inset-inline-start: 0;
@@ -6558,7 +6572,7 @@ input:focus, input:focus-visible {
 .hover-gradient-bg-five:hover::before {
     visibility: visible;
     opacity: 1;
-    background: linear-gradient(90deg, #06766E 0%, #20BA8B 100%);
+    background: linear-gradient(90deg, #030435 0%, #0f3b99 100%);
 }
 
 .gradient-overlay {
@@ -7323,7 +7337,7 @@ svg.radial-progress text {
     width: 100%;
     height: 100%;
     border-radius: inherit;
-    background-color: hsl(var(--yellow));
+    background-color: #ffcf00;
     inset-inline-start: 0px;
     inset-block-start: 0px;
     z-index: -1;
@@ -7396,15 +7410,15 @@ svg.radial-progress text {
 }
 
 .home-three .bg-main-three {
-    background-color: var(--bg-main-green);
+    background: linear-gradient(270deg, #030435  0%, #0f3b99  100%);
 }
 
 .home-three .btn-main {
-    background: linear-gradient(270deg, #06766E 0%, #20BA8B 100%);
+    background:  #081833 !important ;
 }
 
 .home-three .btn-main-two {
-    background-color: hsl(var(--spring-green)) !important;
+    background-color: #081833 !important;
     color: var(--heading-color) !important;
 }
 
@@ -7413,11 +7427,11 @@ svg.radial-progress text {
 }
 
 .home-three .hover-style-two .button__flair::before {
-    background: linear-gradient(270deg, #06766E 0%, #20BA8B 100%);
+    background:  #081833 !important ;
 }
 
 .home-three .hover-style-one .button__flair::before {
-    background-color: hsl(var(--spring-green)) !important;
+    background-color: #081833 !important;
 }
 
 .home-three .header.fixed-header {
@@ -7432,7 +7446,7 @@ svg.radial-progress text {
 }
 
 .home-three .bg-green-deep {
-    background-color: #013E3E;
+    background: linear-gradient(270deg, #030435  0%, #0f3b99  100%);
 }
 
 /* Banner Two Start */
