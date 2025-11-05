@@ -1,2 +1,38 @@
+# robots.txt for useLuminii
+# https://www.robotstxt.org/robotstxt.html
+
 User-agent: *
-Disallow:
+Allow: /
+
+# Sitemap location (Update with your actual domain)
+Sitemap: https://yourdomain.com/sitemap.xml
+
+# Disallow crawling of admin areas (if any)
+# Disallow: /admin/
+# Disallow: /dashboard/
+
+# Disallow crawling of specific file types
+Disallow: /*.json$
+Disallow: /*.xml$
+Disallow: /*.env$
+
+# Allow crawling of CSS and JS files for better indexing
+Allow: /useluminii/assets/css/
+Allow: /useluminii/assets/js/
+
+# Crawl-delay (optional, adjust if needed)
+# Crawl-delay: 1
+
+# Specific rules for major search engines
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# Block or rate-limit aggressive crawlers (optional)
+User-agent: AhrefsBot
+Crawl-delay: 10
+
+User-agent: SemrushBot
+Crawl-delay: 10

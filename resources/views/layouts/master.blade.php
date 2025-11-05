@@ -10,7 +10,7 @@
     <link rel="icon" href="assets/img/favicon.png" type="image/png" sizes="16x16">
 
     <!--title-->
-    <title>Luminii -  Landing Page </title>
+    <title>useLuminii -  Landing Page </title>
 
     <!--build:css-->
     <link rel="stylesheet" href="assets/css/main.css">

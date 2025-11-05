@@ -1,7 +1,113 @@
 @extends("layouts.useluminii_master")
-@section("content")
 
-    <div id="smooth-content">
+{{-- ========== Page-Specific SEO Meta Tags ========== --}}
+@section('title', 'useLuminii - Automate Your Service Business | Lead Generation, Job Management & Invoicing')
+
+@section('description', 'Attract, Simplify, Automate & Grow with useLuminii. All-in-one platform for contractors, cleaners, landscapers and service providers. Manage leads, quotes, jobs, and invoices seamlessly. Get 50% off your first month!')
+
+@section('keywords', 'business management software, CRM for contractors, job scheduling software, automated invoicing, lead generation platform, service business automation, field service management, contractor software, quote management, payment processing, small business CRM')
+
+{{-- Open Graph Tags --}}
+@section('og_title', 'useLuminii - All In One Business Management System')
+@section('og_description', 'Streamline your service business with automated lead generation, quotes, job scheduling, and invoicing. Perfect for contractors, cleaners, plumbers, and landscapers.')
+
+{{-- Twitter Card Tags --}}
+@section('twitter_title', 'useLuminii - Business Management Platform for Service Providers')
+@section('twitter_description', 'Automate your workflows and grow your business. Manage leads, quotes, jobs, and invoices in one powerful platform.')
+
+{{-- Additional Structured Data for Homepage --}}
+@section('schema')
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "useLuminii - Business Management System",
+  "description": "All-in-one business management platform for service providers",
+  "url": "{{ url('/') }}",
+  "mainEntity": {
+    "@type": "Service",
+    "serviceType": "Business Management Software",
+    "provider": {
+      "@type": "Organization",
+      "name": "useLuminii"
+    },
+    "areaServed": "ZA",
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Business Management Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Lead Generation & Management"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Automated Quote Generation"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Job Scheduling & Tracking"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Invoice Automation"
+          }
+        }
+      ]
+    }
+  }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What do I get in my 30-days free trial of Luminii?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "During your 30-days trial, you'll get full access to all Luminii features—everything you need to streamline your job management, track tasks, and collaborate with your team. From task assignment to project timelines and client management, experience the full power of Luminii to optimize your operations."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does Luminii offer customer support when setting up?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Absolutely! Luminii provides comprehensive customer support via email, chat, and phone. Our team is here to assist you with any questions or technical issues you may have."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I upgrade to a different plan at a later time?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Absolutely! You can upgrade your Luminii plan at any time to unlock more features and scale with your business needs — no hassle, no downtime."
+      }
+    }
+  ]
+}
+</script>
+@endsection
+
+@section("content")
+    <div >
+
+
         <section class="banner-five">
             <div class="tw-pt-100-px tw-mx-48-px position-relative gradient-bg-luminii rounded-top-30-px z-1">
 
@@ -10,21 +116,13 @@
                         <div class="col-xxl-12">
                             <div class="text-center">
                                 <div class="text-center mx-auto">
-{{--                                    <div--}}
-{{--                                        class="bg-white tw-py-2 tw-px-7 rounded-pill text-main-600 fw-bold text-capitalize tw-leading-none d-inline-flex align-items-center tw-gap-2 tw-mb-405 min-w-max common-shadow-twentyEight"--}}
-{{--                                        data-aos="fade-up"--}}
-{{--                                        data-aos-anchor-placement="top-bottom"--}}
-{{--                                        data-aos-duration="600"--}}
-{{--                                    >--}}
-{{--                                        #All-in-One Business Automation Solution--}}
-{{--                                    </div>--}}
 
-                                    <h1 class="splitTextStyleOne text-heading  tw-leading-none" style="color: white">
-                                        Attract, Simplify, Automate & Grow <BR>With <span class="text-yellow text-stroke-yellow">useluminii</span>.
+                                    <h1 class=" text-heading  tw-leading-none" style="color: white">
+                                        Attract, Simplify, Automate & Grow <BR>with <span class="text-yellow text-stroke-yellow">useluminii</span>.
                                     </h1>
 
                                     <p
-                                        class=" tw-text-xl tw-mt-605 splitTextStyleOne max-w-5 mx-auto fw-medium tw-leading-145 " style="color: white"
+                                        class=" tw-text-xl tw-mt-605  max-w-5 mx-auto fw-medium tw-leading-145 " style="color: white"
                                     >
                                         Streamline your workflows, manage leads, quotes, jobs and invoices. All in one connected platform.
                                     </p>
@@ -33,7 +131,7 @@
                                         class="d-flex align-items-center justify-content-center tw-gap-405 tw-mt-10"
                                     >
                                         <a
-                                            href=""
+                                            href="{{ url('/contact') }}"
                                             class="  hover--translate-y-1 active--translate-y-scale-9 btn  hover-style-one button--stroke d-sm-inline-flex d-none align-items-center justify-content-center tw-gap-5 group active--translate-y-2 tw-px-9 rounded-pill tw-py-4 fw-semibold common-shadow-inset-one"
                                             data-block="button"
                                         >
@@ -69,9 +167,6 @@
                                             #On-Site Consultations & Assessments
                                         </div>
 
-
-
-
                                     <div
                                         class="tw-mt-14 d-inline-flex"
                                         id="v-pills-profile"
@@ -101,7 +196,7 @@
         <!-- =================================== Banner Five section End =================================== -->
 
         <!-- ============================ Brand Five section start =========================== -->
-        <div class="brand-three pt-120">
+        <div class="brand-three pt-100">
             <div class="container">
 
                 <div class="tw-py-13 position-relative">
@@ -109,50 +204,63 @@
                     <span class="gradient-line w-100 tw-h-px position-absolute bottom-0 tw-start-0"></span>
 
                     <div class="text-center tw-mb-16">
-                        <h5 class="mb-0 line-clamp-1">Empowering <span class="text-gradient-teal">Service Providers and Growing Businesses</span> Worldwide.</h5>
+                        <h5 class="mb-0 line-clamp-1">Trusted By <span class="text-gradient-teal">Service Providers and Growing Businesses</span> Worldwide.</h5>
                     </div>
                     <div class="brand-three-slider swiper left-right-gradient gradient-width-200">
                         <div class="swiper-wrapper">
                             <div class="swiper-slide d-flex align-items-center justify-content-center" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="600">
-                                <div class="">
-                                    <img src="useluminii/assets/images/thumbs/brand-three-img1.png" alt="Logo">
-                                </div>
-                            </div>
-                            <div class="swiper-slide d-flex align-items-center justify-content-center" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="700">
-                                <div class="">
-                                    <img src="useluminii/assets/images/thumbs/brand-three-img2.png" alt="Logo">
-                                </div>
+                                <span class="fw-semibold text-white px-4 py-2 rounded-pill gradient-bg-six shadow-sm">
+                                Contractors
+                              </span>
                             </div>
                             <div class="swiper-slide d-flex align-items-center justify-content-center" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800">
-                                <div class="">
-                                    <img src="useluminii/assets/images/thumbs/brand-three-img3.png" alt="Logo">
-                                </div>
-                            </div>
-                            <div class="swiper-slide d-flex align-items-center justify-content-center" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="600">
-                                <div class="">
-                                    <img src="useluminii/assets/images/thumbs/brand-three-img4.png" alt="Logo">
-                                </div>
+                                                             <span class="fw-semibold text-white px-4 py-2 rounded-pill bg-yellow shadow-sm">
+                                Cleaners
+                              </span>
                             </div>
                             <div class="swiper-slide d-flex align-items-center justify-content-center" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="700">
-                                <div class="">
-                                    <img src="useluminii/assets/images/thumbs/brand-three-img5.png" alt="Logo">
-                                </div>
+
+                                <span class="fw-semibold text-white px-4 py-2 rounded-pill  gradient-bg-six shadow-sm">
+                                Landscapers
+                              </span>
                             </div>
-                            <div class="swiper-slide d-flex align-items-center justify-content-center" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800">
-                                <div class="">
-                                    <img src="useluminii/assets/images/thumbs/brand-three-img6.png" alt="Logo">
-                                </div>
-                            </div>
+
                             <div class="swiper-slide d-flex align-items-center justify-content-center" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="600">
-                                <div class="">
-                                    <img src="useluminii/assets/images/thumbs/brand-three-img7.png" alt="Logo">
-                                </div>
+                                  <span class="fw-semibold text-white px-4 py-2 rounded-pill bg-yellow shadow-sm">
+                                Plumbers
+                              </span>
                             </div>
                             <div class="swiper-slide d-flex align-items-center justify-content-center" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="700">
-                                <div class="">
-                                    <img src="useluminii/assets/images/thumbs/brand-three-img5.png" alt="Logo">
-                                </div>
+                                   <span class="fw-semibold text-white px-4 py-2 rounded-pill  gradient-bg-six shadow-sm">
+                                Painters
+                              </span>
                             </div>
+
+                            <div class="swiper-slide d-flex align-items-center justify-content-center" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="600">
+                                  <span class="fw-semibold text-white px-4 py-2 rounded-pill bg-yellow shadow-sm">
+                                Freelancers
+                              </span>
+                            </div>
+
+                            <div class="swiper-slide d-flex align-items-center justify-content-center" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="600">
+                                  <span class="fw-semibold text-white px-4 py-2 rounded-pill gradient-bg-six shadow-sm">
+                                Construction
+                              </span>
+                            </div>
+
+                            <div class="swiper-slide d-flex align-items-center justify-content-center" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="600">
+                                  <span class="fw-semibold text-white px-4 py-2 rounded-pill  bg-yellow shadow-sm">
+                                Auto Detailing
+                              </span>
+                            </div>
+
+                            <div class="swiper-slide d-flex align-items-center justify-content-center" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="600">
+                                  <span class="fw-semibold text-white px-4 py-2 rounded-pill gradient-bg-six shadow-sm">
+                               Handyman
+                              </span>
+                            </div>
+
+
                         </div>
                     </div>
                 </div>
@@ -162,13 +270,11 @@
         <!-- ============================ Brand Five section end =========================== -->
 
         <!-- ============================ Features Three section start ============================ -->
-        <section class="features-three py-120 position-relative z-1">
-            <img src="useluminii/assets/images/shapes/gradient-blue-yellow.png" alt="Gradient" class="position-absolute tw-end-0 bottom-0 z-n1">
-
-            <div class="container">
+        <section id="solution" class="features-three py-120 position-relative z-1">
+                       <div class="container">
                 <div class="d-flex align-items-center justify-content-between tw-gap-6 tw-mb-12">
                     <div class="max-w-620-px">
-                        <h4 class="splitTextStyleOne text-heading text-capitalize">Do Less. Gain More. Let
+                        <h4 class=" text-heading text-capitalize">Do Less. Gain More. Let
                             <span class="font-dm-serif fst-italic fw-normal text-gradient-teal"> Automation </span>
                             Power Your Business.
                         </h4>
@@ -265,7 +371,7 @@
                                     <div class="d-flex align-items-center justify-content-between tw-gap-2">
                                         <h5 class="group-hover-text-white tw-duration-300  splitTextStyleOne">Get Noticed by clients</h5>
                                         <span class="group-hover-item-text-invert tw-duration-300 animate__heartBeat">
-                                    <img src="useluminii/assets/images/icons/features-three-icon1.svg" alt="Icon">
+                                    <img src="useluminii/assets/images/icons/magnet.png" alt="Icon" width="50" height="50">
                                 </span>
                                     </div>
                                     <p class="text-neutral-500  tw-mt-10 group-hover-text-white tw-duration-300">High-converting websites and automated marketing tools help you stand out, attract quality leads, and grow your business effortlessly.</p>
@@ -276,7 +382,7 @@
                                     <div class="d-flex align-items-center justify-content-between tw-gap-2">
                                         <h5 class="group-hover-text-white tw-duration-300  splitTextStyleOne">Work Smarter & Deliver</h5>
                                         <span class="group-hover-item-text-invert tw-duration-300 animate__heartBeat">
-                                    <img src="useluminii/assets/images/icons/features-three-icon3.svg" alt="Icon">
+                                    <img src="useluminii/assets/images/icons/innovation.png" alt="Icon" alt="Icon" width="50" height="50">
                                 </span>
                                     </div>
                                     <p class="text-neutral-500  tw-mt-10 group-hover-text-white tw-duration-300">Save hours every week with automated job scheduling, invoicing, and payments. Reducing manual work while boosting productivity.</p>
@@ -292,7 +398,7 @@
                                     <div class="d-flex align-items-center justify-content-between tw-gap-2">
                                         <h5 class="group-hover-text-white tw-duration-300  splitTextStyleOne">Win More Jobs, Effortlessly</h5>
                                         <span class="group-hover-item-text-invert tw-duration-300 animate__heartBeat">
-                                    <img src="useluminii/assets/images/icons/features-three-icon2.svg" alt="Icon">
+                                    <img src="useluminii/assets/images/icons/promotion.png" alt="Icon" alt="Icon" width="50" height="50">
                                 </span>
                                     </div>
                                     <p class="text-neutral-500  tw-mt-10 group-hover-text-white tw-duration-300">Turn leads into confirmed jobs through smart follow-ups, instant notifications, and automated reminders that keep customers engaged.</p>
@@ -303,7 +409,7 @@
                                     <div class="d-flex align-items-center justify-content-between tw-gap-2">
                                         <h5 class="group-hover-text-white tw-duration-300  splitTextStyleOne">Boost Profits with Intelligent Insights</h5>
                                         <span class="group-hover-item-text-invert tw-duration-300 animate__heartBeat">
-                                    <img src="useluminii/assets/images/icons/features-three-icon4.svg" alt="Icon">
+                                    <img src="useluminii/assets/images/icons/profit.png" alt="Icon" alt="Icon" width="50" height="50">
                                 </span>
                                     </div>
                                     <p class="text-neutral-500  tw-mt-10 group-hover-text-white tw-duration-300">Track expenses, monitor income, and get automated reports that reveal where your money’s going, empowering smarter financial decisions.</p>
@@ -317,8 +423,7 @@
         <!-- ============================ Features Three section End ============================ -->
 
 
-
-        <!-- ============================ Work Place Team Section Start ============================ -->
+        <!-- ============================ CTA Businesses ============================ -->
         <section class="workplace-team py-60 gradient-bg-five position-relative z-1">
             <div class="container">
                 <!-- Header -->
@@ -334,10 +439,10 @@
                         </div>
                     </div>
 
-                    <h4 class="splitTextStyleOne text-white text-2xl sm:text-3xl fw-semibold">
-                        Essential for
-                        <span class="font-dm-serif fst-italic fw-normal">workplaces.</span>
-                        Great for any team.
+                    <h4 class=" text-white text-2xl sm:text-3xl fw-semibold">
+                        Powering modern
+                        <span class="font-dm-serif fst-italic fw-normal">Service Providers </span>
+                        and Growing Businesses Worldwide
                     </h4>
                 </div>
 
@@ -355,7 +460,7 @@
       <span class="fw-semibold text-white px-4 py-2 rounded-pill gradient-bg-six shadow-sm">
         Construction & Contractors
       </span>
-                            <span class="fw-semibold text-white px-4 py-2 rounded-pill bg-paste shadow-sm">
+                            <span class="fw-semibold text-white px-4 py-2 rounded-pill bg-yellow shadow-sm">
         Electrical Contractors
       </span>
                             <span class="fw-semibold text-white px-4 py-2 rounded-pill gradient-bg-six shadow-sm">
@@ -364,22 +469,22 @@
                             <span class="fw-semibold text-white px-4 py-2 rounded-pill bg-yellow shadow-sm">
         Landscaping
       </span>
-                            <span class="fw-semibold text-white px-4 py-2 rounded-pill bg-orange shadow-sm">
+                            <span class="fw-semibold text-white px-4 py-2 rounded-pill gradient-bg-six shadow-sm">
         Residential Cleaning
       </span>
-                            <span class="fw-semibold text-white px-4 py-2 rounded-pill gradient-bg-six shadow-sm">
+                            <span class="fw-semibold text-white px-4 py-2 rounded-pill bg-yellow shadow-sm">
         Roofing
       </span>
-                            <span class="fw-semibold text-white px-4 py-2 rounded-pill bg-orange shadow-sm">
+                            <span class="fw-semibold text-white px-4 py-2 rounded-pill gradient-bg-six shadow-sm">
         Plumbing
       </span>
-                            <span class="fw-semibold text-white px-4 py-2 rounded-pill gradient-bg-six shadow-sm">
+                            <span class="fw-semibold text-white px-4 py-2 rounded-pill bg-yellow shadow-sm">
         Painting
       </span>
-                            <span class="fw-semibold text-white px-4 py-2 rounded-pill bg-paste shadow-sm">
+                            <span class="fw-semibold text-white px-4 py-2 rounded-pill gradient-bg-six shadow-sm">
         HVAC
       </span>
-                            <span class="fw-semibold text-white px-4 py-2 rounded-pill bg-pink shadow-sm">
+                            <span class="fw-semibold text-white px-4 py-2 rounded-pill bg-yellow shadow-sm">
         Commercial Cleaning
       </span>
                         </div>
@@ -389,11 +494,11 @@
 
             </div>
         </section>
-        <!-- ============================ Work Place Team Section End ============================ -->
+        <!-- ============================ CTA Businesses ============================ -->
 
 
-        <!-- Fixed responsive Task Manager section -->
-        <section class="task-manager pt-120 pb-10">
+        <!-- Features -->
+        <section id="features" class="task-manager pt-120 pb-10">
             <div class="container">
                 <div class="row gy-4 align-items-center">
                     <!-- Content column: full width on xs, 7/12 on lg -->
@@ -405,7 +510,7 @@
                     >
                         <div class="task-manager__thumb mx-auto mx-lg-0">
                             <img
-                                src="useluminii/assets/images/thumbs/webb.png"
+                                src="useluminii/assets/images/thumbs/webb.svg"
                                 alt="Dashboard Preview"
                                 class="img-fluid rounded-3 shadow-sm"
                             />
@@ -424,51 +529,43 @@
                                 </div>
                             </div>
 
-                            <!-- Title -->
                             <h4 class="h4 text-heading mb-3">
-                                Leads, Quotes, Jobs & Invoice
-                                <span class="font-dm-serif fst-italic fw-normal text-gradient-teal">Management</span>
+                                Build a
+                                <span class="font-dm-serif fst-italic fw-bold text-gradient-teal">High-Converting Website</span>
+                                for Your Business
                             </h4>
 
                             <!-- Description -->
                             <p class="lead text-neutral-500 mb-4">
-                                Streamline and automate your entire workflow — from capturing leads to scheduling jobs and sending invoices.
-                                All in one connected platform.
+                                Turn visitors into customers with a website designed to capture leads, showcase your services, and drive sales all in one seamless, modern platform.
                             </p>
 
                             <!-- Features -->
                             <div class="features d-flex flex-column gap-4">
-                                <div
-                                    class="d-flex align-items-start gap-3"
-                                    data-aos="fade-up"
-                                    data-aos-duration="600"
-                                >
+                                <div class="d-flex align-items-start gap-3" data-aos="fade-up" data-aos-duration="600">
                                     <div class="icon-wrap flex-shrink-0">
-                                        <img src="useluminii/assets/images/icons/task-manager-icon1.svg" alt="Lead Capture Icon" width="48" height="48">
+                                        <img src="useluminii/assets/images/icons/magnet.png" alt="Lead Capture Icon" width="48" height="48">
                                     </div>
                                     <div>
-                                        <h5 class="mb-2">Never miss a lead, even when you're off the clock or in the field.</h5>
-                                        <p class="text-neutral-600 mb-0">
-                                            <span class="brand">uselumini<span class="text-yellow">i</span></span> captures client details 24/7 through your website, phone, or SMS — so your business keeps moving while you take a break.
+                                        <h6 class="mb-2">Capture Leads Effortlessly</h6>
+                                        <p class="text-neutral-500 mb-0">
+                                            Convert visitors into potential customers with smart lead capture forms, pop-ups, and chatbots that work 24/7.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-start gap-3" data-aos="fade-up" data-aos-duration="1400">
+                                    <div class="icon-wrap flex-shrink-0">
+                                        <img src="useluminii/assets/images/icons/responsive.png" alt="Responsive Design Icon" width="48" height="48">
+                                    </div>
+                                    <div>
+                                        <h6 class="mb-2">Fully Responsive, Fast & Secure</h6>
+                                        <p class="text-neutral-500 mb-0">
+                                            Provide a seamless experience across devices with secure fast-loading, mobile-friendly pages that keep visitors engaged.
                                         </p>
                                     </div>
                                 </div>
 
-                                <div
-                                    class="d-flex align-items-start gap-3"
-                                    data-aos="fade-up"
-                                    data-aos-duration="800"
-                                >
-                                    <div class="icon-wrap flex-shrink-0">
-                                        <img src="useluminii/assets/images/icons/task-manager-icon2.svg" alt="Workflow Automation Icon" width="48" height="48">
-                                    </div>
-                                    <div>
-                                        <h5 class="mb-2">Automate Quotes, Jobs, and Invoices — All in One Seamless Workflow.</h5>
-                                        <p class="text-neutral-600 mb-0">
-                                            Automate your entire process from lead capture to invoicing with professional, easy-to-approve quotes that help you close deals faster.
-                                        </p>
-                                    </div>
-                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -478,7 +575,7 @@
             </div>
         </section>
 
-        <!-- Fixed responsive Task Manager section -->
+        <!-- Features -->
         <section class="task-manager pt-5 pb-5">
             <div class="container">
                 <div class="row gy-4 align-items-center">
@@ -504,7 +601,7 @@
 
                             <!-- Description -->
                             <p class="lead text-neutral-500 mb-4">
-                                Streamline and automate your entire workflow — from capturing leads to scheduling jobs and sending invoices.
+                                Streamline and automate your entire workflow, from capturing leads to scheduling jobs and sending invoices.
                                 All in one connected platform.
                             </p>
 
@@ -516,12 +613,12 @@
                                     data-aos-duration="600"
                                 >
                                     <div class="icon-wrap flex-shrink-0">
-                                        <img src="useluminii/assets/images/icons/task-manager-icon1.svg" alt="Lead Capture Icon" width="48" height="48">
+                                        <img src="useluminii/assets/images/icons/automation.png" alt="Lead Capture Icon" width="48" height="48">
                                     </div>
                                     <div>
-                                        <h5 class="mb-2">Never miss a lead, even when you're off the clock or in the field.</h5>
-                                        <p class="text-neutral-600 mb-0">
-                                            <span class="brand">uselumini<span class="text-yellow">i</span></span> captures client details 24/7 through your website, phone, or SMS — so your business keeps moving while you take a break.
+                                        <h6 class="mb-2">Automate Quotes, Jobs, and Invoices.</h6>
+                                        <p class="text-neutral-500 mb-0">
+                                            Streamline your entire workflow from lead capture to invoicing. Create professional, easy-to-approve quotes and close deals faster.
                                         </p>
                                     </div>
                                 </div>
@@ -532,12 +629,12 @@
                                     data-aos-duration="800"
                                 >
                                     <div class="icon-wrap flex-shrink-0">
-                                        <img src="useluminii/assets/images/icons/task-manager-icon2.svg" alt="Workflow Automation Icon" width="48" height="48">
+                                        <img src="useluminii/assets/images/icons/calendar.png" alt="Workflow Automation Icon" width="48" height="48">
                                     </div>
                                     <div>
-                                        <h5 class="mb-2">Automate Quotes, Jobs, and Invoices — All in One Seamless Workflow.</h5>
-                                        <p class="text-neutral-600 mb-0">
-                                            Automate your entire process from lead capture to invoicing with professional, easy-to-approve quotes that help you close deals faster.
+                                        <h6 class="mb-2">Smart Job Scheduling.</h6>
+                                        <p class="text-neutral-500 mb-0">
+                                            Assign and schedule jobs effortlessly with real-time updates, ensuring your team stays productive and on track.
                                         </p>
                                     </div>
                                 </div>
@@ -553,7 +650,7 @@
                     >
                         <div class="task-manager__thumb mx-auto mx-lg-0">
                             <img
-                                src="useluminii/assets/images/thumbs/dashh.png"
+                                src="useluminii/assets/images/thumbs/dash.svg"
                                 alt="Dashboard Preview"
                                 class="img-fluid rounded-3 shadow-sm"
                             />
@@ -565,8 +662,8 @@
 
 
         <div class="position-relative gradient-bg-80-percent z-1">
-            <!-- ============================ Plan Execute Section Start ============================== -->
-            <section class="plan-execute py-120">
+            <!-- ============================ More Powerfull features ============================== -->
+            <section class="plan-execute py-100">
                 <div class="container max-w-1570-px">
 
                     <div class="max-w-602-px text-center mx-auto tw-mb-13">
@@ -575,7 +672,7 @@
                                 Up to <span class="text-yellow text-stroke-yellow">50%</span> Off First Month for Waitlist Members
                             </div>
                         </div>
-                        <h4 class="splitTextStyleOne text-heading text-capitalize text-capitalize">
+                        <h4 class=" text-heading ">
                             Unlock More Powerful Features to
                             <span class="font-dm-serif fst-italic fw-normal text-gradient-teal"> Grow Your Business</span>
                             with useLuminii.
@@ -593,7 +690,7 @@
                                     </div>
                                     <div class="tw-mt-8 text-center">
                                         <h6 class="tw-mb-205">Reporting</h6>
-                                        <p class="text-neutral-600 max-w-278-px mx-auto">Gain real-time insights into your business performance with intuitive dashboards and detailed reports.</p>
+                                        <p class="text-neutral-500 max-w-278-px mx-auto">Gain real-time insights into your business performance with intuitive dashboards and detailed reports.</p>
                                     </div>
                                 </div>
                             </div>
@@ -606,7 +703,7 @@
                                     </div>
                                     <div class="tw-mt-8 text-center">
                                         <h6 class="tw-mb-205">Expense Tracking</h6>
-                                        <p class="text-neutral-600 max-w-278-px mx-auto">Easily record, categorize, and monitor all your expenses to keep your business finances on track.</p>
+                                        <p class="text-neutral-500 max-w-278-px mx-auto">Easily record, categorize, and monitor all your expenses to keep your business finances on track.</p>
                                     </div>
                                 </div>
                             </div>
@@ -619,7 +716,7 @@
                                     </div>
                                     <div class="tw-mt-8 text-center">
                                         <h6 class="tw-mb-205">VAT & Payroll Management</h6>
-                                        <p class="text-neutral-600 max-w-278-px mx-auto">Simplify tax and payroll processing with automated calculations and compliance tracking.</p>
+                                        <p class="text-neutral-500 max-w-278-px mx-auto">Simplify tax and payroll processing with automated calculations and compliance tracking.</p>
                                     </div>
                                 </div>
                             </div>
@@ -632,7 +729,7 @@
                                     </div>
                                     <div class="tw-mt-8 text-center">
                                         <h6 class="tw-mb-205">AI Integrations</h6>
-                                        <p class="text-neutral-600 max-w-278-px mx-auto">Boost productivity with AI-driven insights, automation, and intelligent task recommendations.</p>
+                                        <p class="text-neutral-500 max-w-278-px mx-auto">Boost productivity with AI-driven insights, automation, and intelligent task recommendations.</p>
                                     </div>
                                 </div>
                             </div>
@@ -645,7 +742,7 @@
                                     </div>
                                     <div class="tw-mt-8 text-center">
                                         <h6 class="tw-mb-205">Inventory Management</h6>
-                                        <p class="text-neutral-600 max-w-278-px mx-auto">Track stock levels, manage suppliers, and ensure timely replenishment — all from one dashboard.</p>
+                                        <p class="text-neutral-500 max-w-278-px mx-auto">Track stock levels, manage suppliers, and ensure timely replenishment all from one dashboard.</p>
                                     </div>
                                 </div>
                             </div>
@@ -654,7 +751,7 @@
                         <div class="plan-execute-pagination pagination-style-three pb-1 d-flex align-items-center justify-content-center tw-mt-15"></div>
                     </div>
                 </div>
-            </section>
+            </section><br>
 
 
 
@@ -665,7 +762,7 @@
             <div class="container max-w-1290-px">
                 <div class="bg-main-three tw-rounded-2xl overflow-hidden tw-py-16 tw-px-11 d-flex align-items-center flex-md-row flex-column tw-gap-74-px">
                     <div class="max-w-400-px w-100">
-                        <img src="useluminii/assets/images/thumbs/testimonials-three-thumbs.png" alt="Testimonials Thumb"  data-aos="zoom-in" data-aos-duration="800">
+                        <img src="useluminii/assets/images/thumbs/model-img.png" alt="Testimonials Thumb"  data-aos="zoom-in" data-aos-duration="800">
                     </div>
 
 
@@ -676,16 +773,16 @@
                             <span class="tw-mb-705">
                                 <img src="useluminii/assets/images/icons/ratings.svg" alt="" class="">
                             </span>
-                                    <p class="text-30-px fw-normal text-white max-w-672-px tw-leading-145">Useluminii made managing my business effortless. Leads, invoices, and follow-ups are all automated—saving me hours every day.</p>
+                                    <p class="text-30-px fw-normal text-white max-w-672-px tw-leading-145">"useluminii made managing my business effortless. Leads, invoices, and follow-ups are all automated saving me hours every day."</p>
                                     <span class="d-block w-100 tw-h-px tw-mt-12 tw-mb-4 bg-white-08"></span>
                                     <div class="tw-px-705 tw-py-2 bg-white-06 d-inline-flex align-items-center tw-gap-6" style="border-radius: 10px">
-                                        <div class="tw-w-17 tw-h-17 rounded-circle overflow-hidden" >
-                                            <img src="useluminii/assets/images/thumbs/client-img.png" alt="Client Thumb">
-                                        </div>
+{{--                                        <div class="tw-w-17 tw-h-17 rounded-circle overflow-hidden" >--}}
+{{--                                            <img src="useluminii/assets/images/thumbs/client-img.png" alt="Client Thumb">--}}
+{{--                                        </div>--}}
                                         <div class="">
                                             <h6 class="text-white fw-medium tw-mb-1">Charity  </h6>
                                             <div class="text-white fw-medium tw-text-base">
-                                                SpringKleaners
+                                                Spring Kleaners
                                             </div>
                                         </div>
                                     </div>
@@ -694,16 +791,16 @@
                             <div class="swiper-slide" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="600">
                                 <div class="">
                             <span class="tw-mb-705">
-                                <img src="assets/images/icons/ratings.svg" alt="" class="">
+                                <img src="useluminii/assets/images/icons/ratings.svg" alt="" class="">
                             </span>
-                                    <p class="text-30-px fw-normal text-white max-w-672-px tw-leading-145">Super easy to use, useluminii helped me respond faster to clients and close more deals. Definitely recommend it to others!</p>
+                                    <p class="text-30-px fw-normal text-white max-w-672-px tw-leading-145">"Super easy to use, useluminii helped me respond faster to clients and close more deals. Definitely recommend it to others!"</p>
                                     <span class="d-block w-100 tw-h-px tw-mt-12 tw-mb-4 bg-white-08"></span>
                                     <div class="tw-px-705 tw-py-2 bg-white-06 d-inline-flex align-items-center tw-gap-6" style="border-radius: 10px">
-                                        <div class="tw-w-17 tw-h-17 rounded-circle overflow-hidden">
-                                            <img src="assets/images/thumbs/client-img.png" alt="Client Thumb">
-                                        </div>
+{{--                                        <div class="tw-w-17 tw-h-17 rounded-circle overflow-hidden">--}}
+{{--                                            <img src="useluminii/assets/images/thumbs/client-img2.png" alt="Client Thumb">--}}
+{{--                                        </div>--}}
                                         <div class="">
-                                            <h6 class="text-white fw-medium tw-mb-1">Fhulufhelo  </h6>
+                                            <h6 class="text-white fw-medium tw-mb-1">Audrey  </h6>
                                             <div class="text-white fw-medium tw-text-base">
                                                  Lifestyle Laundry
                                             </div>
@@ -721,15 +818,15 @@
 
         </div>
         <!-- ====================================== Pricing Plan three start ==================================== -->
-        <section class="pricing-plan-three pt-120">
+        <section id="pricing" class="pricing-plan-three pt-120">
             <div class="container">
                 <div class="max-w-602-px text-center mx-auto tw-mb-13">
                     <div class="bg-white tw-py-3 tw-px-305 rounded-pill fw-medium text-capitalize tw-leading-none d-inline-flex align-items-center tw-gap-2 tw-mb-405 min-w-max border border-spring-green" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="600" >
                         <div class="text-gradient-teal">
-                            Up to <span class="text-yellow text-stroke-yellow">50%</span>Off First Month for Waitlist Members
+                            Up to <span class="text-yellow text-stroke-yellow">50%</span> Off First Month for Waitlist Members
                         </div>
                     </div>
-                    <h4 class="splitTextStyleOne text-heading text-capitalize text-capitalize">
+                    <h4 class=" text-heading text-capitalize text-capitalize">
                         Flexible Pricing Plans
                         <span class="font-dm-serif fst-italic fw-normal text-gradient-teal">Designed</span>
                         for Any Business
@@ -749,7 +846,7 @@
                                         <h4 class="mb-0">R8000.00<span class="tw-text-xl fw-medium">/Once-off</span> </h4>
                                     </div>
                                 </div>
-                                <a href="" class="hover--translate-y-1 active--translate-y-scale-9 btn btn-main hover-style-one button--stroke d-flex align-items-center justify-content-center tw-gap-5 group active--translate-y-2 tw-px-9 rounded-pill tw-py-4 fw-semibold common-shadow-inset-one" data-block="button">
+                                <a href="{{ url('/contact') }}" class="hover--translate-y-1 active--translate-y-scale-9 btn btn-main hover-style-one button--stroke d-flex align-items-center justify-content-center tw-gap-5 group active--translate-y-2 tw-px-9 rounded-pill tw-py-4 fw-semibold common-shadow-inset-one" data-block="button">
                                     <span class="button__flair"></span>
                                     <span class="button__label">Partner With Us Today</span>
                                 </a>
@@ -819,7 +916,7 @@
                                     </div>
                                 </div>
 
-                                 <a href="" class="hover--translate-y-1 active--translate-y-scale-9 btn btn-main hover-style-one button--stroke d-flex align-items-center justify-content-center tw-gap-5 group active--translate-y-2 tw-px-9 rounded-pill tw-py-4 fw-semibold common-shadow-inset-one" data-block="button">
+                                 <a href="{{ url('/contact') }}" class="hover--translate-y-1 active--translate-y-scale-9 btn btn-main hover-style-one button--stroke d-flex align-items-center justify-content-center tw-gap-5 group active--translate-y-2 tw-px-9 rounded-pill tw-py-4 fw-semibold common-shadow-inset-one" data-block="button">
                                         <span class="button__flair"></span>
                                         <span class="button__label">Partner With Us Today</span>
                                     </a>
@@ -891,7 +988,7 @@
                                         <h4 class="mb-0">Spec-Driven <span class="tw-text-xl fw-medium">/any business</span>  </h4>
                                     </div>
                                 </div>
-                                <a href="" class="hover--translate-y-1 active--translate-y-scale-9 btn btn-main hover-style-one button--stroke d-flex align-items-center justify-content-center tw-gap-5 group active--translate-y-2 tw-px-9 rounded-pill tw-py-4 fw-semibold common-shadow-inset-one" data-block="button">
+                                <a href="{{ url('/contact') }}" class="hover--translate-y-1 active--translate-y-scale-9 btn btn-main hover-style-one button--stroke d-flex align-items-center justify-content-center tw-gap-5 group active--translate-y-2 tw-px-9 rounded-pill tw-py-4 fw-semibold common-shadow-inset-one" data-block="button">
                                     <span class="button__flair"></span>
                                     <span class="button__label">Partner With Us Today</span>
                                 </a>
@@ -958,8 +1055,9 @@
         <!-- ====================================== Pricing Plan three End ==================================== -->
 
 
+
         <!-- ============================== Faq Two Section Start ============================== -->
-        <section class="faq-two pt-120">
+        <section id="faq" class="faq-two pt-120">
             <div class="container">
                 <div class="row gy-4">
                     <div class="col-lg-5">
@@ -968,14 +1066,14 @@
                                 <span class="tw-w-205 tw-h-205 bg-yellow rounded-circle"></span>
                                 Up to <span class="text-yellow">50%</span> Off First Month for Waitlist Members
                             </div>
-                            <h4 class="splitTextStyleOne text-heading text-capitalize">
+                            <h4 class=" text-heading text-capitalize">
                                 Frequently ask
                                 <span class="font-dm-serif fst-italic fw-normal">Questions</span>
                             </h4>
-                            <p class="splitTextStyleOne text-neutral-500 tw-mt-8 max-w-450-px fw-medium">Unlock reliable solutions and streamline your processes with ease. Have more questions? We're here to help, feel free to contact us!</p>
+                            <p class=" text-neutral-500 tw-mt-8 max-w-450-px fw-medium">Unlock reliable solutions and streamline your processes with ease. Have more questions? We're here to help, feel free to contact us!</p>
 
                             <div class="tw-mt-9" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="900" >
-                                <a href="" class="hover--translate-y-1 active--translate-y-scale-9 btn btn-main hover-style-one button--stroke d-sm-inline-flex d-none align-items-center justify-content-center tw-gap-5 group active--translate-y-2 tw-px-9 rounded-pill tw-py-4 fw-semibold common-shadow-inset-one" data-block="button">
+                                <a href="{{ url('/contact') }}" class="hover--translate-y-1 active--translate-y-scale-9 btn btn-main hover-style-one button--stroke d-sm-inline-flex d-none align-items-center justify-content-center tw-gap-5 group active--translate-y-2 tw-px-9 rounded-pill tw-py-4 fw-semibold common-shadow-inset-one" data-block="button">
                                     <span class="button__flair"></span>
                                     <span class="button__label">Partner With Us Today</span>
                                 </a>
@@ -1079,8 +1177,8 @@
         <!-- ============================== Faq Two Section End ============================== -->
 
 
-        <!-- ================================= Task Management Section Start ============================== -->
-        <section class="task-management bg-pink-more-light-half drag-rotate-element-section bg-pink-more-light-half">
+        <!-- ================================= Final CTA ============================== -->
+        <section class="pt-120 task-management bg-pink-more-light-half drag-rotate-element-section bg-pink-more-light-half">
             <div class="container">
 
 
@@ -1098,13 +1196,13 @@
                         </div>
 
                         <!-- Headline -->
-                        <h3 class="splitTextStyleOne text-white">
+                        <h3 class=" text-white">
                             Automate. Simplify. Grow with uselumini<span class="text-yellow text-stroke-yellow">i</span>.
                         </h3>
 
                         <!-- Centered Form -->
                         <div class="d-flex justify-content-center tw-mt-11" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800">
-                            <a href="" class="hover--translate-y-1 active--translate-y-scale-9 btn btn-main hover-style-one button--stroke d-sm-inline-flex d-none align-items-center justify-content-center tw-gap-5 group active--translate-y-2 tw-px-9 rounded-pill tw-py-4 fw-semibold common-shadow-inset-one" data-block="button">
+                            <a href="{{ url('/contact') }}" class="hover--translate-y-1 active--translate-y-scale-9 btn btn-main hover-style-one button--stroke d-sm-inline-flex d-none align-items-center justify-content-center tw-gap-5 group active--translate-y-2 tw-px-9 rounded-pill tw-py-4 fw-semibold common-shadow-inset-one" data-block="button">
                                 <span class="button__flair"></span>
                                 <span class="button__label">Partner With Us Today</span>
                             </a>
@@ -1114,23 +1212,55 @@
                         </div>
                     </div>
 
-                    <div class="tw-pt-2 text-center tw-pb-10">
-                        <div class="myContainer position-relative d-flex flex-wrap align-items-center justify-content-center tw-gap-6 tw-pt-16 overflow-hidden w-100 tw-px-6 " >
-                            <span class="drag-rotate-element cursor-grab min-w-max z-1 tw-px-9 tw-py-2 fw-semibold text-white gradient-bg-six rounded-pill">Construction & Contractors</span>
-                            <span class="drag-rotate-element cursor-grab min-w-max z-1 tw-px-9 tw-py-2 fw-semibold text-white bg-paste rounded-pill">Electrical Contractors</span>
-                            <span class="drag-rotate-element cursor-grab min-w-max z-1 tw-px-9 tw-py-2 fw-semibold text-white gradient-bg-six rounded-pill">Handyman</span>
-                            <span class="drag-rotate-element cursor-grab min-w-max z-1 tw-px-9 tw-py-2 fw-semibold text-white bg-yellow rounded-pill">Landscaping</span>
-                            <span class="drag-rotate-element cursor-grab min-w-max z-1 tw-px-9 tw-py-2 fw-semibold text-white bg-orange rounded-pill">Residential Cleaning</span>
-                            <span class="drag-rotate-element cursor-grab min-w-max z-1 tw-px-9 tw-py-2 fw-semibold text-white gradient-bg-six rounded-pill">Roofing</span>
-                            <span class="drag-rotate-element cursor-grab min-w-max z-1 tw-px-9 tw-py-2 fw-semibold text-white bg-orange rounded-pill">Plumbing</span>
-                            <span class="drag-rotate-element cursor-grab min-w-max z-1 tw-px-9 tw-py-2 fw-semibold text-white gradient-bg-six rounded-pill">Painting</span>
-                            <span class="drag-rotate-element cursor-grab min-w-max z-1 tw-px-9 tw-py-2 fw-semibold text-white bg-paste rounded-pill">HVAC</span>
-                            <span class="drag-rotate-element cursor-grab min-w-max z-1 tw-px-9 tw-py-2 fw-semibold text-white bg-pink rounded-pill">Commercial Cleaning</span>
+                    <!-- ============================ Industries Section Start ============================ -->
+                    <div
+                        class="p-4 sm:p-6"
+                        data-aos="fade-up"
+                        data-aos-anchor-placement="top-bottom"
+                        data-aos-duration="900"
+                    >
+                        <div class="text-center pb-8 pt-2">
+                            <div
+                                class="d-flex flex-wrap justify-content-center align-items-center gap-3 sm:gap-4 px-3 w-100"
+                            >
+      <span class="fw-semibold text-white px-4 py-2 rounded-pill gradient-bg-six shadow-sm">
+        Construction & Contractors
+      </span>
+                                <span class="fw-semibold text-white px-4 py-2 rounded-pill bg-yellow shadow-sm">
+        Electrical Contractors
+      </span>
+                                <span class="fw-semibold text-white px-4 py-2 rounded-pill gradient-bg-six shadow-sm">
+        Handyman
+      </span>
+                                <span class="fw-semibold text-white px-4 py-2 rounded-pill bg-yellow shadow-sm">
+        Landscaping
+      </span>
+                                <span class="fw-semibold text-white px-4 py-2 rounded-pill gradient-bg-six shadow-sm">
+        Residential Cleaning
+      </span>
+                                <span class="fw-semibold text-white px-4 py-2 rounded-pill bg-yellow shadow-sm">
+        Roofing
+      </span>
+                                <span class="fw-semibold text-white px-4 py-2 rounded-pill gradient-bg-six shadow-sm">
+        Plumbing
+      </span>
+                                <span class="fw-semibold text-white px-4 py-2 rounded-pill bg-yellow shadow-sm">
+        Painting
+      </span>
+                                <span class="fw-semibold text-white px-4 py-2 rounded-pill gradient-bg-six shadow-sm">
+        HVAC
+      </span>
+                                <span class="fw-semibold text-white px-4 py-2 rounded-pill bg-yellow shadow-sm">
+        Commercial Cleaning
+      </span>
+                            </div>
                         </div>
                     </div>
+                    <!-- ============================ Industries Section End ============================ -->
+
                 </div>
             </div>
         </section>
-        <!-- ================================= Task Management Section End ============================== -->
-
+        <!-- ================================= Final CTA ============================== -->
+    </div>
 @endsection

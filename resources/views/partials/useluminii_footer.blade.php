@@ -1,67 +1,67 @@
+
 <!-- ========================== Footer Three Section Start ========================= -->
-<section class="footer-three bg-pink-more-light bg-pink-more-light">
+<section class="footer-three bg-neutral-100">
     <div class="py-120">
         <div class="container">
             <div class="row gy-5">
                 <div class="col-xl-3 col-sm-4 col-xs-6" data-aos="fade-up" data-aos-duration="600">
                     <div class="">
-                        <h5 class="fw-medium tw-mb-8 splitTextStyleOne">Collaborate</h5>
+                        <h5 class="fw-medium tw-mb-8 splitTextStyleOne">Partnership</h5>
                         <ul class="d-flex flex-column tw-gap-4">
+
                             <li>
-                                <a href="javascript:void(0)" class="hover-arrow-start text-neutral-600 hover-text-heading hover-underline hover--translate-y-1 active--translate-y-scale-9 fw-bold">Partners</a>
+                                <a href="" class="hover-arrow-start text-neutral-600 hover-text-heading hover-underline hover--translate-y-1 active--translate-y-scale-9 fw-bold">Partners Program</a>
                             </li>
+
                             <li>
-                                <a href="javascript:void(0)" class="hover-arrow-start text-neutral-600 hover-text-heading hover-underline hover--translate-y-1 active--translate-y-scale-9 fw-bold">Partners Program</a>
+                                <a href="" class="hover-arrow-start text-neutral-600 hover-text-heading hover-underline hover--translate-y-1 active--translate-y-scale-9 fw-bold">Community</a>
                             </li>
+
                             <li>
-                                <a href="javascript:void(0)" class="hover-arrow-start text-neutral-600 hover-text-heading hover-underline hover--translate-y-1 active--translate-y-scale-9 fw-bold">Affiliate Program</a>
+                                <a href="" class="hover-arrow-start text-neutral-600 hover-text-heading hover-underline hover--translate-y-1 active--translate-y-scale-9 fw-bold">Documentations</a>
                             </li>
-                            <li>
-                                <a href="javascript:void(0)" class="hover-arrow-start text-neutral-600 hover-text-heading hover-underline hover--translate-y-1 active--translate-y-scale-9 fw-bold">Community</a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)" class="hover-arrow-start text-neutral-600 hover-text-heading hover-underline hover--translate-y-1 active--translate-y-scale-9 fw-bold">HR Partner Program</a>
-                            </li>
+
                         </ul>
                     </div>
                 </div>
                 <div class="col-xl-2 col-sm-4 col-xs-6" data-aos="fade-up" data-aos-duration="700">
                     <div class="">
-                        <h5 class="fw-medium tw-mb-8 splitTextStyleOne">My account</h5>
+                        <h5 class="fw-medium tw-mb-8 splitTextStyleOne">Usefull Links</h5>
                         <ul class="d-flex flex-column tw-gap-4">
                             <li>
-                                <a href="javascript:void(0)" class="hover-arrow-start text-neutral-600 hover-text-heading hover-underline hover--translate-y-1 active--translate-y-scale-9 fw-bold">Company</a>
+                                <a href="{{ url('/') }}" class="hover-arrow-start text-neutral-600 hover-text-heading hover-underline hover--translate-y-1 active--translate-y-scale-9 fw-bold">Home</a>
                             </li>
                             <li>
-                                <a href="javascript:void(0)" class="hover-arrow-start text-neutral-600 hover-text-heading hover-underline hover--translate-y-1 active--translate-y-scale-9 fw-bold">Customer Success</a>
+                                <a href="{{ url('/') }}#features" class="hover-arrow-start text-neutral-600 hover-text-heading hover-underline hover--translate-y-1 active--translate-y-scale-9 fw-bold">Features</a>
                             </li>
                             <li>
-                                <a href="javascript:void(0)" class="hover-arrow-start text-neutral-600 hover-text-heading hover-underline hover--translate-y-1 active--translate-y-scale-9 fw-bold">Resources</a>
+                                <a href="{{ url('/') }}#pricing" class="hover-arrow-start text-neutral-600 hover-text-heading hover-underline hover--translate-y-1 active--translate-y-scale-9 fw-bold">Pricing</a>
                             </li>
                             <li>
-                                <a href="javascript:void(0)" class="hover-arrow-start text-neutral-600 hover-text-heading hover-underline hover--translate-y-1 active--translate-y-scale-9 fw-bold">Talk an Expert</a>
+                                <a href="{{ url('/') }}#faq" class="hover-arrow-start text-neutral-600 hover-text-heading hover-underline hover--translate-y-1 active--translate-y-scale-9 fw-bold">FAQ</a>
                             </li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-xl-2 col-sm-4 col-xs-6" data-aos="fade-up" data-aos-duration="800">
                     <div class="">
-                        <h5 class="fw-medium tw-mb-8 splitTextStyleOne">Service</h5>
+                        <h5 class="fw-medium tw-mb-8 splitTextStyleOne">Features</h5>
                         <ul class="d-flex flex-column tw-gap-4">
+
                             <li>
-                                <a href="javascript:void(0)" class="hover-arrow-start text-neutral-600 hover-text-heading hover-underline hover--translate-y-1 active--translate-y-scale-9 fw-bold">Software Development</a>
+                                <a href="" class="hover-arrow-start text-neutral-600 hover-text-heading hover-underline hover--translate-y-1 active--translate-y-scale-9 fw-bold">Lead Management</a>
                             </li>
                             <li>
-                                <a href="javascript:void(0)" class="hover-arrow-start text-neutral-600 hover-text-heading hover-underline hover--translate-y-1 active--translate-y-scale-9 fw-bold">Cloud Services</a>
+                                <a href="" class="hover-arrow-start text-neutral-600 hover-text-heading hover-underline hover--translate-y-1 active--translate-y-scale-9 fw-bold">Quote Management</a>
                             </li>
                             <li>
-                                <a href="javascript:void(0)" class="hover-arrow-start text-neutral-600 hover-text-heading hover-underline hover--translate-y-1 active--translate-y-scale-9 fw-bold">AI Machine Learning</a>
+                                <a href="" class="hover-arrow-start text-neutral-600 hover-text-heading hover-underline hover--translate-y-1 active--translate-y-scale-9 fw-bold">Job Scheduling</a>
                             </li>
                             <li>
-                                <a href="javascript:void(0)" class="hover-arrow-start text-neutral-600 hover-text-heading hover-underline hover--translate-y-1 active--translate-y-scale-9 fw-bold">Data Security</a>
+                                <a href="" class="hover-arrow-start text-neutral-600 hover-text-heading hover-underline hover--translate-y-1 active--translate-y-scale-9 fw-bold">Invoicing</a>
                             </li>
                             <li>
-                                <a href="javascript:void(0)" class="hover-arrow-start text-neutral-600 hover-text-heading hover-underline hover--translate-y-1 active--translate-y-scale-9 fw-bold">Software Development</a>
+                                <a href="" class="hover-arrow-start text-neutral-600 hover-text-heading hover-underline hover--translate-y-1 active--translate-y-scale-9 fw-bold">Real Time Analytics</a>
                             </li>
                         </ul>
                     </div>
@@ -69,7 +69,7 @@
                 <div class="col-xl-5 col-lg-6" data-aos="fade-up" data-aos-duration="900">
                     <div class="ps-xl-5">
                         <a href="index.html" class="link hover--translate-y-1 active--translate-y-scale-9 tw-mb-10">
-                            <img src="useluminii/assets/images/logo/useluminii_logo.png" alt="">
+                            <img src="useluminii/assets/images/logo/footer_logo.png" alt="useLuminii" class="max-w-200-px">
                         </a>
                         <form action="#" class="d-flex flex-md-row flex-column tw-gap-5 form-submit">
                             <div class="position-relative flex-grow-1">
@@ -101,16 +101,17 @@
         <div class="border-top border-neutral-200 border-0 tw-py-8">
             <div class="container container-two">
                 <div class="d-flex align-items-center justify-content-between tw-gap-4 flex-wrap">
-                    <p class="text-heading text-line-1 fw-semibold">
+                    <p class="text-heading text-line-1 fw-semibold" style="color: #0b0b0b;">
                         &copy; 2025
-                        <a href="https://themeforest.net/user/wowtheme7" class="fw-bold text-gradient-teal hover-underline hover--translate-y-1 active--translate-y-scale-9">WowTheme7</a>
-                        - IT Services. All rights reserved.
+                        <a href="https://shifttechgs.com" target="_blank" class="fw-bold text-gradient-teal hover-underline hover--translate-y-1 active--translate-y-scale-9">
+                            useLuminii
+                        </a>
+                        - Product of ShiftTech. All rights reserved.
                     </p>
                     <div class="d-flex align-items-center tw-gap-6">
-                        <a href="javascript:void(0)" class="text-neutral-600 fw-semibold hover-text-heading hover-text-neutral-900 hover-underline hover--translate-y-1 active--translate-y-scale-9">Faqs</a>
                         <a href="javascript:void(0)" class="text-neutral-600 fw-semibold hover-text-heading hover-text-neutral-900 hover-underline hover--translate-y-1 active--translate-y-scale-9">Setting</a>
                         <a href="javascript:void(0)" class="text-neutral-600 fw-semibold hover-text-heading hover-text-neutral-900 hover-underline hover--translate-y-1 active--translate-y-scale-9">Privacy</a>
-                        <a href="javascript:void(0)" class="text-neutral-600 fw-semibold hover-text-heading hover-text-neutral-900 hover-underline hover--translate-y-1 active--translate-y-scale-9">Contact</a>
+
                     </div>
                 </div>
             </div>
@@ -118,4 +119,5 @@
     </div>
     <!-- Footer Bottom End -->
 </section>
-<!-
+<!-- -->
+

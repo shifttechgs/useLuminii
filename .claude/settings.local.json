@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(docker-compose exec:*)",
+      "Bash(docker-compose logs:*)",
+      "Bash(curl -I http://localhost)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
