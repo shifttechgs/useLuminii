@@ -24,7 +24,7 @@ services:
         container_name: useluminiiSite_nginx
         restart: unless-stopped
         ports:
-            - "80:80"
+            - "8081:80"
             - "443:443"
         volumes:
             - ./:/var/www
