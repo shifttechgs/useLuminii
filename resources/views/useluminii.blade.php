@@ -280,7 +280,7 @@
                         </h4>
                     </div>
 {{--                    <div class="" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="800" >--}}
-{{--                        <p class="splitTextStyleOne text-neutral-500 tw-mt-8 max-w-490-px fw-medium">Luminii in the past allowing you to focus more on your business simply enjoy your newfound legal time to reflect leaving pen</p>--}}
+{{--                        <p class=" text-neutral-500 tw-mt-8 max-w-490-px fw-medium">Luminii in the past allowing you to focus more on your business simply enjoy your newfound legal time to reflect leaving pen</p>--}}
 {{--                    </div>--}}
                 </div>
 
@@ -369,7 +369,7 @@
                             <div class="col-lg-12">
                                 <div class="group-item tw-rounded-xl border border-neutral-200 tw-pt-12 tw-pb-15 tw-px-9 bg-neutral-50 hover-gradient-bg-five group animation-item tw-duration-300 position-relative z-1">
                                     <div class="d-flex align-items-center justify-content-between tw-gap-2">
-                                        <h5 class="group-hover-text-white tw-duration-300  splitTextStyleOne">Get Noticed by clients</h5>
+                                        <h5 class="group-hover-text-white tw-duration-300  ">Get Noticed by clients</h5>
                                         <span class="group-hover-item-text-invert tw-duration-300 animate__heartBeat">
                                     <img src="useluminii/assets/images/icons/magnet.png" alt="Icon" width="50" height="50">
                                 </span>
@@ -380,7 +380,7 @@
                             <div class="col-lg-12 col-sm-6">
                                 <div class="group-item tw-rounded-xl border border-neutral-200 tw-pt-12 tw-pb-15 tw-px-9 bg-neutral-50 hover-gradient-bg-five group animation-item tw-duration-300 position-relative z-1">
                                     <div class="d-flex align-items-center justify-content-between tw-gap-2">
-                                        <h5 class="group-hover-text-white tw-duration-300  splitTextStyleOne">Work Smarter & Deliver</h5>
+                                        <h5 class="group-hover-text-white tw-duration-300  ">Work Smarter & Deliver</h5>
                                         <span class="group-hover-item-text-invert tw-duration-300 animate__heartBeat">
                                     <img src="useluminii/assets/images/icons/innovation.png" alt="Icon" alt="Icon" width="50" height="50">
                                 </span>
@@ -396,7 +396,7 @@
                             <div class="col-lg-12">
                                 <div class="group-item tw-rounded-xl border border-neutral-200 tw-pt-12 tw-pb-15 tw-px-9 bg-neutral-50 hover-gradient-bg-five group animation-item tw-duration-300 position-relative z-1">
                                     <div class="d-flex align-items-center justify-content-between tw-gap-2">
-                                        <h5 class="group-hover-text-white tw-duration-300  splitTextStyleOne">Win More Jobs, Effortlessly</h5>
+                                        <h5 class="group-hover-text-white tw-duration-300  ">Win More Jobs, Effortlessly</h5>
                                         <span class="group-hover-item-text-invert tw-duration-300 animate__heartBeat">
                                     <img src="useluminii/assets/images/icons/promotion.png" alt="Icon" alt="Icon" width="50" height="50">
                                 </span>
@@ -407,7 +407,7 @@
                             <div class="col-lg-12 col-sm-6">
                                 <div class="group-item tw-rounded-xl border border-neutral-200 tw-pt-12 tw-pb-15 tw-px-9 bg-neutral-50 hover-gradient-bg-five group animation-item tw-duration-300 position-relative z-1">
                                     <div class="d-flex align-items-center justify-content-between tw-gap-2">
-                                        <h5 class="group-hover-text-white tw-duration-300  splitTextStyleOne">Boost Profits with Intelligent Insights</h5>
+                                        <h5 class="group-hover-text-white tw-duration-300  ">Boost Profits with Intelligent Insights</h5>
                                         <span class="group-hover-item-text-invert tw-duration-300 animate__heartBeat">
                                     <img src="useluminii/assets/images/icons/profit.png" alt="Icon" alt="Icon" width="50" height="50">
                                 </span>
@@ -843,13 +843,19 @@
 
                                     <span class="d-block tw-h-px bg-neutral-200 tw-my-6"></span>
                                     <div class="d-flex align-items-center justify-content-between tw-gap-1 tw-mb-10">
-                                        <h4 class="mb-0">R8000.00<span class="tw-text-xl fw-medium">/Once-off</span> </h4>
+                                        <h4 class="mb-0"><span class="tw-text-xl fw-medium">from</span> R8000.00<span class="tw-text-xl fw-medium">/Once-off</span> </h4>
                                     </div>
                                 </div>
-                                <a href="{{ url('/contact') }}" class="hover--translate-y-1 active--translate-y-scale-9 btn btn-main hover-style-one button--stroke d-flex align-items-center justify-content-center tw-gap-5 group active--translate-y-2 tw-px-9 rounded-pill tw-py-4 fw-semibold common-shadow-inset-one" data-block="button">
+                                <a href="https://wa.me/27814303023?text=Hi%20ShiftTech%20team%2C%20I%E2%80%99m%20interested%20in%20getting%20a%20quote%20for%20Luminii%20Spark%20(Website)."
+                                   target="_blank"
+                                   class="hover--translate-y-1 active--translate-y-scale-9 btn btn-main hover-style-one button--stroke d-flex align-items-center justify-content-center tw-gap-5 group active--translate-y-2 tw-px-9 rounded-pill tw-py-4 fw-semibold common-shadow-inset-one"
+                                   data-block="button">
                                     <span class="button__flair"></span>
-                                    <span class="button__label">Partner With Us Today</span>
+                                    <span class="button__label">
+        <i class="fa fa-whatsapp me-2"></i> Get A Quote
+    </span>
                                 </a>
+
 
                                 <div class="tw-ps-205">
                                     <div class="d-flex flex-column tw-gap-5 tw-mt-10">
@@ -909,17 +915,22 @@
                             <div class="">
                                 <div class="tw-ps-205">
                                     <h5 class="tw-mb-1">Luminii Blaze</h5>
-                                    <p class="text-neutral-500">For growing teams.</p>
+                                    <p class="text-neutral-500">For growing business.</p>
                                     <span class="d-block tw-h-px bg-neutral-200 tw-my-6"></span>
                                     <div class="d-flex align-items-center justify-content-between tw-gap-1 tw-mb-10">
-                                        <h4 class="mb-0">R350.00<span class="tw-text-xl fw-medium">/Month</span> </h4>
+                                        <h4 class="mb-0"><span class="tw-text-xl fw-medium">from</span> R450.00<span class="tw-text-xl fw-medium">/Month</span> </h4>
                                     </div>
                                 </div>
 
-                                 <a href="{{ url('/contact') }}" class="hover--translate-y-1 active--translate-y-scale-9 btn btn-main hover-style-one button--stroke d-flex align-items-center justify-content-center tw-gap-5 group active--translate-y-2 tw-px-9 rounded-pill tw-py-4 fw-semibold common-shadow-inset-one" data-block="button">
-                                        <span class="button__flair"></span>
-                                        <span class="button__label">Partner With Us Today</span>
-                                    </a>
+                                <a href="https://wa.me/27814303023?text=Hi%20ShiftTech%20team%2C%20I%E2%80%99m%20interested%20in%20getting%20a%20quote%20for%20Luminii%20Blaze%20(Website)."
+                                   target="_blank"
+                                   class="hover--translate-y-1 active--translate-y-scale-9 btn btn-main hover-style-one button--stroke d-flex align-items-center justify-content-center tw-gap-5 group active--translate-y-2 tw-px-9 rounded-pill tw-py-4 fw-semibold common-shadow-inset-one"
+                                   data-block="button">
+                                    <span class="button__flair"></span>
+                                    <span class="button__label">
+        <i class="fa fa-whatsapp me-2"></i> Get A Quote
+    </span>
+                                </a>
 
                                 <div class="tw-ps-205">
                                     <div class="d-flex flex-column tw-gap-5 tw-mt-10">
@@ -988,10 +999,16 @@
                                         <h4 class="mb-0">Spec-Driven <span class="tw-text-xl fw-medium">/any business</span>  </h4>
                                     </div>
                                 </div>
-                                <a href="{{ url('/contact') }}" class="hover--translate-y-1 active--translate-y-scale-9 btn btn-main hover-style-one button--stroke d-flex align-items-center justify-content-center tw-gap-5 group active--translate-y-2 tw-px-9 rounded-pill tw-py-4 fw-semibold common-shadow-inset-one" data-block="button">
+                                <a href="https://wa.me/27814303023?text=Hi%20ShiftTech%20team%2C%20I%E2%80%99m%20interested%20in%20partnering%20with%20you%20on%20Luminii%20Radiance%20(Custom software)."
+                                   target="_blank"
+                                   class="hover--translate-y-1 active--translate-y-scale-9 btn btn-main hover-style-one button--stroke d-flex align-items-center justify-content-center tw-gap-5 group active--translate-y-2 tw-px-9 rounded-pill tw-py-4 fw-semibold common-shadow-inset-one"
+                                   data-block="button">
                                     <span class="button__flair"></span>
-                                    <span class="button__label">Partner With Us Today</span>
+                                    <span class="button__label">
+        <i class="fa fa-whatsapp me-2"></i> Partner With Us Today
+    </span>
                                 </a>
+
 
                                 <div class="tw-ps-205">
                                     <div class="d-flex flex-column tw-gap-5 tw-mt-10">
