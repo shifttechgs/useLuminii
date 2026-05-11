@@ -66,4 +66,34 @@ class ContactController extends Controller
         return redirect('/contact')->with('success', 'Your message has been sent successfully. Our team will contact you shortly!');
     }
 
+    public function bookDemo(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'fullname'      => 'required|string|max:255',
+            'email'         => 'required|email|max:255',
+            'business_type' => 'required|string|max:100',
+            'team_size'     => 'required|string|max:100',
+            'pain_point'    => 'required|string|max:255',
+            'current_tools' => 'nullable|string|max:500',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('/#booking')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $data = $validator->validated();
+        $data['subject'] = 'New Demo Booking — ' . $data['business_type'] . ' (' . $data['team_size'] . ')';
+
+        $contactEmail = env('CONTACT_EMAIL');
+        try {
+            Mail::to($contactEmail)->send(new ContactFormMail($data));
+        } catch (\Exception $e) {
+            return redirect('/#booking')->with('demo_error', true)->withInput();
+        }
+
+        return redirect('/#booking')->with('demo_success', true);
+    }
+
 }
