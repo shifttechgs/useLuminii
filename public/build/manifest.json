@@ -1,0 +1,35 @@
+{
+  "resources/css/app.css": {
+    "file": "assets/app-BrxIzgdm.css",
+    "src": "resources/css/app.css",
+    "isEntry": true,
+    "name": "app",
+    "names": [
+      "app.css"
+    ]
+  },
+  "resources/css/crm.css": {
+    "file": "assets/crm-BnXvW-s6.css",
+    "src": "resources/css/crm.css",
+    "isEntry": true,
+    "name": "crm",
+    "names": [
+      "crm.css"
+    ]
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-CcNNqum8.js",
+    "name": "app",
+    "src": "resources/js/app.js",
+    "isEntry": true
+  },
+  "resources/js/crm.js": {
+    "file": "assets/crm-Dicbf2To.js",
+    "name": "crm",
+    "src": "resources/js/crm.js",
+    "isEntry": true,
+    "imports": [
+      "resources/js/app.js"
+    ]
+  }
+}

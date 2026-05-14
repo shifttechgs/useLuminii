@@ -1,0 +1,29 @@
+---
+deployment:
+  tasks:
+    # ── Variables ─────────────────────────────────────────────────────────────
+    - export APPPATH=/home/luminii/luminii_landingPage
+    - export PHP=/usr/local/bin/php
+
+    # ── 1. Sync full app to deployment directory ───────────────────────────────
+    # Excludes .env (lives on server, never overwritten) and runtime dirs
+    - /bin/rsync -a --delete --exclude='.git' --exclude='.env' --exclude='node_modules' --exclude='storage/logs' --exclude='storage/framework/cache' --exclude='storage/framework/sessions' --exclude='storage/framework/views' $REPOSITORY/ $APPPATH/
+
+    # ── 2. PHP dependencies ────────────────────────────────────────────────────
+    - $PHP /usr/local/bin/composer install --no-dev --optimize-autoloader --working-dir=$APPPATH
+
+    # ── 3. Laravel caches ─────────────────────────────────────────────────────
+    - $PHP $APPPATH/artisan config:cache
+    - $PHP $APPPATH/artisan route:cache
+    - $PHP $APPPATH/artisan view:cache
+    - $PHP $APPPATH/artisan event:cache
+
+    # ── 4. Storage symlink (public/storage → storage/app/public) ─────────────
+    - $PHP $APPPATH/artisan storage:link --force
+
+    # ── 5. Sync public/ → public_html/ ────────────────────────────────────────
+    # Excludes the storage symlink (already handled above)
+    - /bin/rsync -a --delete --exclude='storage' --exclude='hot' $APPPATH/public/ /home/luminii/public_html/
+
+    # ── 6. Permissions ────────────────────────────────────────────────────────
+    - /bin/chmod -R 775 $APPPATH/storage $APPPATH/bootstrap/cache
