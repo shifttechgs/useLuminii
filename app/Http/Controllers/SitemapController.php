@@ -2,42 +2,73 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\URL;
-
 class SitemapController extends Controller
 {
-    /**
-     * Generate XML Sitemap
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        // Define your website pages with their properties
         $pages = [
             [
                 'url' => url('/'),
                 'lastmod' => now()->toIso8601String(),
                 'changefreq' => 'weekly',
-                'priority' => '1.0'
+                'priority' => '1.0',
+            ],
+            [
+                'url' => url('/features'),
+                'lastmod' => now()->toIso8601String(),
+                'changefreq' => 'monthly',
+                'priority' => '0.9',
+            ],
+            [
+                'url' => url('/pricing'),
+                'lastmod' => now()->toIso8601String(),
+                'changefreq' => 'monthly',
+                'priority' => '0.9',
             ],
             [
                 'url' => url('/contact'),
                 'lastmod' => now()->toIso8601String(),
                 'changefreq' => 'monthly',
-                'priority' => '0.8'
+                'priority' => '0.8',
             ],
-            // Add more pages as needed
-            // [
-            //     'url' => url('/pricing'),
-            //     'lastmod' => now()->toIso8601String(),
-            //     'changefreq' => 'monthly',
-            //     'priority' => '0.9'
-            // ],
+            [
+                'url' => url('/solutions/business-operating-system-for-service-businesses'),
+                'lastmod' => now()->toIso8601String(),
+                'changefreq' => 'monthly',
+                'priority' => '0.9',
+            ],
+            [
+                'url' => url('/case-studies'),
+                'lastmod' => now()->toIso8601String(),
+                'changefreq' => 'monthly',
+                'priority' => '0.7',
+            ],
+            [
+                'url' => url('/about'),
+                'lastmod' => now()->toIso8601String(),
+                'changefreq' => 'monthly',
+                'priority' => '0.6',
+            ],
+            [
+                'url' => url('/security'),
+                'lastmod' => now()->toIso8601String(),
+                'changefreq' => 'monthly',
+                'priority' => '0.6',
+            ],
+            [
+                'url' => url('/privacy-policy'),
+                'lastmod' => now()->toIso8601String(),
+                'changefreq' => 'yearly',
+                'priority' => '0.3',
+            ],
+            [
+                'url' => url('/terms'),
+                'lastmod' => now()->toIso8601String(),
+                'changefreq' => 'yearly',
+                'priority' => '0.3',
+            ],
         ];
 
-        // Generate XML content
         $xml = '<?xml version="1.0" encoding="UTF-8"?>';
         $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"';
         $xml .= ' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"';

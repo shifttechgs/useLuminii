@@ -1,0 +1,163 @@
+﻿<mxfile host="drawio-plugin" modified="2026-04-21T11:19:26.947Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36" version="22.1.22" etag="9U9UMCpO-tB06XPdfU_T" type="embed">
+  <diagram id="luminii-crm-arch" name="Luminii CRM Architecture">
+    <mxGraphModel dx="873" dy="505" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" background="#000000" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="10" value="PUBLIC WEBSITE (shifttechgs.com)" style="swimlane;startSize=30;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=12;" parent="1" vertex="1">
+          <mxGeometry x="40" y="40" width="380" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="11" value="Marketing Pages (Blade Views)" style="rounded=1;fillColor=#ffffff;strokeColor=#6c8ebf;" parent="10" vertex="1">
+          <mxGeometry x="20" y="50" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="12" value="Contact Form (POST /contact)" style="rounded=1;fillColor=#ffffff;strokeColor=#6c8ebf;" parent="10" vertex="1">
+          <mxGeometry x="200" y="50" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="13" value="Client Hub (/client-hub)" style="rounded=1;fillColor=#ffffff;strokeColor=#6c8ebf;" parent="10" vertex="1">
+          <mxGeometry x="20" y="120" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="14" value="Services Page (/services)" style="rounded=1;fillColor=#ffffff;strokeColor=#6c8ebf;" parent="10" vertex="1">
+          <mxGeometry x="200" y="120" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="20" value="LUMINII CRM (shifttechgs.com/useluminii)" style="swimlane;startSize=30;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=12;" parent="1" vertex="1">
+          <mxGeometry x="480" y="40" width="760" height="500" as="geometry" />
+        </mxCell>
+        <mxCell id="21" value="Auth (Login/Register)" style="rounded=1;fillColor=#ffffff;strokeColor=#82b366;" parent="20" vertex="1">
+          <mxGeometry x="20" y="50" width="140" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="22" value="Module 1: Leads&#xa;LeadResource" style="rounded=1;fillColor=#f9ccff;strokeColor=#82b366;" parent="20" vertex="1">
+          <mxGeometry x="20" y="130" width="140" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="23" value="Module 2: Clients&#xa;BusinessClientResource" style="rounded=1;fillColor=#f9ccff;strokeColor=#82b366;" parent="20" vertex="1">
+          <mxGeometry x="180" y="130" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="24" value="Module 3: Client Requests&#xa;ClientRequestResource" style="rounded=1;fillColor=#f9ccff;strokeColor=#82b366;" parent="20" vertex="1">
+          <mxGeometry x="360" y="130" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="25" value="Module 4: Quotes&#xa;QuoteResource" style="rounded=1;fillColor=#ffff99;strokeColor=#82b366;" parent="20" vertex="1">
+          <mxGeometry x="540" y="130" width="140" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="26" value="Module 5: Invoices&#xa;InvoiceResource" style="rounded=1;fillColor=#ffff99;strokeColor=#82b366;" parent="20" vertex="1">
+          <mxGeometry x="20" y="210" width="140" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="27" value="Module 6: Jobs&#xa;JobResource (crm_jobs)" style="rounded=1;fillColor=#ffff99;strokeColor=#82b366;" parent="20" vertex="1">
+          <mxGeometry x="180" y="210" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="28" value="Module 7: Outreach&#xa;OutreachResource" style="rounded=1;fillColor=#fff2cc;strokeColor=#82b366;" parent="20" vertex="1">
+          <mxGeometry x="360" y="210" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="29" value="Pipeline Kanban&#xa;(Pipeline.php)" style="rounded=1;fillColor=#ffffff;strokeColor=#82b366;" parent="20" vertex="1">
+          <mxGeometry x="540" y="210" width="140" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="30" value="Dashboard (Widgets/Stats)" style="rounded=1;fillColor=#ffffff;strokeColor=#82b366;" parent="20" vertex="1">
+          <mxGeometry x="20" y="290" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="31" value="Services Catalogue&#xa;BusinessServiceResource" style="rounded=1;fillColor=#ffffff;strokeColor=#82b366;" parent="20" vertex="1">
+          <mxGeometry x="200" y="290" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="32" value="Users and Roles&#xa;(Admin / Engineer)" style="rounded=1;fillColor=#ffffff;strokeColor=#82b366;" parent="20" vertex="1">
+          <mxGeometry x="380" y="290" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="33" value="PayPal Payments&#xa;(InvoiceController)" style="rounded=1;fillColor=#ffe6cc;strokeColor=#d6a020;" parent="20" vertex="1">
+          <mxGeometry x="560" y="290" width="140" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="34" value="Blade + Tailwind UI (Custom SaaS Layout)" style="rounded=1;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="20" vertex="1">
+          <mxGeometry x="180" y="380" width="400" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="40" value="BACKEND SERVICES (Laravel 11)" style="swimlane;startSize=30;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;fontSize=12;" parent="1" vertex="1">
+          <mxGeometry x="40" y="300" width="380" height="260" as="geometry" />
+        </mxCell>
+        <mxCell id="41" value="ContactFormController&#xa;POST /contact" style="rounded=1;fillColor=#ffffff;strokeColor=#d6b656;" parent="40" vertex="1">
+          <mxGeometry x="20" y="50" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="42" value="ContactFormObserver&#xa;(Lead created event)" style="rounded=1;fillColor=#ffffff;strokeColor=#d6b656;" parent="40" vertex="1">
+          <mxGeometry x="200" y="50" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="43" value="OutreachEmailService&#xa;(Daily Artisan command)" style="rounded=1;fillColor=#ffffff;strokeColor=#d6b656;" parent="40" vertex="1">
+          <mxGeometry x="20" y="120" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="44" value="InvoiceService&#xa;(PDF + Payment)" style="rounded=1;fillColor=#ffffff;strokeColor=#d6b656;" parent="40" vertex="1">
+          <mxGeometry x="200" y="120" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="45" value="QuoteService&#xa;(Smart line items)" style="rounded=1;fillColor=#ffffff;strokeColor=#d6b656;" parent="40" vertex="1">
+          <mxGeometry x="20" y="190" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="46" value="NotificationService&#xa;(Mail / Status updates)" style="rounded=1;fillColor=#ffffff;strokeColor=#d6b656;" parent="40" vertex="1">
+          <mxGeometry x="200" y="190" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="50" value="DATABASE (MySQL)" style="swimlane;startSize=30;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;fontSize=12;" parent="1" vertex="1">
+          <mxGeometry x="480" y="590" width="760" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="51" value="leads" style="rounded=1;fillColor=#ffffff;strokeColor=#b85450;" parent="50" vertex="1">
+          <mxGeometry x="10" y="50" width="100" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="52" value="business_clients" style="rounded=1;fillColor=#ffffff;strokeColor=#b85450;" parent="50" vertex="1">
+          <mxGeometry x="125" y="50" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="53" value="client_requests" style="rounded=1;fillColor=#ffffff;strokeColor=#b85450;" parent="50" vertex="1">
+          <mxGeometry x="260" y="50" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="54" value="quotes + quote_items" style="rounded=1;fillColor=#ffffff;strokeColor=#b85450;" parent="50" vertex="1">
+          <mxGeometry x="395" y="50" width="130" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="55" value="invoices" style="rounded=1;fillColor=#ffffff;strokeColor=#b85450;" parent="50" vertex="1">
+          <mxGeometry x="540" y="50" width="90" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="56" value="crm_jobs" style="rounded=1;fillColor=#ffffff;strokeColor=#b85450;" parent="50" vertex="1">
+          <mxGeometry x="645" y="50" width="90" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="60" value="EXTERNAL SERVICES" style="swimlane;startSize=30;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;fontSize=12;" parent="1" vertex="1">
+          <mxGeometry x="1300" y="40" width="300" height="260" as="geometry" />
+        </mxCell>
+        <mxCell id="61" value="SMTP / Mailtrap&#xa;(Email delivery)" style="rounded=1;fillColor=#ffffff;strokeColor=#9673a6;" parent="60" vertex="1">
+          <mxGeometry x="20" y="50" width="260" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="62" value="PayPal API&#xa;(Invoice payments)" style="rounded=1;fillColor=#ffffff;strokeColor=#9673a6;" parent="60" vertex="1">
+          <mxGeometry x="20" y="120" width="260" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="63" value="Google Fonts / CDN&#xa;(Inter font)" style="rounded=1;fillColor=#ffffff;strokeColor=#9673a6;" parent="60" vertex="1">
+          <mxGeometry x="20" y="190" width="260" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="70" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#6c8ebf;" parent="1" source="12" target="41" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="71" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#d6b656;" parent="1" source="41" target="42" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="72" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#82b366;dashed=1;" parent="1" source="42" target="22" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="73" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#82b366;" parent="1" source="22" target="23" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="74" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#82b366;" parent="1" source="23" target="24" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="75" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#82b366;" parent="1" source="24" target="25" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="76" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#82b366;" parent="1" source="25" target="26" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="77" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#82b366;" parent="1" source="26" target="27" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="78" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#b85450;strokeWidth=2;" parent="1" source="20" target="50" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="79" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#b85450;" parent="1" source="40" target="50" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="80" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#9673a6;dashed=1;" parent="1" source="46" target="61" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="81" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#9673a6;dashed=1;" parent="1" source="43" target="61" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="82" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#9673a6;dashed=1;" parent="1" source="33" target="62" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

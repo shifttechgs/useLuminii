@@ -11,7 +11,7 @@
             </div>
 
             <!-- Headline -->
-            <h2 class="lp-mcta__h2">The businesses that<br>respond first win the job.</h2>
+            <h2 class="lp-mcta__h2">The businesses that<br><em>respond first win the job.</em></h2>
 
             <!-- Sub-copy -->
             <p class="lp-mcta__sub">Most service businesses lose leads simply because they respond too slowly. useLuminii makes sure you always respond first — every time, 24/7, automatically.</p>

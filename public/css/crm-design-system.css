@@ -1,0 +1,1650 @@
+/* ================================================================
+   LUMINII CRM — Stripe-Level Design System
+   Principles: restraint, whitespace, precision, calm confidence
+   ================================================================ */
+
+/* ---- DESIGN TOKENS ------------------------------------------------ */
+:root {
+  --crm-sidebar:          #0a1628;
+  --crm-sidebar-border:   rgba(255, 255, 255, 0.07);
+  --crm-sidebar-text:     rgba(255, 255, 255, 0.58);
+  --crm-sidebar-active:   rgba(255, 255, 255, 0.11);
+  --crm-sidebar-hover:    rgba(255, 255, 255, 0.06);
+
+  --crm-bg:               #f4f6f9;
+  --crm-surface:          #ffffff;
+  --crm-border:           #e4e9f0;
+  --crm-border-subtle:    #eef1f6;
+
+  --crm-text-1:           #0d1b2e;
+  --crm-text-2:           #5a6a7e;
+  --crm-text-3:           #8898aa;
+
+  --crm-accent:           #635bff;
+  --crm-accent-hover:     #5147e8;
+  --crm-yellow:           #FFD60A;
+
+  --crm-btn-primary:      #0a1628;
+  --crm-btn-primary-hover:#0f2040;
+  --crm-btn-primary-shadow: rgba(10, 22, 40, 0.30);
+
+  --crm-shadow-xs:  0 1px 2px rgba(13, 27, 46, 0.04);
+  --crm-shadow-sm:  0 1px 3px rgba(13, 27, 46, 0.06), 0 1px 2px rgba(13, 27, 46, 0.04);
+  --crm-shadow-md:  0 4px 16px rgba(13, 27, 46, 0.08), 0 2px 4px rgba(13, 27, 46, 0.04);
+  --crm-shadow-lg:  0 8px 32px rgba(13, 27, 46, 0.10), 0 4px 8px rgba(13, 27, 46, 0.06);
+
+  --crm-radius-sm:  6px;
+  --crm-radius:     8px;
+  --crm-radius-lg:  12px;
+  --crm-radius-xl:  16px;
+
+  --crm-ease:       cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ================================================================
+   GLOBAL BASE
+   ================================================================ */
+
+html.fi,
+html.fi body {
+  background-color: var(--crm-bg) !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ================================================================
+   SIDEBAR — Deep Navy
+   ================================================================ */
+
+.fi-sidebar {
+  background-color: var(--crm-sidebar) !important;
+  box-shadow: 1px 0 0 var(--crm-sidebar-border) !important;
+  --tw-ring-shadow: 0 0 #0000 !important;
+  --tw-ring-offset-shadow: 0 0 #0000 !important;
+}
+
+/* Logo header */
+.fi-sidebar-header {
+  background-color: var(--crm-sidebar) !important;
+  height: 64px !important;
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+  border-bottom: 1px solid var(--crm-sidebar-border) !important;
+  --tw-ring-shadow: 0 0 #0000 !important;
+  --tw-ring-offset-shadow: 0 0 #0000 !important;
+  box-shadow: none !important;
+}
+
+.crm-brand-logo {
+  display: inline-flex;
+  align-items: center;
+  width: 136px;
+  max-width: 100%;
+  line-height: 1;
+}
+.crm-brand-logo__img {
+  display: block;
+  width: 136px;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+.crm-brand-logo__img--light {
+  display: none;
+}
+.fi-sidebar .crm-brand-logo__img--dark {
+  display: none;
+}
+.fi-sidebar .crm-brand-logo__img--light {
+  display: block;
+}
+.crm-sidebar .crm-brand-logo__img--dark {
+  display: none;
+}
+.crm-sidebar .crm-brand-logo__img--light {
+  display: block;
+}
+
+.crm-sidebar-footer {
+  position: relative;
+  overflow: visible;
+}
+.crm-sidebar-account {
+  position: relative;
+}
+.crm-sidebar-account .crm-user-card {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  text-align: left;
+}
+.crm-sidebar-account-menu {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(100% + 8px);
+  z-index: 80;
+  display: none;
+  padding: 0.375rem;
+  background: #fff;
+  border: 1px solid var(--crm-border);
+  border-radius: var(--crm-radius);
+  box-shadow: 0 12px 32px rgba(13, 27, 46, 0.22), 0 2px 8px rgba(13, 27, 46, 0.08);
+}
+.crm-sidebar-account:hover .crm-sidebar-account-menu,
+.crm-sidebar-account:focus-within .crm-sidebar-account-menu {
+  display: block;
+}
+.crm-sidebar-account-menu .crm-dropdown-item {
+  min-height: 2.25rem;
+}
+.crm-sidebar-account-menu .crm-dropdown-item.active {
+  background: var(--crm-bg);
+  color: var(--crm-text-1);
+  font-weight: 600;
+}
+.crm-sidebar-account-menu .crm-nav-badge {
+  margin-left: auto;
+  min-width: 1.25rem;
+  height: 1.25rem;
+  padding: 0 0.375rem;
+  background: rgba(10, 22, 40, 0.08);
+  color: var(--crm-text-2);
+}
+.crm-topbar-dd-item.active {
+  background: var(--crm-bg);
+  color: var(--crm-text-1);
+  font-weight: 600;
+}
+.crm-topbar-dd-item .crm-nav-badge {
+  margin-left: auto;
+  min-width: 1.25rem;
+  height: 1.25rem;
+  padding: 0 0.375rem;
+  background: rgba(10, 22, 40, 0.08);
+  color: var(--crm-text-2);
+}
+
+/* Sidebar collapse/expand button */
+.fi-sidebar-header .fi-icon-btn {
+  color: rgba(255, 255, 255, 0.45) !important;
+}
+.fi-sidebar-header .fi-icon-btn:hover {
+  color: rgba(255, 255, 255, 0.8) !important;
+  background-color: var(--crm-sidebar-hover) !important;
+}
+
+/* Nav scroll container */
+.fi-sidebar-nav {
+  padding: 16px 12px !important;
+  gap: 20px !important;
+}
+
+/* Nav groups list */
+.fi-sidebar-nav-groups {
+  gap: 6px !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+/* Group wrapper */
+.fi-sidebar-group {
+  gap: 2px !important;
+}
+
+/* Group label row */
+.fi-sidebar-group-button {
+  padding: 8px 8px 4px 8px !important;
+  cursor: default;
+}
+.fi-sidebar-group-button[class*="cursor-pointer"] {
+  cursor: pointer !important;
+}
+
+/* Group label text */
+.fi-sidebar-group-label {
+  color: rgba(255, 255, 255, 0.32) !important;
+  font-size: 0.6875rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.07em !important;
+  text-transform: uppercase !important;
+}
+
+/* Group icon */
+.fi-sidebar-group-icon {
+  color: rgba(255, 255, 255, 0.28) !important;
+  width: 14px !important;
+  height: 14px !important;
+}
+
+/* Group collapse chevron */
+.fi-sidebar-group-button .fi-icon-btn {
+  color: rgba(255, 255, 255, 0.28) !important;
+}
+
+/* Nav item */
+.fi-sidebar-item-button {
+  padding: 7px 8px !important;
+  border-radius: var(--crm-radius-sm) !important;
+  transition: background-color 120ms ease, color 120ms ease !important;
+  margin-bottom: 1px !important;
+}
+
+/* Nav item hover */
+.fi-sidebar-item-button:hover {
+  background-color: var(--crm-sidebar-hover) !important;
+}
+.fi-sidebar-item-button:focus-visible {
+  outline: 2px solid rgba(99, 91, 255, 0.55) !important;
+  outline-offset: 1px !important;
+  background-color: var(--crm-sidebar-hover) !important;
+}
+
+/* Active nav item */
+.fi-sidebar-item.fi-active .fi-sidebar-item-button {
+  background-color: var(--crm-sidebar-active) !important;
+}
+
+/* Nav item label */
+.fi-sidebar-item-label {
+  color: var(--crm-sidebar-text) !important;
+  font-size: 0.8438rem !important;
+  font-weight: 450 !important;
+}
+
+/* Active label */
+.fi-sidebar-item.fi-active .fi-sidebar-item-label {
+  color: #ffffff !important;
+  font-weight: 520 !important;
+}
+
+/* Nav icon */
+.fi-sidebar-item-icon {
+  color: rgba(255, 255, 255, 0.38) !important;
+  width: 18px !important;
+  height: 18px !important;
+}
+
+/* Active icon */
+.fi-sidebar-item.fi-active .fi-sidebar-item-icon {
+  color: var(--crm-yellow) !important;
+}
+
+/* Sub-nav connecting lines (bg-gray-300 on dark sidebar = barely visible) */
+.fi-sidebar-item-grouped-border .w-px {
+  background-color: rgba(255, 255, 255, 0.14) !important;
+}
+
+/* Sub-nav inactive dot */
+.fi-sidebar-item-grouped-border .h-1\.5.w-1\.5.rounded-full {
+  background-color: rgba(255, 255, 255, 0.28) !important;
+}
+
+/* Sub-nav active dot — overrides bg-primary-600 (purple) → yellow */
+.fi-sidebar-item.fi-active .fi-sidebar-item-grouped-border .h-1\.5.w-1\.5.rounded-full {
+  background-color: var(--crm-yellow) !important;
+}
+
+/* Sidebar footer (account widget) */
+.fi-sidebar > *:last-child {
+  border-top: 1px solid var(--crm-sidebar-border) !important;
+  margin-top: auto;
+}
+
+/* Account widget in sidebar */
+.fi-account-widget {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+.fi-account-widget .fi-section {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+  --tw-ring-shadow: 0 0 #0000 !important;
+  --tw-ring-offset-shadow: 0 0 #0000 !important;
+}
+.fi-account-widget h2 {
+  color: rgba(255, 255, 255, 0.88) !important;
+  font-size: 0.875rem !important;
+}
+.fi-account-widget p {
+  color: rgba(255, 255, 255, 0.48) !important;
+  font-size: 0.8125rem !important;
+}
+
+/* ================================================================
+   TOPBAR
+   ================================================================ */
+
+.fi-topbar {
+  border-bottom: 1px solid var(--crm-border) !important;
+}
+.fi-topbar nav {
+  background-color: var(--crm-surface) !important;
+  box-shadow: none !important;
+  --tw-ring-shadow: 0 0 #0000 !important;
+  --tw-ring-offset-shadow: 0 0 #0000 !important;
+  border-bottom: none !important;
+}
+
+/* Topbar breadcrumbs */
+.fi-breadcrumbs-item-label {
+  font-size: 0.8125rem !important;
+  color: var(--crm-text-2) !important;
+}
+.fi-breadcrumbs-item:last-child .fi-breadcrumbs-item-label {
+  color: var(--crm-text-1) !important;
+  font-weight: 500 !important;
+}
+
+/* ================================================================
+   PAGE HEADER
+   ================================================================ */
+
+.fi-page-header {
+  padding-top: 2rem !important;
+  padding-bottom: 1.5rem !important;
+}
+.fi-page-header-heading {
+  font-size: 1.3125rem !important;
+  font-weight: 700 !important;
+  color: var(--crm-text-1) !important;
+  letter-spacing: -0.03em !important;
+  line-height: 1.2 !important;
+}
+.fi-page-header-subheading {
+  font-size: 0.875rem !important;
+  color: var(--crm-text-2) !important;
+  margin-top: 4px !important;
+}
+
+/* ================================================================
+   WIDGETS — STAT OVERVIEW
+   ================================================================ */
+
+/* Stats grid */
+.fi-wi-stats-overview-stats-ctn {
+  gap: 16px !important;
+}
+
+/* Individual stat card */
+.fi-wi-stats-overview-stat {
+  background-color: var(--crm-surface) !important;
+  border-radius: var(--crm-radius-lg) !important;
+  border: 1px solid var(--crm-border) !important;
+  padding: 20px 24px 24px !important;
+  box-shadow: var(--crm-shadow-xs) !important;
+  --tw-ring-shadow: 0 0 #0000 !important;
+  --tw-ring-offset-shadow: 0 0 #0000 !important;
+  transition: box-shadow 200ms var(--crm-ease), transform 200ms var(--crm-ease) !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.fi-wi-stats-overview-stat:hover {
+  box-shadow: var(--crm-shadow-md) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* Subtle top accent line on stat cards */
+.fi-wi-stats-overview-stat::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--crm-yellow), transparent);
+  opacity: 0;
+  transition: opacity 200ms ease;
+}
+.fi-wi-stats-overview-stat:hover::before {
+  opacity: 0.5;
+}
+
+/* Stat label ("Total Clients") */
+.fi-wi-stats-overview-stat-label {
+  font-size: 0.8125rem !important;
+  font-weight: 500 !important;
+  color: var(--crm-text-2) !important;
+  letter-spacing: 0.01em !important;
+}
+
+/* Stat value (the big number) */
+.fi-wi-stats-overview-stat-value {
+  font-size: 2.125rem !important;
+  font-weight: 680 !important;
+  color: var(--crm-text-1) !important;
+  letter-spacing: -0.04em !important;
+  line-height: 1.05 !important;
+  margin-top: 6px !important;
+  font-variant-numeric: tabular-nums !important;
+}
+
+/* Stat description */
+.fi-wi-stats-overview-stat-description {
+  font-size: 0.8125rem !important;
+  color: var(--crm-text-3) !important;
+  margin-top: 2px !important;
+}
+.fi-wi-stats-overview-stat-description.fi-color-custom {
+  opacity: 0.9;
+}
+
+/* Stat description icon */
+.fi-wi-stats-overview-stat-description-icon {
+  width: 14px !important;
+  height: 14px !important;
+  opacity: 0.75;
+}
+
+/* ================================================================
+   STATS ROW — custom 5-column blade widget
+   ================================================================ */
+
+.crm-stats-row {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 16px;
+  width: 100%;
+}
+
+.crm-sc {
+  background-color: var(--crm-surface);
+  border: 1px solid var(--crm-border);
+  border-radius: var(--crm-radius-lg);
+  box-shadow: var(--crm-shadow-xs);
+  padding: 16px 18px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow 200ms var(--crm-ease), transform 200ms var(--crm-ease);
+}
+.crm-sc::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--sc-accent, var(--crm-accent));
+  opacity: 0;
+  transition: opacity 200ms ease;
+}
+.crm-sc:hover {
+  box-shadow: var(--crm-shadow-md);
+  transform: translateY(-1px);
+}
+.crm-sc:hover::before { opacity: 1; }
+
+.crm-sc__icon-wrap {
+  width: 30px;
+  height: 30px;
+  border-radius: var(--crm-radius-sm);
+  background: var(--sc-bg, #f4f6f9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 6px;
+  flex-shrink: 0;
+}
+.crm-sc__icon {
+  width: 15px;
+  height: 15px;
+  color: var(--sc-accent, var(--crm-accent));
+}
+.crm-sc__label {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--crm-text-3);
+  line-height: 1.3;
+}
+.crm-sc__value {
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+  color: var(--crm-text-1);
+  margin-top: 2px;
+  font-variant-numeric: tabular-nums;
+}
+.crm-sc__desc {
+  font-size: 0.8125rem;
+  color: var(--crm-text-3);
+  margin-top: 2px;
+}
+
+/* ================================================================
+   TABLE ACTIONS — premium icon + pill button row
+   ================================================================ */
+
+/* Wrapper that holds all row actions */
+.fi-ta-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  justify-content: flex-end;
+}
+
+/* Icon-only action buttons (View, Edit) */
+.fi-ta-actions .fi-icon-btn,
+.fi-ta-actions [data-action] > button.fi-icon-btn {
+  width: 30px !important;
+  height: 30px !important;
+  border-radius: var(--crm-radius-sm) !important;
+  color: var(--crm-text-3) !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  transition: background 120ms ease, color 120ms ease !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.fi-ta-actions .fi-icon-btn:hover,
+.fi-ta-actions [data-action] > button.fi-icon-btn:hover {
+  background: var(--crm-border-subtle) !important;
+  color: var(--crm-text-1) !important;
+}
+.fi-ta-actions .fi-icon-btn svg {
+  width: 15px !important;
+  height: 15px !important;
+}
+
+/* "Create Lead" pill button */
+.fi-ta-actions .fi-btn {
+  height: 28px !important;
+  padding: 0 10px !important;
+  border-radius: 99px !important;
+  font-size: 0.75rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.01em !important;
+  gap: 5px !important;
+  white-space: nowrap !important;
+  transition: filter 120ms ease, transform 80ms ease !important;
+}
+.fi-ta-actions .fi-btn:active {
+  transform: scale(0.97) !important;
+}
+.fi-ta-actions .fi-btn svg {
+  width: 13px !important;
+  height: 13px !important;
+}
+
+/* Divider between icon group and pill button */
+.fi-ta-actions .fi-btn::before {
+  content: '';
+  display: block;
+  width: 1px;
+  height: 16px;
+  background: var(--crm-border);
+  margin-right: 4px;
+}
+
+/* ================================================================
+   WIDGETS — CHART
+   ================================================================ */
+
+.fi-wi-chart {
+  background-color: var(--crm-surface) !important;
+  border-radius: var(--crm-radius-lg) !important;
+  border: 1px solid var(--crm-border) !important;
+  box-shadow: var(--crm-shadow-xs) !important;
+  --tw-ring-shadow: 0 0 #0000 !important;
+  --tw-ring-offset-shadow: 0 0 #0000 !important;
+  overflow: hidden !important;
+}
+
+.fi-wi-chart header {
+  padding: 20px 24px 16px !important;
+  border-bottom: 1px solid var(--crm-border-subtle) !important;
+}
+
+.fi-wi-chart header h2 {
+  font-size: 0.9375rem !important;
+  font-weight: 620 !important;
+  color: var(--crm-text-1) !important;
+  letter-spacing: -0.02em !important;
+}
+
+.fi-wi-chart .fi-chart-ctn {
+  padding: 20px 24px !important;
+}
+
+/* ================================================================
+   WIDGETS — TABLE WIDGET
+   ================================================================ */
+
+.fi-wi-table {
+  background-color: var(--crm-surface) !important;
+  border-radius: var(--crm-radius-lg) !important;
+  border: 1px solid var(--crm-border) !important;
+  box-shadow: var(--crm-shadow-xs) !important;
+  --tw-ring-shadow: 0 0 #0000 !important;
+  --tw-ring-offset-shadow: 0 0 #0000 !important;
+  overflow: hidden !important;
+}
+
+/* ================================================================
+   TABLES
+   ================================================================ */
+
+/* Table outer container */
+.fi-ta-ctn {
+  border-radius: var(--crm-radius-lg) !important;
+  overflow: hidden !important;
+  border: 1px solid var(--crm-border) !important;
+  box-shadow: var(--crm-shadow-xs) !important;
+}
+
+/* Table element */
+.fi-ta-table {
+  border-collapse: collapse !important;
+}
+
+/* Table header row */
+thead.fi-ta-thead,
+.fi-ta-table thead {
+  background-color: #fafbfd !important;
+}
+
+/* Header cells */
+.fi-ta-header-cell {
+  padding-top: 12px !important;
+  padding-bottom: 12px !important;
+  border-bottom: 1px solid var(--crm-border) !important;
+  background-color: #fafbfd !important;
+}
+
+/* Header text */
+.fi-ta-header-cell span,
+.fi-ta-header-cell > button,
+.fi-ta-header-cell .fi-ta-header-cell-label {
+  font-size: 0.75rem !important;
+  font-weight: 600 !important;
+  color: var(--crm-text-2) !important;
+  letter-spacing: 0.05em !important;
+  text-transform: uppercase !important;
+}
+
+/* Table rows */
+.fi-ta-row {
+  border-bottom: 1px solid var(--crm-border-subtle) !important;
+  transition: background-color 100ms ease !important;
+}
+.fi-ta-row:last-child {
+  border-bottom: none !important;
+}
+.fi-ta-row:hover {
+  background-color: #f8f9fc !important;
+}
+
+/* Cells */
+.fi-ta-cell {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+/* Make cells taller / more breathable */
+.fi-ta-cell > * {
+  min-height: 52px !important;
+}
+
+/* Cell content alignment */
+.fi-ta-col-ctn {
+  padding-top: 14px !important;
+  padding-bottom: 14px !important;
+}
+
+/* Cell text */
+.fi-ta-text {
+  font-size: 0.875rem !important;
+  color: var(--crm-text-1) !important;
+}
+
+/* Secondary / muted cells */
+.fi-ta-text.fi-ta-text-placeholder {
+  color: var(--crm-text-3) !important;
+}
+
+/* Table empty state */
+.fi-ta-empty-state {
+  padding: 48px 24px !important;
+}
+.fi-ta-empty-state-heading {
+  font-size: 0.9375rem !important;
+  font-weight: 600 !important;
+  color: var(--crm-text-1) !important;
+}
+.fi-ta-empty-state-description {
+  font-size: 0.875rem !important;
+  color: var(--crm-text-2) !important;
+}
+
+/* Table filter bar */
+.fi-ta-header {
+  padding: 16px 20px !important;
+  border-bottom: 1px solid var(--crm-border-subtle) !important;
+  background-color: var(--crm-surface) !important;
+}
+
+/* Table footer / pagination */
+.fi-ta-footer {
+  border-top: 1px solid var(--crm-border-subtle) !important;
+  padding: 12px 20px !important;
+  background-color: var(--crm-surface) !important;
+}
+
+/* ================================================================
+   SECTIONS / CARDS
+   ================================================================ */
+
+.fi-section {
+  background-color: var(--crm-surface) !important;
+  border-radius: var(--crm-radius-lg) !important;
+  border: 1px solid var(--crm-border) !important;
+  box-shadow: var(--crm-shadow-xs) !important;
+  --tw-ring-shadow: 0 0 #0000 !important;
+  --tw-ring-offset-shadow: 0 0 #0000 !important;
+}
+
+.fi-section-header {
+  padding: 18px 24px !important;
+  border-bottom: 1px solid var(--crm-border-subtle) !important;
+}
+
+.fi-section-header-heading {
+  font-size: 0.9375rem !important;
+  font-weight: 620 !important;
+  color: var(--crm-text-1) !important;
+  letter-spacing: -0.02em !important;
+}
+
+.fi-section-content {
+  padding: 24px !important;
+}
+
+.fi-section-content-ctn {
+  gap: 20px !important;
+}
+
+/* ================================================================
+   BUTTONS
+   ================================================================ */
+
+.fi-btn {
+  border-radius: var(--crm-radius-sm) !important;
+  font-size: 0.875rem !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.005em !important;
+  transition: all 150ms var(--crm-ease) !important;
+}
+
+/* Primary button — navy, consistent with sidebar */
+.fi-btn[class*="fi-color-primary"],
+.fi-btn.fi-btn-color-primary {
+  background-color: var(--crm-btn-primary) !important;
+  border-color: var(--crm-btn-primary) !important;
+  color: #ffffff !important;
+}
+.fi-btn[class*="fi-color-primary"]:hover,
+.fi-btn.fi-btn-color-primary:hover {
+  background-color: var(--crm-btn-primary-hover) !important;
+  border-color: var(--crm-btn-primary-hover) !important;
+  box-shadow: 0 2px 10px var(--crm-btn-primary-shadow) !important;
+}
+
+/* Gray/outline button */
+.fi-btn.fi-btn-color-gray {
+  border-color: var(--crm-border) !important;
+  color: var(--crm-text-1) !important;
+}
+.fi-btn.fi-btn-color-gray:hover {
+  background-color: var(--crm-bg) !important;
+  border-color: #c4cdd8 !important;
+}
+
+/* Icon buttons */
+.fi-icon-btn {
+  border-radius: var(--crm-radius-sm) !important;
+  transition: background-color 120ms ease, color 120ms ease !important;
+}
+.fi-icon-btn:hover {
+  opacity: 0.85 !important;
+}
+
+/* ================================================================
+   BADGES
+   ================================================================ */
+
+.fi-badge {
+  border-radius: 5px !important;
+  font-size: 0.6875rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.025em !important;
+  padding: 2px 8px !important;
+}
+
+/* ================================================================
+   FORM INPUTS
+   ================================================================ */
+
+.fi-input,
+.fi-select-input,
+.fi-textarea {
+  border-color: var(--crm-border) !important;
+  border-radius: var(--crm-radius-sm) !important;
+  font-size: 0.875rem !important;
+  color: var(--crm-text-1) !important;
+  background-color: var(--crm-surface) !important;
+  transition: border-color 150ms ease, box-shadow 150ms ease !important;
+}
+
+.fi-input:focus,
+.fi-select-input:focus,
+.fi-textarea:focus {
+  border-color: var(--crm-btn-primary) !important;
+  box-shadow: 0 0 0 3px rgba(10, 22, 40, 0.10) !important;
+  outline: none !important;
+}
+
+/* Input wrapper focus ring — overrides Filament's focus-within:ring-primary-600 */
+.fi-input-wrp:focus-within {
+  --tw-ring-color: rgba(10, 22, 40, 0.55) !important;
+}
+
+/* Global search field focus ring */
+.fi-global-search-field .fi-input-wrp:focus-within {
+  --tw-ring-color: rgba(10, 22, 40, 0.55) !important;
+}
+
+.fi-input::placeholder,
+.fi-textarea::placeholder {
+  color: var(--crm-text-3) !important;
+  font-size: 0.875rem !important;
+}
+
+/* Form labels */
+.fi-fo-field-wrp-label label,
+.fi-fo-field-wrp-label .fi-fo-label {
+  font-size: 0.8125rem !important;
+  font-weight: 550 !important;
+  color: var(--crm-text-1) !important;
+  letter-spacing: 0.005em !important;
+}
+
+/* Helper text */
+.fi-fo-field-wrp-helper-text {
+  font-size: 0.8125rem !important;
+  color: var(--crm-text-2) !important;
+}
+
+/* Form sections */
+.fi-fo-section-header-heading {
+  font-size: 0.9375rem !important;
+  font-weight: 620 !important;
+  color: var(--crm-text-1) !important;
+  letter-spacing: -0.02em !important;
+}
+
+/* ================================================================
+   MODALS
+   ================================================================ */
+
+.fi-modal-window {
+  border-radius: var(--crm-radius-xl) !important;
+  border: 1px solid var(--crm-border) !important;
+  box-shadow: var(--crm-shadow-lg) !important;
+}
+
+.fi-modal-header {
+  padding: 20px 24px 16px !important;
+  border-bottom: 1px solid var(--crm-border-subtle) !important;
+}
+
+.fi-modal-heading {
+  font-size: 1rem !important;
+  font-weight: 650 !important;
+  color: var(--crm-text-1) !important;
+  letter-spacing: -0.02em !important;
+}
+
+.fi-modal-footer {
+  padding: 16px 24px !important;
+  border-top: 1px solid var(--crm-border-subtle) !important;
+  background-color: #fafbfd !important;
+}
+
+/* ================================================================
+   DROPDOWN
+   ================================================================ */
+
+.fi-dropdown-panel {
+  border-radius: var(--crm-radius) !important;
+  border: 1px solid var(--crm-border) !important;
+  box-shadow: var(--crm-shadow-md) !important;
+  padding: 4px !important;
+}
+
+.fi-dropdown-list-item-button {
+  border-radius: 5px !important;
+  font-size: 0.875rem !important;
+  color: var(--crm-text-1) !important;
+  transition: background-color 100ms ease !important;
+}
+.fi-dropdown-list-item-button:hover {
+  background-color: var(--crm-bg) !important;
+}
+
+/* ================================================================
+   NOTIFICATIONS
+   ================================================================ */
+
+.fi-notifications {
+  width: 360px !important;
+}
+
+.fi-notification {
+  border-radius: var(--crm-radius) !important;
+  border: 1px solid var(--crm-border) !important;
+  box-shadow: var(--crm-shadow-md) !important;
+  padding: 14px 16px !important;
+}
+
+.fi-notification-title {
+  font-size: 0.875rem !important;
+  font-weight: 600 !important;
+  color: var(--crm-text-1) !important;
+}
+
+.fi-notification-body {
+  font-size: 0.8125rem !important;
+  color: var(--crm-text-2) !important;
+}
+
+/* ================================================================
+   PAGINATION
+   ================================================================ */
+
+.fi-pagination {
+  padding: 12px 20px !important;
+}
+
+.fi-pagination-item-btn {
+  border-radius: var(--crm-radius-sm) !important;
+  font-size: 0.8125rem !important;
+  font-weight: 500 !important;
+  transition: all 120ms ease !important;
+}
+
+/* ================================================================
+   TABS
+   ================================================================ */
+
+.fi-tabs {
+  gap: 2px !important;
+}
+
+.fi-tabs-tab {
+  border-radius: var(--crm-radius-sm) !important;
+  font-size: 0.875rem !important;
+  font-weight: 500 !important;
+  transition: all 150ms ease !important;
+}
+
+/* ================================================================
+   DASHBOARD SPECIFIC — spacing and layout
+   ================================================================ */
+
+.fi-page .fi-widgets {
+  gap: 20px !important;
+}
+
+/* Widget wrapper grid gap */
+.fi-widgets {
+  gap: 20px !important;
+}
+
+/* Stats grid layout */
+.fi-wi-stats-overview {
+  gap: 20px !important;
+}
+
+/* Dashboard page main padding */
+.fi-main > .fi-page {
+  padding-top: 0 !important;
+}
+
+/* Ensure all sections in page have proper gap */
+.fi-page-content {
+  gap: 20px !important;
+  padding-top: 8px !important;
+  padding-bottom: 32px !important;
+}
+
+/* ================================================================
+   AVATAR
+   ================================================================ */
+
+.fi-avatar {
+  border-radius: 50% !important;
+  box-shadow: 0 0 0 2px rgba(255,255,255,0.15) !important;
+}
+
+/* ================================================================
+   ACTIONS TOOLBAR
+   ================================================================ */
+
+.fi-ta-actions {
+  gap: 8px !important;
+}
+
+/* Row action buttons */
+.fi-ta-row-actions {
+  gap: 4px !important;
+}
+
+/* ================================================================
+   SCROLLBARS — subtle
+   ================================================================ */
+
+.fi-sidebar-nav::-webkit-scrollbar {
+  width: 4px;
+}
+.fi-sidebar-nav::-webkit-scrollbar-track {
+  background: transparent;
+}
+.fi-sidebar-nav::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.12);
+  border-radius: 4px;
+}
+.fi-sidebar-nav::-webkit-scrollbar-thumb:hover {
+  background: rgba(255,255,255,0.22);
+}
+
+/* ================================================================
+   FOCUS RING — consistent across interactive elements
+   ================================================================ */
+
+.fi-btn:focus-visible,
+.fi-input:focus-visible,
+.fi-select-input:focus-visible,
+[data-fi-component]:focus-visible {
+  outline: 2px solid rgba(10, 22, 40, 0.45) !important;
+  outline-offset: 2px !important;
+}
+
+/* ================================================================
+   SIDEBAR SYSTEM
+   State is driven by html.crm-sb-open — set in <head> before
+   first paint so there is zero flash on page load or navigation.
+   No Alpine dependency. State persisted via localStorage.
+   ================================================================ */
+
+/* ── Backdrop overlay (mobile only) ── */
+.crm-sidebar-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 35;
+    background: rgba(13, 27, 46, 0.48);
+    visibility: hidden;
+    opacity: 0;
+    /* delay visibility so element is hidden after fade completes */
+    transition: opacity 240ms ease, visibility 0s linear 240ms;
+    cursor: pointer;
+}
+@media (max-width: 1023px) {
+    html.crm-sb-open .crm-sidebar-overlay {
+        visibility: visible;
+        opacity: 1;
+        transition: opacity 240ms ease, visibility 0s linear 0s;
+    }
+    html.crm-sb-open body {
+        overflow: hidden; /* prevent scroll-through on mobile */
+    }
+}
+@media (min-width: 1024px) {
+    /* overlay never shows on desktop */
+    .crm-sidebar-overlay { display: none !important; }
+}
+
+/* ── Sidebar ── */
+.crm-sidebar {
+    top: 0;
+    bottom: 0;
+    transform: translateX(-100%);
+    transition: transform 280ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+html.crm-sb-open .crm-sidebar {
+    transform: translateX(0);
+}
+@media (max-width: 1023px) {
+    html.crm-sb-open .crm-sidebar {
+        box-shadow: 8px 0 32px rgba(13, 27, 46, 0.22);
+    }
+}
+
+/* ── Main content ── */
+.crm-main {
+    padding-left: 0 !important;
+    transition: padding-left 280ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+@media (min-width: 1024px) {
+    html.crm-sb-open .crm-main {
+        padding-left: 15rem !important;
+    }
+}
+
+/* ── Hamburger icon: ☰ when closed, ✕ when open ── */
+.crm-menu-btn .crm-icon-menu  { display: block; }
+.crm-menu-btn .crm-icon-close { display: none; }
+html.crm-sb-open .crm-menu-btn .crm-icon-menu  { display: none; }
+html.crm-sb-open .crm-menu-btn .crm-icon-close { display: block; }
+
+/* ================================================================
+   BLADE CRM — Collapsible nav groups with dotted timeline
+   ================================================================ */
+
+.crm-nav-group {
+  margin-bottom: 0.125rem;
+}
+
+.crm-nav-group-hdr {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.75rem 0.5rem 0.375rem 0.5rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: rgba(255,255,255,0.45);
+  user-select: none;
+  border-radius: 0.375rem;
+  transition: color 120ms ease;
+}
+
+.crm-nav-group-hdr:hover {
+  color: rgba(255,255,255,0.5);
+}
+
+.crm-nav-group-icon {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+}
+
+.crm-nav-group-lbl {
+  flex: 1;
+  text-align: left;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+}
+
+.crm-nav-group-chevron {
+  width: 0.875rem;
+  height: 0.875rem;
+  color: rgba(255,255,255,0.25);
+  transition: transform 200ms ease;
+  flex-shrink: 0;
+}
+
+/* State driven by data-open attribute — no Alpine needed */
+.crm-nav-group[data-open="false"] .crm-nav-tree {
+  display: none;
+}
+.crm-nav-group[data-open="false"] .crm-nav-group-chevron {
+  transform: rotate(180deg);
+}
+
+/* Slide-in animation when group opens */
+.crm-nav-group[data-open="true"] .crm-nav-tree {
+  animation: crm-nav-open 150ms ease;
+}
+@keyframes crm-nav-open {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* Tree wrapper — holds the vertical dashed line */
+.crm-nav-tree {
+  position: relative;
+  padding: 0.125rem 0.5rem 0.5rem 2rem;
+}
+
+.crm-nav-tree::before {
+  content: '';
+  position: absolute;
+  left: 1rem;           /* 16px from tree edge = aligns under group icon center */
+  top: 0.75rem;
+  bottom: 0.75rem;
+  border-left: 1.5px dashed rgba(255,255,255,0.13);
+}
+
+/* Leaf nav items (grouped, no icon) */
+.crm-nav-leaf {
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 0.4375rem 0.5rem;
+  border-radius: 0.375rem;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.6);
+  text-decoration: none;
+  transition: background 120ms ease, color 120ms ease;
+  margin-bottom: 1px;
+  white-space: nowrap;
+}
+
+.crm-nav-leaf:hover {
+  background: rgba(255,255,255,0.06);
+  color: rgba(255,255,255,0.9);
+  text-decoration: none;
+}
+
+.crm-nav-leaf.active {
+  background: rgba(255,255,255,0.10);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+/* Bullet dot — sits on the dashed line */
+.crm-leaf-dot {
+  position: absolute;
+  left: -1.1875rem;     /* centers on the line: item-left=2rem, line=1rem → offset=-(2rem-1rem)+3px */
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  transition: background 120ms ease;
+  z-index: 1;
+  flex-shrink: 0;
+}
+
+.crm-nav-leaf:hover .crm-leaf-dot {
+  background: rgba(255,255,255,0.45);
+}
+
+.crm-nav-leaf.active .crm-leaf-dot {
+  background: #FFD60A;
+  box-shadow: 0 0 0 2.5px rgba(255,214,10,0.18);
+}
+
+/* Badge works inside leaves too */
+.crm-nav-leaf .crm-nav-badge {
+  margin-left: auto;
+}
+
+/* Hide Alpine-cloaked elements until Alpine initialises */
+[x-cloak] { display: none !important; }
+
+/* ================================================================
+   MODAL — Premium confirmation & action dialogs
+   ================================================================ */
+
+@keyframes crm-modal-in {
+    from { opacity: 0; transform: scale(0.96) translateY(6px); }
+    to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* Overlay — display:flex lives here so Alpine x-show toggling display:none
+   doesn't wipe out the flex centering */
+.crm-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(13, 27, 46, 0.45);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    z-index: 60;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.25rem;
+}
+
+/* Modal card */
+.crm-modal {
+    position: relative;
+    background: #ffffff;
+    border-radius: 16px;
+    border: 1px solid rgba(228, 233, 240, 0.9);
+    box-shadow:
+        0 0 0 1px rgba(13, 27, 46, 0.04),
+        0 8px 24px rgba(13, 27, 46, 0.08),
+        0 32px 72px rgba(13, 27, 46, 0.14);
+    width: 100%;
+    max-width: 440px;
+    animation: crm-modal-in 0.22s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.crm-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 1.5rem 1rem;
+    border-bottom: 1px solid var(--crm-border, #e4e9f0);
+}
+
+.crm-modal-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--crm-text-1, #0d1b2e);
+    letter-spacing: -0.02em;
+    margin: 0;
+}
+
+.crm-modal-body {
+    padding: 1.5rem;
+}
+
+.crm-modal-body p {
+    font-size: 0.9375rem;
+    color: var(--crm-text-2, #445271);
+    line-height: 1.6;
+    margin: 0;
+}
+
+.crm-modal-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.625rem;
+    padding: 1rem 1.5rem 1.25rem;
+    border-top: 1px solid var(--crm-border, #e4e9f0);
+}
+
+.crm-modal-footer form {
+    display: inline;
+}
+
+/* Icon treatment — danger (delete) */
+.crm-modal-icon {
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    flex-shrink: 0;
+}
+
+.crm-modal-icon svg {
+    width: 1.25rem;
+    height: 1.25rem;
+}
+
+.crm-modal-icon--danger {
+    background: #fef2f2;
+    border: 1.5px solid #fecaca;
+    color: #dc2626;
+}
+
+.crm-modal-icon--primary {
+    background: #eff6ff;
+    border: 1.5px solid #bfdbfe;
+    color: #2563eb;
+}
+
+.crm-modal-icon--success {
+    background: #f0fdf4;
+    border: 1.5px solid #bbf7d0;
+    color: #16a34a;
+}
+
+/* Close icon button in modal header */
+.crm-modal-header .crm-icon-btn {
+    background: transparent;
+    border: none;
+    color: var(--crm-text-3, #8898aa);
+    transition: color 120ms ease, background 120ms ease;
+    border-radius: 8px;
+}
+
+.crm-modal-header .crm-icon-btn:hover {
+    color: var(--crm-text-1, #0d1b2e);
+    background: var(--crm-bg, #f5f7fa);
+}
+
+/* ================================================================
+   FIX: crm-fade-in stacking context
+   The original animation held transform:translateY(0) via fill-mode:both,
+   creating a CSS stacking context on .crm-content that broke position:fixed
+   modals (they positioned relative to .crm-content instead of viewport).
+   Using transform:none in 'to' removes the stacking context after animation.
+   ================================================================ */
+@keyframes crm-fade-in {
+    from { opacity: 0; transform: translateY(4px); }
+    to   { opacity: 1; transform: none; }
+}
+
+/* ================================================================
+   BLADE CRM — Button size optimisation
+   Overrides compiled Vite CSS immediately (no rebuild needed).
+   ================================================================ */
+
+.crm-btn {
+    gap: 0.5rem;
+    padding: 0.5625rem 1rem;
+    font-weight: 600;
+    line-height: 1.25;
+}
+
+.crm-btn-sm {
+    padding: 0.375rem 0.75rem;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    gap: 0.375rem;
+}
+
+.crm-btn-lg {
+    padding: 0.75rem 1.375rem;
+    font-size: 0.9375rem;
+}
+
+.crm-icon-btn {
+    width: 2.25rem;
+    height: 2.25rem;
+}
+
+/* Sidebar nav item font size */
+.crm-nav-item {
+    font-size: 0.9375rem;
+}
+
+/* ================================================================
+   GHOST BUTTON — styled as a visible outlined Cancel button
+   ================================================================ */
+.crm-btn-ghost {
+    background: #ffffff !important;
+    color: var(--crm-text-2) !important;
+    border-color: #c4cdd8 !important;
+}
+.crm-btn-ghost:hover {
+    background: var(--crm-bg) !important;
+    border-color: #94a3b8 !important;
+    color: var(--crm-text-1) !important;
+}
+
+/* ================================================================
+   DASHBOARD — "More actions" dropdown
+   ================================================================ */
+
+.crm-more-actions {
+    position: relative;
+}
+
+.crm-more-actions-menu {
+    display: none;
+    position: absolute;
+    top: calc(100% + 0.375rem);
+    right: 0;
+    min-width: 11rem;
+    background: var(--crm-surface);
+    border: 1px solid var(--crm-border);
+    border-radius: var(--crm-radius);
+    box-shadow: var(--crm-shadow-md);
+    padding: 0.25rem;
+    z-index: 50;
+}
+
+.crm-more-actions-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 5px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--crm-text-1);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background 100ms ease;
+}
+
+.crm-more-actions-item:hover {
+    background: var(--crm-bg);
+    color: var(--crm-text-1);
+    text-decoration: none;
+}
+
+/* ================================================================
+   TOPBAR — User avatar + hover dropdown
+   Pure CSS visibility/opacity transition — no JS or Alpine needed.
+   padding-top on .crm-topbar-dropdown bridges the gap between the
+   avatar and the panel so the hover area stays continuous.
+   ================================================================ */
+
+.crm-topbar-user {
+    position: relative;
+}
+
+.crm-topbar-avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background: var(--crm-btn-primary);
+    color: #ffffff;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.025em;
+    border: 2px solid var(--crm-border);
+    cursor: pointer;
+    transition: border-color 150ms ease, box-shadow 150ms ease;
+    user-select: none;
+}
+
+.crm-topbar-user:hover .crm-topbar-avatar {
+    border-color: var(--crm-accent);
+    box-shadow: 0 0 0 3px rgba(99, 91, 255, 0.18);
+}
+
+.crm-topbar-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    padding-top: 0.375rem;
+    z-index: 100;
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(-4px);
+    transition: opacity 160ms ease, visibility 0s linear 160ms, transform 160ms ease;
+    pointer-events: none;
+}
+
+.crm-topbar-user:hover .crm-topbar-dropdown {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 160ms ease, visibility 0s linear 0s, transform 160ms ease;
+    pointer-events: auto;
+}
+
+.crm-topbar-dd-inner {
+    width: 13rem;
+    background: var(--crm-surface);
+    border: 1px solid var(--crm-border);
+    border-radius: var(--crm-radius);
+    box-shadow: var(--crm-shadow-md);
+    overflow: hidden;
+}
+
+.crm-topbar-dd-header {
+    padding: 0.75rem 0.875rem 0.625rem;
+    border-bottom: 1px solid var(--crm-border-subtle);
+}
+
+.crm-topbar-dd-name {
+    display: block;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--crm-text-1);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.crm-topbar-dd-email {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--crm-text-3);
+    margin-top: 1px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.crm-topbar-dd-body {
+    padding: 0.25rem;
+}
+
+.crm-topbar-dd-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.4375rem 0.625rem;
+    border-radius: 5px;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--crm-text-1);
+    text-decoration: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    transition: background-color 100ms ease;
+    text-align: left;
+}
+
+.crm-topbar-dd-item:hover {
+    background-color: var(--crm-bg);
+    color: var(--crm-text-1);
+    text-decoration: none;
+}
+
+.crm-topbar-dd-item--danger {
+    color: #b42318;
+}
+
+.crm-topbar-dd-item--danger:hover {
+    background-color: #fef3f2;
+    color: #b42318;
+}
+
+.crm-topbar-dd-sep {
+    height: 1px;
+    background: var(--crm-border-subtle);
+    margin: 0.25rem 0;
+}

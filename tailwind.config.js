@@ -12,7 +12,24 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                sans: ['Plus Jakarta Sans', ...defaultTheme.fontFamily.sans],
+                display: ['Geist', ...defaultTheme.fontFamily.sans],
+            },
+            colors: {
+                luminii: {
+                    navy: '#081D3A',
+                    deepNavy: '#040F1F',
+                    gold: '#F5C542',
+                    deepGold: '#D9A441',
+                    goldTint: '#FFF4C2',
+                    muted: '#647082',
+                    bg: '#F8F9FC',
+                    border: '#E5EAF2',
+                },
+            },
+            borderRadius: {
+                luminii: '16px',
+                'luminii-lg': '24px',
             },
         },
     },

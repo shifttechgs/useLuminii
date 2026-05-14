@@ -4,7 +4,7 @@
 
         <div class="lp-section__header lp-section__header--center">
             <div class="lp-section__label" data-aos="fade-up">Real results</div>
-            <h2 class="lp-section__h2" data-aos="fade-up" data-aos-delay="60">Trusted by Service Businesses<br>Across South Africa</h2>
+            <h2 class="lp-section__h2" data-aos="fade-up" data-aos-delay="60">Trusted by Service Businesses<br><em>Across South Africa</em></h2>
             <p class="lp-section__sub" data-aos="fade-up" data-aos-delay="120">Real businesses. Real numbers. Real results in the first 30 days.</p>
         </div>
 
@@ -18,7 +18,7 @@
                     <div class="lp-testi__result-label">Revenue increase<br>in first month</div>
                 </div>
                 <div class="lp-testi__author">
-                    <div class="lp-testi__av" style="background:#00E5A0;color:#0A0A0A;">TN</div>
+                    <div class="lp-testi__av" style="background:#F5C542;color:#081D3A;">TN</div>
                     <div>
                         <div class="lp-testi__name">Thabo Nkosi</div>
                         <div class="lp-testi__biz">TN Plumbing · Johannesburg</div>
@@ -44,7 +44,7 @@
                     <div class="lp-testi__slide-stars">★★★★★</div>
                     <p>"The quoting alone paid for itself in week one. I close twice as many jobs now."</p>
                     <div class="lp-testi__slide-author">
-                        <div class="lp-testi__av" style="background:#F59E0B;color:#0A0A0A;">JD</div>
+                        <div class="lp-testi__av" style="background:#F59E0B;color:#081D3A;">JD</div>
                         <div><strong>Jacques du Plessis</strong><span>GreenScape · Cape Town</span></div>
                     </div>
                 </div>
@@ -68,7 +68,7 @@
                     <div class="lp-testi__slide-stars">★★★★★</div>
                     <p>"The AI receptionist books jobs for me at 11pm on a Sunday. Couldn't do that before."</p>
                     <div class="lp-testi__slide-author">
-                        <div class="lp-testi__av" style="background:#14B8A6;color:#0A0A0A;">SN</div>
+                        <div class="lp-testi__av" style="background:#FFF4C2;color:#081D3A;">SN</div>
                         <div><strong>Sipho Ndlovu</strong><span>CleanPool SA · Sandton</span></div>
                     </div>
                 </div>
@@ -76,7 +76,7 @@
                     <div class="lp-testi__slide-stars">★★★★★</div>
                     <p>"From first enquiry to payment — fully automated. I can actually focus on growing."</p>
                     <div class="lp-testi__slide-author">
-                        <div class="lp-testi__av" style="background:#F97316;color:#0A0A0A;">AM</div>
+                        <div class="lp-testi__av" style="background:#D9A441;color:#081D3A;">AM</div>
                         <div><strong>Anele Mthembu</strong><span>AirFix HVAC · Durban</span></div>
                     </div>
                 </div>
@@ -93,7 +93,7 @@
                     <div class="lp-testi__slide-stars">★★★★★</div>
                     <p>"The quoting alone paid for itself in week one. I close twice as many jobs now."</p>
                     <div class="lp-testi__slide-author">
-                        <div class="lp-testi__av" style="background:#F59E0B;color:#0A0A0A;">JD</div>
+                        <div class="lp-testi__av" style="background:#F59E0B;color:#081D3A;">JD</div>
                         <div><strong>Jacques du Plessis</strong><span>GreenScape · Cape Town</span></div>
                     </div>
                 </div>
@@ -117,7 +117,7 @@
                     <div class="lp-testi__slide-stars">★★★★★</div>
                     <p>"The AI receptionist books jobs for me at 11pm on a Sunday. Couldn't do that before."</p>
                     <div class="lp-testi__slide-author">
-                        <div class="lp-testi__av" style="background:#14B8A6;color:#0A0A0A;">SN</div>
+                        <div class="lp-testi__av" style="background:#FFF4C2;color:#081D3A;">SN</div>
                         <div><strong>Sipho Ndlovu</strong><span>CleanPool SA · Sandton</span></div>
                     </div>
                 </div>
@@ -125,7 +125,7 @@
                     <div class="lp-testi__slide-stars">★★★★★</div>
                     <p>"From first enquiry to payment — fully automated. I can actually focus on growing."</p>
                     <div class="lp-testi__slide-author">
-                        <div class="lp-testi__av" style="background:#F97316;color:#0A0A0A;">AM</div>
+                        <div class="lp-testi__av" style="background:#D9A441;color:#081D3A;">AM</div>
                         <div><strong>Anele Mthembu</strong><span>AirFix HVAC · Durban</span></div>
                     </div>
                 </div>

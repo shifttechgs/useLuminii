@@ -1,28 +1,24 @@
 <!-- FEATURES -->
 <section class="lp-section lp-section--gray" id="features">
     <div class="lp-wrap">
-
         <div class="lp-section__header lp-section__header--center">
             <div class="lp-section__label" data-aos="fade-up">All-in-one platform</div>
-            <h2 class="lp-section__h2" data-aos="fade-up" data-aos-delay="60">From Manual Operations to<br>Intelligent Automation</h2>
-            <p class="lp-section__sub" data-aos="fade-up" data-aos-delay="120">Every feature connects to drive one outcome: more profit with less effort. Click to explore the flow.</p>
+            <h2 class="lp-section__h2" data-aos="fade-up" data-aos-delay="60">From Manual Operations to<br><em>Intelligent Automation</em></h2>
+            <p class="lp-section__sub" data-aos="fade-up" data-aos-delay="120">Every feature connects to drive one outcome: more control, less admin, and better profit.</p>
         </div>
 
-        <!-- Split: Left tabs + Right detail card -->
         <div class="lp-ftabs" data-aos="fade-up" data-aos-delay="80">
-
-            <!-- Left: Vertical text tabs -->
             <div class="lp-ftabs__nav">
                 <button class="lp-ftabs__btn lp-ftabs__btn--active" data-tab="noticed">
                     <div class="lp-ftabs__btn-inner">
                         <strong>Get Noticed</strong>
-                        <span>Be found first — website, SEO, reviews & referrals.</span>
+                        <span>Be found first with website, SEO, reviews, and referrals.</span>
                     </div>
                 </button>
                 <button class="lp-ftabs__btn" data-tab="win">
                     <div class="lp-ftabs__btn-inner">
                         <strong>Win Jobs</strong>
-                        <span>Capture, qualify, and close — before competitors reply.</span>
+                        <span>Capture, qualify, and close before competitors reply.</span>
                     </div>
                 </button>
                 <button class="lp-ftabs__btn" data-tab="ops">
@@ -34,20 +30,17 @@
                 <button class="lp-ftabs__btn" data-tab="profit">
                     <div class="lp-ftabs__btn-inner">
                         <strong>Boost Profits</strong>
-                        <span>Get paid faster, cut waste, stay compliant.</span>
+                        <span>Get paid faster, cut waste, and stay compliant.</span>
                     </div>
                 </button>
             </div>
 
-            <!-- Right: Detail panels -->
             <div class="lp-ftabs__panels">
-
-                <!-- GET NOTICED -->
                 <div class="lp-ftabs__panel lp-ftabs__panel--active" data-panel="noticed">
                     <div class="lp-ftabs__panel-card">
                         <div class="lp-ftabs__panel-icon"><i class="ph ph-megaphone"></i></div>
                         <h3 class="lp-ftabs__panel-title">Get Noticed</h3>
-                        <p class="lp-ftabs__panel-sub">Be the first business prospects find — and trust.</p>
+                        <p class="lp-ftabs__panel-sub">Be the first business prospects find and trust.</p>
 
                         <div class="lp-ftabs__mini-grid">
                             <div class="lp-ftabs__mini-card">
@@ -68,12 +61,12 @@
                             <div class="lp-ftabs__mini-card">
                                 <i class="ph ph-users"></i>
                                 <strong>Referral System</strong>
-                                <span>Happy clients refer new ones — tracked and rewarded.</span>
+                                <span>Happy clients refer new ones with referral tracking built in.</span>
                             </div>
                         </div>
 
                         <div class="lp-ftabs__flow-arrow">
-                            <span>These feed into →</span> <strong>Win Jobs</strong>
+                            <span>These feed into -></span> <strong>Win Jobs</strong>
                         </div>
 
                         <a href="{{ url('/') }}#booking" class="lp-btn lp-btn--primary lp-btn--sm">
@@ -82,18 +75,17 @@
                     </div>
                 </div>
 
-                <!-- WIN JOBS -->
                 <div class="lp-ftabs__panel" data-panel="win">
                     <div class="lp-ftabs__panel-card">
                         <div class="lp-ftabs__panel-icon"><i class="ph ph-trophy"></i></div>
                         <h3 class="lp-ftabs__panel-title">Win Jobs</h3>
-                        <p class="lp-ftabs__panel-sub">Every lead captured, qualified, and converted — before your competitor even picks up the phone.</p>
+                        <p class="lp-ftabs__panel-sub">Every lead captured, qualified, and converted before your competitor even replies.</p>
 
                         <div class="lp-ftabs__mini-grid">
                             <div class="lp-ftabs__mini-card">
                                 <i class="ph ph-robot"></i>
                                 <strong>AI Receptionist</strong>
-                                <span>Responds in 30 seconds, 24/7 — qualifies and books instantly.</span>
+                                <span>Responds in 30 seconds, 24/7, then qualifies and books instantly.</span>
                             </div>
                             <div class="lp-ftabs__mini-card">
                                 <i class="ph ph-address-book"></i>
@@ -103,7 +95,7 @@
                             <div class="lp-ftabs__mini-card">
                                 <i class="ph ph-whatsapp-logo"></i>
                                 <strong>WhatsApp Leads</strong>
-                                <span>Capture and quote directly via WhatsApp — no app switching.</span>
+                                <span>Capture and quote directly via WhatsApp with no app switching.</span>
                             </div>
                             <div class="lp-ftabs__mini-card">
                                 <i class="ph ph-file-text"></i>
@@ -113,7 +105,7 @@
                         </div>
 
                         <div class="lp-ftabs__flow-arrow">
-                            <span>Approved quotes flow into →</span> <strong>Work Smarter</strong>
+                            <span>Approved quotes flow into -></span> <strong>Work Smarter</strong>
                         </div>
 
                         <a href="{{ url('/') }}#booking" class="lp-btn lp-btn--primary lp-btn--sm">
@@ -122,12 +114,11 @@
                     </div>
                 </div>
 
-                <!-- WORK SMARTER -->
                 <div class="lp-ftabs__panel" data-panel="ops">
                     <div class="lp-ftabs__panel-card">
                         <div class="lp-ftabs__panel-icon"><i class="ph ph-gear-six"></i></div>
                         <h3 class="lp-ftabs__panel-title">Work Smarter</h3>
-                        <p class="lp-ftabs__panel-sub">Jobs scheduled, teams assigned, clients updated — all automatic.</p>
+                        <p class="lp-ftabs__panel-sub">Jobs scheduled, teams assigned, and clients updated in one operating flow.</p>
 
                         <div class="lp-ftabs__mini-grid">
                             <div class="lp-ftabs__mini-card">
@@ -148,12 +139,12 @@
                             <div class="lp-ftabs__mini-card">
                                 <i class="ph ph-chat-circle-dots"></i>
                                 <strong>Client Updates</strong>
-                                <span>Auto SMS/email when tech is on the way or job is done.</span>
+                                <span>Auto SMS or email when a tech is on the way or a job is done.</span>
                             </div>
                         </div>
 
                         <div class="lp-ftabs__flow-arrow">
-                            <span>Completed jobs trigger →</span> <strong>Boost Profits</strong>
+                            <span>Completed jobs trigger -></span> <strong>Boost Profits</strong>
                         </div>
 
                         <a href="{{ url('/') }}#booking" class="lp-btn lp-btn--primary lp-btn--sm">
@@ -162,12 +153,11 @@
                     </div>
                 </div>
 
-                <!-- BOOST PROFITS -->
                 <div class="lp-ftabs__panel" data-panel="profit">
                     <div class="lp-ftabs__panel-card">
                         <div class="lp-ftabs__panel-icon"><i class="ph ph-chart-line-up"></i></div>
                         <h3 class="lp-ftabs__panel-title">Boost Profits</h3>
-                        <p class="lp-ftabs__panel-sub">Get paid on time, track every rand, and stay tax-compliant — without lifting a finger.</p>
+                        <p class="lp-ftabs__panel-sub">Get paid on time, track every rand, and stay tax-compliant without manual admin.</p>
 
                         <div class="lp-ftabs__mini-grid">
                             <div class="lp-ftabs__mini-card">
@@ -187,13 +177,13 @@
                             </div>
                             <div class="lp-ftabs__mini-card">
                                 <i class="ph ph-buildings"></i>
-                                <strong>CIPC & Docs</strong>
-                                <span>Registration, B-BBEE, compliance docs — always audit-ready.</span>
+                                <strong>CIPC and Docs</strong>
+                                <span>Registration, B-BBEE, and compliance docs kept audit-ready.</span>
                             </div>
                         </div>
 
                         <div class="lp-ftabs__flow-arrow lp-ftabs__flow-arrow--loop">
-                            <span>Happy clients generate →</span> <strong>Reviews & Referrals</strong> <span>→ back to Get Noticed</span>
+                            <span>Happy clients generate -></span> <strong>Reviews and Referrals</strong> <span>-> back to Get Noticed</span>
                         </div>
 
                         <a href="{{ url('/') }}#booking" class="lp-btn lp-btn--primary lp-btn--sm">
@@ -201,9 +191,7 @@
                         </a>
                     </div>
                 </div>
-
             </div>
         </div>
-
     </div>
 </section>

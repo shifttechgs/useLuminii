@@ -138,6 +138,7 @@
                         <li class="list-inline-item"><a class="small-text" href="#">Terms</a></li>
                         <li class="list-inline-item"><a class="small-text" href="#">Security</a></li>
                         <li class="list-inline-item"><a class="small-text" href="#">Privacy Policy</a></li>
+                        <li class="list-inline-item"><a class="small-text" href="{{ route('crm.login') }}">Admin</a></li>
                     </ul>
                 </div>
             </div>

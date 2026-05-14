@@ -1,0 +1,22 @@
+<?php namespace App\Filament\Resources\ClientRequestResource\Pages;
+use App\Filament\Resources\ClientRequestResource;
+use Filament\Actions;
+use Filament\Resources\Pages\ListRecords;
+
+class ListClientRequests extends ListRecords
+{
+    protected static string $resource = ClientRequestResource::class;
+
+    protected function getHeaderActions(): array
+    {
+        return [
+            Actions\Action::make('kanban')
+                ->label('Pipeline View')
+                ->icon('heroicon-o-view-columns')
+                ->color('gray')
+                ->url(route('filament.admin.pages.pipeline')),
+            Actions\CreateAction::make(),
+        ];
+    }
+}
+

@@ -139,8 +139,14 @@
                         </div>
 
                         <button type="submit" class="lp-btn lp-btn--primary lp-cta__card-btn">
-                            Book My Free Demo
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                            <span class="lp-cta__submit-spinner" style="display:none; align-items:center; gap:8px;">
+                                <span class="lp-cta__spinner" aria-hidden="true"></span>
+                                <span>Sending...</span>
+                            </span>
+                            <span class="lp-cta__submit-label">
+                                Book My Free Demo
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                            </span>
                         </button>
 
                         <p class="lp-cta__card-note">No credit card &nbsp;·&nbsp; No commitment &nbsp;·&nbsp; No pitch decks</p>
