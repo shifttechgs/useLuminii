@@ -5,16 +5,19 @@ use Illuminate\Http\Request;
 
 define('LARAVEL_START', microtime(true));
 
-// Determine if the application is in maintenance mode...
-if (file_exists($maintenance = __DIR__.'/../storage/framework/maintenance.php')) {
+// Local dev: artisan lives one level above public/ → use that directory.
+// cPanel:    public_html/ is the doc root; app lives at ../luminii_landingPage.
+$appBase = is_file(dirname(__DIR__).'/artisan')
+    ? dirname(__DIR__)
+    : dirname(__DIR__).'/luminii_landingPage';
+
+if (file_exists($maintenance = $appBase.'/storage/framework/maintenance.php')) {
     require $maintenance;
 }
 
-// Register the Composer autoloader...
-require __DIR__.'/../vendor/autoload.php';
+require $appBase.'/vendor/autoload.php';
 
-// Bootstrap Laravel and handle the request...
 /** @var Application $app */
-$app = require_once __DIR__.'/../bootstrap/app.php';
+$app = require_once $appBase.'/bootstrap/app.php';
 
 $app->handleRequest(Request::capture());

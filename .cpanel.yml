@@ -9,16 +9,13 @@ deployment:
     # Excludes .env (lives on server, never overwritten) and runtime dirs
     - /bin/rsync -a --delete --exclude='.git' --exclude='.env' --exclude='node_modules' --exclude='storage/logs' --exclude='storage/framework/cache' --exclude='storage/framework/sessions' --exclude='storage/framework/views' $REPOSITORY/ $APPPATH/
 
-    # ── 2. PHP dependencies ────────────────────────────────────────────────────
-    - $PHP /usr/local/bin/composer install --no-dev --optimize-autoloader --working-dir=$APPPATH
-
-    # ── 3. Laravel caches ─────────────────────────────────────────────────────
+    # ── 2. Laravel caches ─────────────────────────────────────────────────────
     - $PHP $APPPATH/artisan config:cache
     - $PHP $APPPATH/artisan route:cache
     - $PHP $APPPATH/artisan view:cache
     - $PHP $APPPATH/artisan event:cache
 
-    # ── 4. Storage symlink (public/storage → storage/app/public) ─────────────
+    # ── 3. Storage symlink (public/storage → storage/app/public) ─────────────
     - $PHP $APPPATH/artisan storage:link --force
 
     # ── 5. Sync public/ → public_html/ ────────────────────────────────────────
