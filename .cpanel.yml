@@ -6,8 +6,8 @@ deployment:
     - export PHP=/usr/local/bin/php
 
     # ── 1. Sync full app to deployment directory ───────────────────────────────
-    # Excludes .env (lives on server, never overwritten) and runtime dirs
-    - /bin/rsync -a --delete --exclude='.git' --exclude='.env' --exclude='node_modules' --exclude='storage/logs' --exclude='storage/framework/cache' --exclude='storage/framework/sessions' --exclude='storage/framework/views' $REPOSITORY/ $APPPATH/
+    # Excludes .env, vendor (manually managed), and runtime dirs
+    - /bin/rsync -a --delete --exclude='.git' --exclude='.env' --exclude='vendor' --exclude='node_modules' --exclude='storage/logs' --exclude='storage/framework/cache' --exclude='storage/framework/sessions' --exclude='storage/framework/views' $REPOSITORY/ $APPPATH/
 
     # ── 2. Laravel caches ─────────────────────────────────────────────────────
     - $PHP $APPPATH/artisan config:cache
