@@ -1106,6 +1106,27 @@
         window.print();
         setTimeout(done, 1500);   // some browsers skip afterprint
     }
+    // ── Funnel counts: anonymous, no cookies or IDs; each event at most once per browser per day ──
+    var METRIC_URL = @json(route('personal.metric'));
+    var METRIC_KEY = 'luminii.personal.metrics';
+    function track(event) {
+        var today = iso(new Date()), sent = {};
+        try {
+            var m = JSON.parse(localStorage.getItem(METRIC_KEY) || 'null');
+            if (m && m.d === today && m.e) sent = m.e;
+            if (sent[event]) return;
+            sent[event] = 1;
+            localStorage.setItem(METRIC_KEY, JSON.stringify({ d: today, e: sent }));
+        } catch (e) {}
+        try {
+            fetch(METRIC_URL, {
+                method: 'POST', keepalive: true, credentials: 'same-origin',
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', 'X-CSRF-TOKEN': F('_token').value },
+                body: JSON.stringify({ event: event, doc_type: S.type })
+            }).catch(function () {});
+        } catch (e) {}
+    }
+
     // Direct download: draw a copy of the paper at A4 width, cut it into pages between rows, save.
     var PDF_LIBS = ['{{ asset('useluminii/assets/js/html2canvas-1.4.1.min.js') }}', '{{ asset('useluminii/assets/js/jspdf-3.0.3.umd.min.js') }}'];
     var pdfLibs = null, pdfBusy = false;
@@ -1275,7 +1296,7 @@
         closeGate();
         pdfBusy = true; setPdfBusy(true);
         makePdfDoc()
-            .then(function (doc) { doc.save(pdfName()); })
+            .then(function (doc) { doc.save(pdfName()); track('pdf_download'); })
             .catch(function (err) {
                 if (window.console) console.error('Direct PDF failed, using print instead:', err);
                 printPdf();
@@ -1289,6 +1310,7 @@
     function showStep(step) { gate.querySelectorAll('[data-qb-gate-step]').forEach(function (el) { el.hidden = el.dataset.qbGateStep !== step; }); }
     function openGate(e) {
         gateOpener = e && e.currentTarget;
+        track('send_click');
         gate.hidden = false; showStep('ask'); gateErr.hidden = true;
         var em = F('email');
         if (!em.value && S.from.email) em.value = S.from.email;
@@ -1511,6 +1533,7 @@
 
     setType(S.type);
     renderItems(); fillFields(); update(); setView('edit'); fit();
+    track('visit');
 })();
 </script>
 @endpush

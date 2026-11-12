@@ -88,6 +88,9 @@ class PersonalEarlyAccessController extends Controller
                     'priority'            => 'Normal',
                     'ip_address'          => $request->ip(),
                 ]);
+
+                // Funnel count: one per new early-access lead (anonymous; the lead itself is the record)
+                PersonalMetricsController::record('email_left', $data['doc_type']);
             }
         } catch (\Throwable $e) {
             Log::error('Failed to save Personal early-access lead', [
