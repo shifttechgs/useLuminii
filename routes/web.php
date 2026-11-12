@@ -174,3 +174,19 @@ Route::post('/logout', function () {
 
     return redirect()->route('crm.login');
 })->name('logout');
+
+/*
+| Scheduled jobs on Vercel: Vercel Cron calls this once a day (see vercel.json) with
+| "Authorization: Bearer <CRON_SECRET>". On a normal server, `php artisan schedule:run` does the same.
+*/
+Route::get('/cron/daily', function (\Illuminate\Http\Request $request) {
+    $secret = (string) config('services.cron.secret');
+    abort_unless($secret !== '' && hash_equals('Bearer '.$secret, (string) $request->header('Authorization')), 401);
+
+    $results = [];
+    foreach (['crm:recurring-invoices', 'crm:overdue-invoices', 'crm:expire-quotes'] as $command) {
+        $results[$command] = \Illuminate\Support\Facades\Artisan::call($command);
+    }
+
+    return response()->json(['ok' => true, 'exit_codes' => $results]);
+})->name('cron.daily');

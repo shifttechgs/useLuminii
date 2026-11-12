@@ -60,4 +60,9 @@ return [
         'webhook_secret' => env('STRIPE_WEBHOOK_SECRET'),
     ],
 
+    // Vercel Cron sends "Authorization: Bearer <CRON_SECRET>" to /cron/daily
+    'cron' => [
+        'secret' => env('CRON_SECRET'),
+    ],
+
 ];
