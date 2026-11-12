@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\PersonalEarlyAccessMail;
 use App\Models\Lead;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 /**
  * Early-access sign-ups from the Personal page's quote/invoice builder.
@@ -45,6 +47,8 @@ class PersonalEarlyAccessController extends Controller
         ]);
 
         $wants = ! empty($data['wants']) ? 'Wants: ' . self::WANTS[$data['wants']] : null;
+
+        $created = false;
 
         try {
             // One lead per email per day is enough; a repeat only updates the vote.
@@ -91,6 +95,7 @@ class PersonalEarlyAccessController extends Controller
 
                 // Funnel count: one per new early-access lead (anonymous; the lead itself is the record)
                 PersonalMetricsController::record('email_left', $data['doc_type']);
+                $created = true;
             }
         } catch (\Throwable $e) {
             Log::error('Failed to save Personal early-access lead', [
@@ -101,6 +106,21 @@ class PersonalEarlyAccessController extends Controller
             return response()->json([
                 'message' => 'Something went wrong on our side. Please try again in a moment.',
             ], 500);
+        }
+
+        // Confirmation email for new sign-ups only (not repeats). A mail problem must not fail the sign-up.
+        if ($created) {
+            try {
+                Mail::to($data['email'])->send(new PersonalEarlyAccessMail(
+                    name: ($data['name'] ?? null) ?: null,
+                    vote: ! empty($data['wants']) ? self::WANTS[$data['wants']] : null,
+                ));
+            } catch (\Throwable $e) {
+                Log::warning('Could not send Personal early-access confirmation', [
+                    'error' => $e->getMessage(),
+                    'email' => $data['email'],
+                ]);
+            }
         }
 
         return response()->json(['success' => true]);
