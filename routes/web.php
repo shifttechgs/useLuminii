@@ -47,6 +47,10 @@ Route::post('/book-demo', [ContactController::class, 'bookDemo'])->name('demo.su
 Route::post('/personal/early-access', [\App\Http\Controllers\PersonalEarlyAccessController::class, 'store'])
     ->middleware('throttle:6,1')
     ->name('personal.early-access');
+// Anonymous funnel counts from the Personal builder (visit, PDF download, Send click)
+Route::post('/personal/metric', [\App\Http\Controllers\PersonalMetricsController::class, 'store'])
+    ->middleware('throttle:30,1')
+    ->name('personal.metric');
 
 Route::get('sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
 
