@@ -4,8 +4,13 @@
 
         <div class="lp-section__header lp-section__header--center">
             <div class="lp-section__label" data-aos="fade-up">Real results</div>
-            <h2 class="lp-section__h2" data-aos="fade-up" data-aos-delay="60">Trusted by Service Businesses<br><em>Across South Africa</em></h2>
+            @if(($audience ?? 'business') === 'personal')
+            <h2 class="lp-section__h2" data-aos="fade-up" data-aos-delay="60">Loved by owner-operators<br><em>across South Africa</em></h2>
+            <p class="lp-section__sub" data-aos="fade-up" data-aos-delay="120">Owner-operators across South Africa, winning more work without more admin.</p>
+            @else
+            <h2 class="lp-section__h2" data-aos="fade-up" data-aos-delay="60">Trusted by service businesses<br><em>across South Africa</em></h2>
             <p class="lp-section__sub" data-aos="fade-up" data-aos-delay="120">Real businesses. Real numbers. Real results in the first 30 days.</p>
+            @endif
         </div>
 
         <!-- Full-width featured review -->

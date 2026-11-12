@@ -62,7 +62,7 @@
         </div>
     </section>
 
-    @include('components.pricing')
+    @include('components.business-pricing')
 
     <section class="lp-section lp-section--white" id="included">
         <div class="lp-wrap">
@@ -173,7 +173,7 @@
 <style>
 .lp-ph {
     background: #060F1E;
-    padding: 120px 0 80px;
+    padding: 150px 0 80px;
     text-align: center;
     position: relative;
 }
@@ -193,9 +193,9 @@
     color: rgba(255,255,255,0.45);
 }
 .lp-ph__h1 {
-    font-family: "Geist", system-ui, sans-serif;
+    font-family: var(--font-display);
     font-size: clamp(36px, 5vw, 60px);
-    font-weight: 800;
+    font-weight: 500;
     letter-spacing: -0.035em;
     line-height: 1.1;
     color: #fff;
@@ -212,7 +212,7 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    font-family: "Geist", system-ui, sans-serif;
+    font-family: var(--font-display);
     font-size: 13px;
     font-weight: 500;
     color: rgba(255,255,255,0.4);
@@ -244,9 +244,9 @@
     display: block;
 }
 .lp-pi__title {
-    font-family: "Geist", system-ui, sans-serif;
+    font-family: var(--font-display);
     font-size: 15px;
-    font-weight: 700;
+    font-weight: 500;
     color: #081D3A;
     margin-bottom: 6px;
 }

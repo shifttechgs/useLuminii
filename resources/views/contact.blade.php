@@ -25,7 +25,7 @@
     border: 1px solid rgba(255,255,255,0.14);
     color: rgba(255,255,255,0.9);
     font-size: 13px;
-    font-weight: 700;
+    font-weight: 500;
     backdrop-filter: blur(10px);
     box-shadow: 0 12px 28px rgba(0,0,0,0.16);
 }
@@ -184,7 +184,7 @@
 .lp-contact-booking__title {
     font-family: var(--font-display);
     font-size: clamp(34px, 4vw, 52px);
-    font-weight: 800;
+    font-weight: 500;
     line-height: 1.08;
     letter-spacing: -0.035em;
     color: var(--ink);
@@ -245,7 +245,7 @@
     display: block;
     font-family: var(--font-display);
     font-size: 14px;
-    font-weight: 700;
+    font-weight: 500;
     color: var(--ink);
 }
 @media (max-width: 960px) {
