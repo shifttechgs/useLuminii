@@ -22,6 +22,11 @@
                 <h2>Information <em>we collect</em></h2>
                 <p>We collect the information you provide when you submit a contact form, book a demo, or communicate with our team. This may include your name, email address, phone number, business details, and any information you choose to share about your operations.</p>
 
+                <h2>Free quote and <em>invoice maker</em></h2>
+                <p>The quotes and invoices you create in the free maker stay on your device. Your draft, logo, and your client's details are saved in your browser's local storage, and PDFs are created in your browser. None of this is sent to us.</p>
+                <p>If you choose to join early access, either through the Send button or after downloading a PDF, we store the email address you give us, your name if you add it, the feature you vote for if you pick one, and a short summary of your draft: whether it is a quote or an invoice, the number of line items, the currency and total, and your time zone. We use this to tell you when new features open and to decide what to build next.</p>
+                <p>We also count how the maker is used: page visits, PDF downloads, clicks on Send, and early-access sign-ups. These counts are anonymous. We do not use cookies or identifiers for them, and we do not record who you are or what is in your document. Your browser keeps a small note so the same action is counted at most once a day.</p>
+
                 <h2>How we <em>use information</em></h2>
                 <p>We use this information to respond to enquiries, schedule demos, assess your business flow, deliver onboarding, and improve our services. We may also use submitted information for internal reporting, lead management, and customer support.</p>
 
