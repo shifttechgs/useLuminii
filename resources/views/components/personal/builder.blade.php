@@ -209,16 +209,17 @@
                 <button type="button" class="qb__gate-x" data-qb-wa-close aria-label="Close"><i class="ph ph-x" aria-hidden="true"></i></button>
                 <h2 class="qb__gate-h qb-wa__h" id="qb-wa-h"><i class="ph ph-whatsapp-logo" aria-hidden="true"></i> Share on WhatsApp</h2>
 
+                <p class="qb-wa__share-note" data-qb-wa-share-note hidden><i class="ph ph-paperclip" aria-hidden="true"></i> <span>The PDF is attached for you. Tap <strong>Send with PDF</strong>, pick WhatsApp, then your client.</span></p>
                 <ol class="qb-wa__steps">
-                    <li>
+                    <li data-qb-wa-step="pdf">
                         <span class="qb-wa__n" aria-hidden="true">1</span>
-                        <div><button type="button" class="qb-wa__pdf" data-qb-pdf><i class="ph ph-download-simple" aria-hidden="true"></i> Download the PDF</button> <span class="qb-wa__hint">so you can attach it in the chat</span></div>
+                        <div><button type="button" class="qb-wa__pdf" data-qb-pdf><i class="ph ph-download-simple" aria-hidden="true"></i> Download the PDF</button> <span class="qb-wa__hint">then attach it in the chat with the <i class="ph ph-paperclip" aria-hidden="true"></i> button</span></div>
                     </li>
                     <li>
                         <span class="qb-wa__n" aria-hidden="true">2</span>
                         <label class="qb__field qb-wa__field"><span>Message <em>edit if you like</em></span><textarea data-qb-wa-msg rows="9" maxlength="2000"></textarea></label>
                     </li>
-                    <li>
+                    <li data-qb-wa-step="phone">
                         <span class="qb-wa__n" aria-hidden="true">3</span>
                         <div>
                             <label class="qb__field qb-wa__field"><span>Client's WhatsApp number <em>optional</em></span><input type="tel" data-qb-wa-phone inputmode="tel" autocomplete="off" maxlength="24" placeholder="Country code and number, e.g. 27 82 123 4567" aria-describedby="qb-wa-err qb-wa-note"></label>
@@ -230,7 +231,7 @@
 
                 <div class="qb-wa__actions">
                     <button type="button" class="qb__btn qb__btn--ghost" data-qb-wa-copy><i class="ph ph-copy" aria-hidden="true"></i> <span data-qb-wa-copy-label>Copy message</span></button>
-                    <button type="button" class="qb__btn qb__btn--solid" data-qb-wa-open><i class="ph ph-whatsapp-logo" aria-hidden="true"></i> Open WhatsApp</button>
+                    <button type="button" class="qb__btn qb__btn--solid" data-qb-wa-open><i class="ph ph-whatsapp-logo" aria-hidden="true" data-qb-wa-open-icon></i> <span data-qb-wa-open-label>Open WhatsApp</span></button>
                 </div>
             </div>
         </div>
@@ -1262,15 +1263,18 @@
             });
         }).then(function (doc) { cleanup(); return doc; }, function (err) { cleanup(); throw err; });
     }
+    function makePdfDoc() {
+        pdfCreated = createdStamp();
+        return loadPdfLibs()
+            .then(loadFooterLogo)
+            .then(function () { return document.fonts && document.fonts.ready; })
+            .then(buildPdf);
+    }
     function pdf() {
         if (pdfBusy) return;
         closeGate();
         pdfBusy = true; setPdfBusy(true);
-        pdfCreated = createdStamp();
-        loadPdfLibs()
-            .then(loadFooterLogo)
-            .then(function () { return document.fonts && document.fonts.ready; })
-            .then(buildPdf)
+        makePdfDoc()
             .then(function (doc) { doc.save(pdfName()); })
             .catch(function (err) {
                 if (window.console) console.error('Direct PDF failed, using print instead:', err);
@@ -1387,6 +1391,48 @@
         if (/^\+/.test(d)) d = d.slice(1); else if (/^00/.test(d)) d = d.slice(2); else if (/^0/.test(d)) return null;
         return /^[1-9]\d{6,14}$/.test(d) ? d : null;
     }
+    // A wa.me link can only carry text. Phones that can share files get the PDF attached through the
+    // share sheet instead; everyone else downloads it and attaches it in the chat.
+    var waCard = wa.querySelector('.qb-wa');
+    var waOpenBtn = wa.querySelector('[data-qb-wa-open]');
+    var waOpenLabel = wa.querySelector('[data-qb-wa-open-label]');
+    var waOpenIcon = wa.querySelector('[data-qb-wa-open-icon]');
+    var waShareMode = false, waFile = null, waFileKey = '', waFileJob = 0;
+    function canShareFiles() {
+        try {
+            if (!navigator.canShare || !navigator.share) return false;
+            if (!window.matchMedia('(pointer: coarse)').matches) return false;   // phones and tablets
+            return navigator.canShare({ files: [new File(['%PDF-1.4'], 'check.pdf', { type: 'application/pdf' })] });
+        } catch (e) { return false; }
+    }
+    function setWaOpen(state) {
+        // state: 'link' | 'preparing' | 'ready'
+        waOpenBtn.disabled = state === 'preparing';
+        waOpenBtn.setAttribute('aria-busy', state === 'preparing' ? 'true' : 'false');
+        waOpenLabel.textContent = state === 'link' ? 'Open WhatsApp' : state === 'preparing' ? 'Preparing PDF\u2026' : 'Send with PDF';
+        waOpenIcon.className = state === 'preparing' ? 'ph ph-spinner-gap qb-spin' : state === 'ready' ? 'ph ph-paper-plane-tilt' : 'ph ph-whatsapp-logo';
+    }
+    function applyWaMode() {
+        waCard.classList.toggle('is-share', waShareMode);
+        wa.querySelector('[data-qb-wa-share-note]').hidden = !waShareMode;
+        if (!waShareMode) setWaOpen('link');
+    }
+    function prepareWaFile() {
+        var key = JSON.stringify(S);
+        if (waFile && waFileKey === key) { setWaOpen('ready'); return; }
+        waFile = null;
+        setWaOpen('preparing');
+        var job = ++waFileJob;
+        makePdfDoc().then(function (doc) {
+            if (job !== waFileJob) return;
+            waFile = new File([doc.output('blob')], pdfName(), { type: 'application/pdf' });
+            waFileKey = key;
+            setWaOpen('ready');
+        }).catch(function () {
+            if (job !== waFileJob) return;
+            waShareMode = false; applyWaMode();   // fall back to download + link
+        });
+    }
     function openWa(e) {
         waOpener = e && e.currentTarget;
         closeGate();
@@ -1394,9 +1440,13 @@
         waPhone.value = (S.to && S.to.phone) || '';
         waErr.hidden = true; waPhone.removeAttribute('aria-invalid');
         waCopyLabel.textContent = 'Copy message';
+        waShareMode = canShareFiles();
+        applyWaMode();
         wa.hidden = false;
         waMsg.scrollTop = 0;
-        var first = wa.querySelector('.qb-wa__pdf'); if (first) first.focus({ preventScroll: true });
+        if (waShareMode) prepareWaFile();
+        var first = waShareMode ? waMsg : wa.querySelector('.qb-wa__pdf');
+        if (first) first.focus({ preventScroll: true });
     }
     function closeWa() {
         if (wa.hidden) return;
@@ -1408,6 +1458,23 @@
     wa.addEventListener('click', function (e) { if (e.target === wa) closeWa(); });
     waPhone.addEventListener('input', function () { waErr.hidden = true; waPhone.removeAttribute('aria-invalid'); });
     wa.querySelector('[data-qb-wa-open]').addEventListener('click', function () {
+        if (waShareMode) {
+            if (!waFile) return;   // still preparing (the button is disabled meanwhile)
+            var caption = waMsg.value.trim();
+            // Some apps drop the caption when a file is shared, so keep a copy on the clipboard too
+            try { if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(caption).catch(function () {}); } catch (err) {}
+            var data = { files: [waFile], title: pdfName().replace(/\.pdf$/, '') };
+            if (caption) data.text = caption;
+            navigator.share(data).then(function () {
+                closeWa();
+            }).catch(function (err) {
+                if (err && err.name === 'AbortError') return;   // closed the share sheet
+                waShareMode = false; applyWaMode();
+                waErr.textContent = 'This phone could not share the file. Download the PDF, then open WhatsApp and attach it.';
+                waErr.hidden = false;
+            });
+            return;
+        }
         var n = waNumber(waPhone.value);
         if (n === null) {
             waErr.textContent = 'Start with the country code, for example 27 82 123 4567 or +44 7700 900123.';
