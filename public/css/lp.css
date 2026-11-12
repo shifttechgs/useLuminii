@@ -3600,7 +3600,10 @@ body .lp-page__visual-title { font-weight: 400; letter-spacing: -0.02em; }
 .lp-fh__wrap {
     /* Side margins like zig.ai: about 14% of the viewport on wide screens, tightening on smaller ones */
     --fh-pad: clamp(32px, calc((100vw - 1100px) * 0.48), 260px);
-    max-width: none;
+    /* Same content cap as the sections below, so edges stay aligned on very wide screens */
+    max-width: calc(var(--lp-content-max, 1520px) + 2 * var(--fh-pad));
+    margin-left: auto;
+    margin-right: auto;
     padding-left: var(--fh-pad);
     padding-right: var(--fh-pad);
     width: 100%;
@@ -3836,7 +3839,8 @@ body .lp-page__visual-title { font-weight: 400; letter-spacing: -0.02em; }
 @media (max-width: 560px) { .lp-fh__h1-line { white-space: normal; } }
 
 /* Home: header bar matches the wider hero content */
-.lp-hdr--light .lp-hdr__shell { max-width: calc(100vw - 2 * clamp(32px, calc((100vw - 1100px) * 0.48), 260px) + 44px); }
+/* Header lines up with the content below, including the content cap on very wide screens */
+.lp-hdr--light .lp-hdr__shell { max-width: calc(min(100vw - 2 * clamp(32px, calc((100vw - 1100px) * 0.48), 260px), var(--lp-content-max, 1520px)) + 44px); }
 @media (max-width: 640px) { .lp-fh__wrap { padding-left: 20px; padding-right: 20px; } }
 
 /* ================================================================
@@ -4987,7 +4991,10 @@ html.has-gap-stack-motion .lp-gap__stack-card.is-revealed {
 .lp--business, .lp--personal { --lp-pad: clamp(32px, calc((100vw - 1100px) * 0.48), 260px); }
 .lp--business .lp-wrap,
 .lp--personal .lp-wrap {
-    max-width: none;
+    /* Content stops growing at --lp-content-max and centres on very wide screens (2K, 4K, ultrawide) */
+    max-width: calc(var(--lp-content-max, 1520px) + 2 * var(--lp-pad));
+    margin-left: auto;
+    margin-right: auto;
     padding-left: var(--lp-pad);
     padding-right: var(--lp-pad);
 }
@@ -5006,6 +5013,9 @@ html.has-gap-stack-motion .lp-gap__stack-card.is-revealed {
     font-family: var(--font-body);
 }
 .qb__app {
+    /* On large screens the builder stays together in the middle instead of spreading to the edges */
+    max-width: 1600px;
+    margin: 0 auto;
     display: grid;
     grid-template-rows: auto minmax(0, 1fr);
     gap: 16px;
