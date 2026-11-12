@@ -22,6 +22,9 @@ class AppServiceProvider extends ServiceProvider
     {
         Schema::defaultStringLength(191);
 
+        // A business set for one request (client hub, website forms) must never carry over
+        $this->app->terminating(fn () => \App\Support\CurrentBusiness::set(null));
+
         // Register the crm:: Blade component namespace
         Blade::componentNamespace('App\\View\\Components\\Crm', 'crm');
         // Anonymous components in resources/views/components/crm/

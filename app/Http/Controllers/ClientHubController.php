@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Support\CurrentBusiness;
+
 use App\Models\Invoice;
 use App\Models\Quote;
 use App\Models\BusinessSetup;
@@ -16,7 +18,8 @@ class ClientHubController extends Controller
 
     public function viewQuote(string $token)
     {
-        $quote    = Quote::with(['client', 'items', 'comments'])->where('accepted_token', $token)->firstOrFail();
+        $quote    = Quote::allBusinesses()->with(['client', 'items', 'comments'])->where('accepted_token', $token)->firstOrFail();
+        CurrentBusiness::set($quote->business_id);   // settings, notifications and new records follow this quote/invoice
         $business = BusinessSetup::current();
         $logoUrl  = $business->logo_path
             ? asset('storage/' . $business->logo_path)
@@ -26,7 +29,8 @@ class ClientHubController extends Controller
 
     public function postComment(string $token, Request $request)
     {
-        $quote = Quote::with('client')->where('accepted_token', $token)->firstOrFail();
+        $quote = Quote::allBusinesses()->with('client')->where('accepted_token', $token)->firstOrFail();
+        CurrentBusiness::set($quote->business_id);   // settings, notifications and new records follow this quote/invoice
 
         $request->validate(['message' => 'required|string|max:2000']);
 
@@ -54,7 +58,8 @@ class ClientHubController extends Controller
 
     public function acceptQuote(string $token, Request $request)
     {
-        $quote = Quote::with('client')->where('accepted_token', $token)->firstOrFail();
+        $quote = Quote::allBusinesses()->with('client')->where('accepted_token', $token)->firstOrFail();
+        CurrentBusiness::set($quote->business_id);   // settings, notifications and new records follow this quote/invoice
 
         if ($quote->status === 'Sent') {
             $quote->update(['status' => 'Accepted', 'accepted_at' => now()]);
@@ -93,7 +98,8 @@ class ClientHubController extends Controller
 
     public function declineQuote(string $token, Request $request)
     {
-        $quote = Quote::with('client')->where('accepted_token', $token)->firstOrFail();
+        $quote = Quote::allBusinesses()->with('client')->where('accepted_token', $token)->firstOrFail();
+        CurrentBusiness::set($quote->business_id);   // settings, notifications and new records follow this quote/invoice
 
         if (in_array($quote->status, ['Sent', 'Accepted'])) {
             $quote->update(['status' => 'Declined']);
@@ -131,7 +137,8 @@ class ClientHubController extends Controller
 
     public function viewInvoice(string $token)
     {
-        $invoice  = Invoice::with(['client', 'items'])->where('view_token', $token)->firstOrFail();
+        $invoice  = Invoice::allBusinesses()->with(['client', 'items'])->where('view_token', $token)->firstOrFail();
+        CurrentBusiness::set($invoice->business_id);   // settings, notifications and new records follow this quote/invoice
         $business = BusinessSetup::current();
         $logoUrl  = $business->logo_path
             ? asset('storage/' . $business->logo_path)
@@ -150,7 +157,8 @@ class ClientHubController extends Controller
 
     public function paypalCheckout(string $token)
     {
-        $invoice = Invoice::with('client')->where('view_token', $token)->firstOrFail();
+        $invoice = Invoice::allBusinesses()->with('client')->where('view_token', $token)->firstOrFail();
+        CurrentBusiness::set($invoice->business_id);   // settings, notifications and new records follow this quote/invoice
 
         if ($invoice->status === 'Paid') {
             return redirect()->route('client-hub.invoice', $token)
@@ -202,7 +210,8 @@ class ClientHubController extends Controller
 
     public function paypalSuccess(string $token, Request $request)
     {
-        $invoice = Invoice::where('view_token', $token)->firstOrFail();
+        $invoice = Invoice::allBusinesses()->where('view_token', $token)->firstOrFail();
+        CurrentBusiness::set($invoice->business_id);   // settings, notifications and new records follow this quote/invoice
 
         $provider = new PayPalClient(config('paypal'));
         $provider->getAccessToken();
@@ -252,7 +261,10 @@ class ClientHubController extends Controller
         if (($payload['event_type'] ?? '') === 'CHECKOUT.ORDER.APPROVED') {
             $orderId = $payload['resource']['id'] ?? null;
             if ($orderId) {
-                $invoice = Invoice::where('paypal_order_id', $orderId)->first();
+                $invoice = Invoice::allBusinesses()->where('paypal_order_id', $orderId)->first();
+                if ($invoice) {
+                    CurrentBusiness::set($invoice->business_id);
+                }
                 if ($invoice && $invoice->status !== 'Paid') {
                     $capture = $provider->capturePaymentOrder($orderId);
                     if (($capture['status'] ?? '') === 'COMPLETED') {

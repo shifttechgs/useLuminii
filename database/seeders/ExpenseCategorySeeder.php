@@ -7,9 +7,10 @@ use Illuminate\Support\Facades\DB;
 
 class ExpenseCategorySeeder extends Seeder
 {
-    public function run(): void
+    /** Default categories every business starts with (also used by crm:create-business). */
+    public static function defaults(): array
     {
-        $categories = [
+        return [
             ['name' => 'Advertising & Marketing', 'color' => '#6366f1', 'sort_order' => 1],
             ['name' => 'Equipment & Tools',        'color' => '#3b82f6', 'sort_order' => 2],
             ['name' => 'Software & Subscriptions', 'color' => '#8b5cf6', 'sort_order' => 3],
@@ -23,11 +24,17 @@ class ExpenseCategorySeeder extends Seeder
             ['name' => 'Repairs & Maintenance',      'color' => '#ef4444', 'sort_order' => 11],
             ['name' => 'Miscellaneous',              'color' => '#94a3b8', 'sort_order' => 12],
         ];
+    }
 
-        foreach ($categories as $cat) {
+    /** Seeds the defaults for one business (the platform business unless given). */
+    public function run(?string $businessId = null): void
+    {
+        $businessId ??= config('crm.business_id', 'ST-001');
+
+        foreach (self::defaults() as $cat) {
             DB::table('expense_categories')->updateOrInsert(
-                ['name' => $cat['name']],
-                array_merge($cat, ['created_at' => now(), 'updated_at' => now()])
+                ['business_id' => $businessId, 'name' => $cat['name']],
+                array_merge($cat, ['business_id' => $businessId, 'created_at' => now(), 'updated_at' => now()])
             );
         }
     }

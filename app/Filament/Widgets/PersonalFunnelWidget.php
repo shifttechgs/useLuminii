@@ -21,7 +21,9 @@ class PersonalFunnelWidget extends StatsOverviewWidget
     {
         $user = auth()->user();
 
-        return $user && method_exists($user, 'isAdmin') && $user->isAdmin();
+        // Platform data (the useLuminii website), so only the platform business's admins see it
+        return $user && method_exists($user, 'isAdmin') && $user->isAdmin()
+            && $user->business_id === \App\Support\CurrentBusiness::platform();
     }
 
     protected function getStats(): array

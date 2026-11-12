@@ -23,7 +23,7 @@ class DashboardController extends Controller
     {
         $now = now();
 
-        $stats = Cache::remember('crm_dashboard_stats', 60, function () use ($now) {
+        $stats = Cache::remember('crm_dashboard_stats:' . \App\Support\CurrentBusiness::id(), 60, function () use ($now) {
             $monthStart = $now->copy()->startOfMonth();
             $monthEnd   = $now->copy()->endOfMonth();
             $lastMonthStart = $now->copy()->subMonth()->startOfMonth();
@@ -64,7 +64,7 @@ class DashboardController extends Controller
             ];
         });
 
-        $revenueChart = Cache::remember('crm_revenue_chart', 300, function () {
+        $revenueChart = Cache::remember('crm_revenue_chart:' . \App\Support\CurrentBusiness::id(), 300, function () {
             $months = [];
             for ($i = 5; $i >= 0; $i--) {
                 $date  = now()->subMonths($i);

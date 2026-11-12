@@ -7,7 +7,16 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class QuoteComment extends Model
 {
-    protected $fillable = ['quote_id', 'author_type', 'author_name', 'message'];
+    use \App\Models\Concerns\BelongsToBusiness;
+
+    /** New records take their parent's business (they can be created without a signed-in user). */
+    public function businessParents(): array
+    {
+        return ['quote_id' => [Quote::class, 'quote_id']];
+    }
+
+    protected $fillable = [
+        'business_id','quote_id', 'author_type', 'author_name', 'message'];
 
     public function quote(): BelongsTo
     {

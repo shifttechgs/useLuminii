@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Expense extends Model
 {
+    use \App\Models\Concerns\BelongsToBusiness;
+
     use SoftDeletes;
 
     protected $fillable = [

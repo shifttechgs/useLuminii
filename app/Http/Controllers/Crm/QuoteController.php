@@ -120,7 +120,7 @@ class QuoteController extends Controller
     {
         $data = $request->validate([
             'client_id'          => 'required|string',
-            'source_request_id'  => 'nullable|exists:client_requests,id',
+            'source_request_id'  => ['nullable', \App\Support\BusinessRules::exists('client_requests', 'id')],
             'job_title'          => 'required|string|max:255',
             'status'             => 'required|in:Draft,Sent,Accepted,Declined,Expired',
             'quote_date'         => 'required|date',

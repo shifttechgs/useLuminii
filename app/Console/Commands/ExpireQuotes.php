@@ -11,7 +11,17 @@ class ExpireQuotes extends Command
     protected $signature   = 'crm:expire-quotes';
     protected $description = 'Auto-expire sent quotes past their expiry date and warn about quotes expiring within 2 days';
 
+    /** Runs once per business, so notifications and new records belong to that business. */
     public function handle(): void
+    {
+        $businessIds = \App\Models\Quote::allBusinesses()->whereNotNull('business_id')->distinct()->pluck('business_id');
+
+        foreach ($businessIds as $businessId) {
+            \App\Support\CurrentBusiness::run($businessId, fn () => $this->runForBusiness());
+        }
+    }
+
+    private function runForBusiness(): void
     {
         $this->expireOverdue();
         $this->warnExpiringSoon();

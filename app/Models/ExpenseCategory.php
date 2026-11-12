@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class ExpenseCategory extends Model
 {
+    use \App\Models\Concerns\BelongsToBusiness;
+
     protected $fillable = ['business_id', 'name', 'color', 'sort_order'];
 
     public function expenses(): HasMany

@@ -7,9 +7,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Lead extends Model
 {
+    use \App\Models\Concerns\BelongsToBusiness;
+
     use SoftDeletes;
 
     protected $fillable = [
+        'business_id',
         'lead_id', 'source', 'name', 'email', 'phone', 'company',
         'services_interested', 'message', 'budget',
         'status', 'priority', 'assigned_to', 'admin_notes',

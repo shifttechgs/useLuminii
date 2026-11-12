@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ClientRequest extends Model
 {
+    use \App\Models\Concerns\BelongsToBusiness;
+
     use SoftDeletes;
 
     protected $fillable = [

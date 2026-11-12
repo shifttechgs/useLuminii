@@ -70,8 +70,8 @@ class CalendarController extends Controller
     public function schedule(Request $request)
     {
         $data = $request->validate([
-            'job_id'             => 'required|string|exists:crm_jobs,job_id',
-            'team_member_id'     => 'nullable|exists:users,id',
+            'job_id'             => ['required', 'string', \App\Support\BusinessRules::exists('crm_jobs', 'job_id')],
+            'team_member_id'     => ['nullable', \App\Support\BusinessRules::exists('users', 'id')],
             'job_type'           => 'required|in:Once-off,Recurring',
             'scheduled_date'     => 'required|date',
             'scheduled_end'      => 'nullable|date',

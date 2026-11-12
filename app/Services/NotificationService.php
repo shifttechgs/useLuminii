@@ -16,10 +16,10 @@ class NotificationService
         string $icon = 'heroicon-o-bell',
         string $link = '',
         ?int $userId = null,
-        string $businessId = 'ST-001'
+        ?string $businessId = null   // null: the current business (see App\Support\CurrentBusiness)
     ): void {
         Notification::create([
-            'business_id' => $businessId,
+            'business_id' => $businessId ?? \App\Support\CurrentBusiness::idOrPlatform(),
             'user_id'     => $userId,
             'title'       => $title,
             'description' => $description,

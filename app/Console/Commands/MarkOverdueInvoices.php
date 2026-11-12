@@ -11,7 +11,17 @@ class MarkOverdueInvoices extends Command
     protected $signature   = 'crm:overdue-invoices';
     protected $description = 'Mark invoices past due date as Overdue and create notifications';
 
+    /** Runs once per business, so notifications and new records belong to that business. */
     public function handle(): void
+    {
+        $businessIds = \App\Models\Invoice::allBusinesses()->whereNotNull('business_id')->distinct()->pluck('business_id');
+
+        foreach ($businessIds as $businessId) {
+            \App\Support\CurrentBusiness::run($businessId, fn () => $this->runForBusiness());
+        }
+    }
+
+    private function runForBusiness(): void
     {
         $invoices = Invoice::whereIn('status', ['Sent', 'PartiallyPaid'])
             ->whereNotNull('due_date')

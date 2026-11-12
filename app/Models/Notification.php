@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Notification extends Model
 {
+    use \App\Models\Concerns\BelongsToBusiness;
+
     protected $fillable = [
         'business_id', 'user_id', 'title', 'description',
         'icon', 'link', 'type', 'is_read',
