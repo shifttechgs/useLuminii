@@ -208,7 +208,7 @@ class ClientResource extends Resource
                 ]),
             ])
             ->modifyQueryUsing(fn ($query) => $query
-                ->orderByRaw("FIELD(client_type, 'Lead', 'Prospect', 'Client')")
+                ->orderByRaw("CASE client_type WHEN 'Lead' THEN 1 WHEN 'Prospect' THEN 2 WHEN 'Client' THEN 3 ELSE 4 END")
                 ->orderBy('created_at', 'asc')
             )
             ->striped();

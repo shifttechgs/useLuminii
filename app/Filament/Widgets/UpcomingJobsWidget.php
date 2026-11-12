@@ -35,7 +35,7 @@ class UpcomingJobsWidget extends BaseWidget
                                  ->where('job_date_time', '<=', $todayEnd);
                           });
                     })
-                    ->orderByRaw("FIELD(job_status, 'InProgress', 'Scheduled', 'New')")
+                    ->orderByRaw("CASE job_status WHEN 'InProgress' THEN 1 WHEN 'Scheduled' THEN 2 WHEN 'New' THEN 3 ELSE 4 END")
                     ->orderBy('job_date_time')
                     ->limit(8)
             )

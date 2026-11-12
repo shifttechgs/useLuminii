@@ -77,7 +77,7 @@ Tables\Columns\TextColumn::make('next_action')
 **Sort:** Urgent → High → Normal → Low, then oldest first (most stale = most at risk):
 ```php
 ->modifyQueryUsing(fn ($query) => $query
-    ->orderByRaw("FIELD(priority, 'Urgent', 'High', 'Normal', 'Low')")
+    ->orderByRaw("CASE priority WHEN 'Urgent' THEN 1 WHEN 'High' THEN 2 WHEN 'Normal' THEN 3 WHEN 'Low' THEN 4 ELSE 5 END")
     ->orderBy('created_at', 'asc')
 )
 ```
@@ -154,6 +154,9 @@ All tables use `->striped()`.
 ---
 
 ## Key Technical Notes
+
+### Database: Postgres (Supabase)
+The app runs on Supabase Postgres (`DB_CONNECTION=pgsql`, session pooler on port 5432, `DB_SSLMODE=require`). Keep raw SQL portable: no MySQL-only functions such as `FIELD()`, `IFNULL()`, `GROUP_CONCAT()` or `DATE_FORMAT()`. For a custom sort order use `CASE col WHEN 'a' THEN 1 WHEN 'b' THEN 2 ELSE 3 END`. Tests run on in-memory SQLite (`phpunit.xml`).
 
 ### MySQL utf8mb4 Key Length
 This server has a ~1000 byte index limit. Adding `Schema::defaultStringLength(191)` at the top of migrations prevents `Specified key was too long` errors. Use `string(20)` for ID columns, `string(30)` for status/source columns.

@@ -450,7 +450,7 @@ class QuoteResource extends Resource
             ])
             ->bulkActions([Tables\Actions\BulkActionGroup::make([Tables\Actions\DeleteBulkAction::make()])])
             ->modifyQueryUsing(fn ($query) => $query
-                ->orderByRaw("FIELD(status, 'Draft', 'Sent', 'Accepted', 'Declined', 'Expired')")
+                ->orderByRaw("CASE status WHEN 'Draft' THEN 1 WHEN 'Sent' THEN 2 WHEN 'Accepted' THEN 3 WHEN 'Declined' THEN 4 WHEN 'Expired' THEN 5 ELSE 6 END")
                 ->orderBy('quote_date', 'desc')
             )
             ->striped();

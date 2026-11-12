@@ -103,8 +103,7 @@ return new class extends Migration
 
     private function hasIndex(string $table, string $index): bool
     {
-        return collect(\DB::select("SHOW INDEX FROM `{$table}`"))
-            ->pluck('Key_name')
-            ->contains($index);
+        // Database-agnostic (works on MySQL, Postgres and SQLite)
+        return Schema::hasIndex($table, $index);
     }
 };
