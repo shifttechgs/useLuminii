@@ -236,6 +236,38 @@
             </div>
         </div>
 
+        {{-- After a download: one-tap, opt-in early access (email pre-filled from "From"). Shown once per browser. --}}
+        <aside class="qb-nudge" id="qb-nudge" aria-labelledby="qb-nudge-h" hidden>
+            <button type="button" class="qb-nudge__x" data-qb-nudge-close aria-label="No thanks, close"><i class="ph ph-x" aria-hidden="true"></i></button>
+            <div data-qb-nudge-step="ask">
+                <p class="qb-nudge__kicker"><i class="ph ph-check-circle" aria-hidden="true"></i> Your PDF is downloading</p>
+                <h2 class="qb-nudge__h" id="qb-nudge-h">Send it as a link next time?</h2>
+                <p class="qb-nudge__p">Clients accept or pay online, and you see when they open it. Get early access, free.</p>
+                <form class="qb-nudge__form" data-qb-nudge-form novalidate>
+                    <div class="qb-nudge__row">
+                        <input type="email" data-qb-nudge-email autocomplete="email" placeholder="you@example.com" maxlength="255" aria-label="Your email">
+                        <button type="submit" class="qb__btn qb__btn--solid">Notify me</button>
+                    </div>
+                    <fieldset class="qb-nudge__vote">
+                        <legend>What should we build first? <em>optional</em></legend>
+                        <div class="qb-nudge__chips">
+                        <label class="qb-nudge__chip"><input type="radio" name="nudge_wants" value="accept"><span>Online acceptance</span></label>
+                        <label class="qb-nudge__chip"><input type="radio" name="nudge_wants" value="pay"><span>Pay button</span></label>
+                        <label class="qb-nudge__chip"><input type="radio" name="nudge_wants" value="remind"><span>Reminders</span></label>
+                        <label class="qb-nudge__chip"><input type="radio" name="nudge_wants" value="track"><span>Open tracking</span></label>
+                        </div>
+                    </fieldset>
+                    <p class="qb__gate-err" data-qb-nudge-err role="alert" hidden></p>
+                </form>
+                <button type="button" class="qb-nudge__skip" data-qb-nudge-close>No thanks</button>
+            </div>
+            <div data-qb-nudge-step="done" hidden>
+                <p class="qb-nudge__kicker"><i class="ph ph-check-circle" aria-hidden="true"></i> Done</p>
+                <h2 class="qb-nudge__h">You're on the list</h2>
+                <p class="qb-nudge__p">We'll email <strong data-qb-nudge-done-email></strong> as soon as sending opens.</p>
+            </div>
+        </aside>
+
         <div class="qb-toast" id="qb-toast" role="status" aria-live="polite" hidden>
             <i class="ph ph-check-circle" aria-hidden="true"></i>
             <span class="qb-toast__msg" data-qb-toast-msg></span>
@@ -1106,6 +1138,55 @@
         window.print();
         setTimeout(done, 1500);   // some browsers skip afterprint
     }
+    // ── After-download card: opt-in early access, email pre-filled, once per browser ──
+    var NUDGE_KEY = 'luminii.personal.nudge';
+    var nudge = document.getElementById('qb-nudge');
+    var nudgeForm = nudge.querySelector('[data-qb-nudge-form]');
+    var nudgeEmail = nudge.querySelector('[data-qb-nudge-email]');
+    var nudgeErr = nudge.querySelector('[data-qb-nudge-err]');
+    var nudgeTimer = null;
+    function nudgeState() { try { return localStorage.getItem(NUDGE_KEY) || ''; } catch (e) { return ''; } }
+    function setNudgeState(v) { try { localStorage.setItem(NUDGE_KEY, v); } catch (e) {} }
+    function nudgeStep(step) { nudge.querySelectorAll('[data-qb-nudge-step]').forEach(function (el) { el.hidden = el.dataset.qbNudgeStep !== step; }); }
+    function showNudge() {
+        if (nudgeState()) return;   // already joined, or said no thanks
+        var waDialog = document.getElementById('qb-wa');
+        if (!gate.hidden || (waDialog && !waDialog.hidden)) return;
+        var from = (S.from.email || '').trim();
+        nudgeEmail.value = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(from) ? from : '';
+        nudgeForm.querySelectorAll('input[name="nudge_wants"]').forEach(function (r) { r.checked = false; });
+        nudgeErr.hidden = true;
+        nudgeStep('ask');
+        nudge.hidden = false;
+        nudge.classList.remove('is-in'); void nudge.offsetWidth; nudge.classList.add('is-in');
+    }
+    function hideNudge(remember) {
+        clearTimeout(nudgeTimer);
+        if (remember) setNudgeState(remember);
+        nudge.hidden = true;
+    }
+    nudge.querySelectorAll('[data-qb-nudge-close]').forEach(function (b) { b.addEventListener('click', function () { hideNudge('dismissed'); }); });
+    nudge.addEventListener('keydown', function (e) { if (e.key === 'Escape') hideNudge('dismissed'); });
+    nudgeForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var email = nudgeEmail.value.trim();
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            nudgeErr.textContent = 'Please enter a valid email address.'; nudgeErr.hidden = false; nudgeEmail.focus(); return;
+        }
+        var btn = nudgeForm.querySelector('[type="submit"]');
+        btn.disabled = true; nudgeErr.hidden = true;
+        postEarlyAccess({
+            email: email,
+            wants: (nudgeForm.querySelector('input[name="nudge_wants"]:checked') || {}).value || ''
+        }).then(function () {
+            nudge.querySelector('[data-qb-nudge-done-email]').textContent = email;
+            nudgeStep('done');
+            nudgeTimer = setTimeout(function () { hideNudge(); }, 5000);
+        }).catch(function (err) {
+            nudgeErr.textContent = err.message; nudgeErr.hidden = false;
+        }).then(function () { btn.disabled = false; });
+    });
+
     // ── Funnel counts: anonymous, no cookies or IDs; each event at most once per browser per day ──
     var METRIC_URL = @json(route('personal.metric'));
     var METRIC_KEY = 'luminii.personal.metrics';
@@ -1296,7 +1377,11 @@
         closeGate();
         pdfBusy = true; setPdfBusy(true);
         makePdfDoc()
-            .then(function (doc) { doc.save(pdfName()); track('pdf_download'); })
+            .then(function (doc) {
+                doc.save(pdfName());
+                track('pdf_download');
+                setTimeout(showNudge, 700);   // after the file has started saving
+            })
             .catch(function (err) {
                 if (window.console) console.error('Direct PDF failed, using print instead:', err);
                 printPdf();
@@ -1329,37 +1414,49 @@
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !gate.hidden) closeGate(); });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !wa.hidden) closeWa(); });
 
+    // Early-access sign-up (Send window and the after-download card): creates a CRM lead with an
+    // optional "build first" vote. Only a summary of the draft is sent, never the client's details.
+    function postEarlyAccess(fields) {
+        var t = totals();
+        var tz = ''; try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (err) {}
+        var body = {
+            email: '', name: '', wants: '',
+            website: F('website').value,
+            business: S.from.name,
+            doc_type: S.type,
+            currency: S.currency,
+            lines: t.lines,
+            total: Math.round(t.total * 100) / 100,
+            timezone: tz
+        };
+        Object.keys(fields).forEach(function (k) { body[k] = fields[k]; });
+        return fetch(gateForm.action, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', 'X-CSRF-TOKEN': F('_token').value },
+            body: JSON.stringify(body)
+        }).then(function (r) {
+            if (r.ok) { setNudgeState('joined'); return r.json(); }
+            return r.json().catch(function () { return {}; }).then(function (j) {
+                var first = j.errors && Object.keys(j.errors).length ? j.errors[Object.keys(j.errors)[0]][0] : null;
+                throw new Error(first || j.message || (r.status === 429 ? 'Too many tries. Please wait a minute.' : 'Something went wrong. Please try again.'));
+            });
+        });
+    }
+
     gateForm.addEventListener('submit', function (e) {
         e.preventDefault();
         var email = F('email').value.trim();
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
             gateErr.textContent = 'Please enter a valid email address.'; gateErr.hidden = false; F('email').focus(); return;
         }
-        var t = totals(), btn = gateForm.querySelector('[type="submit"]');
-        var tz = ''; try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (err) {}
+        var btn = gateForm.querySelector('[type="submit"]');
         btn.disabled = true; gateErr.hidden = true;
-        fetch(gateForm.action, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', 'X-CSRF-TOKEN': F('_token').value },
-            body: JSON.stringify({
-                email: email,
-                name: F('name').value.trim(),
-                wants: (gateForm.querySelector('input[name="wants"]:checked') || {}).value || '',
-                website: F('website').value,
-                business: S.from.name,
-                doc_type: S.type,
-                currency: S.currency,
-                lines: t.lines,
-                total: Math.round(t.total * 100) / 100,
-                timezone: tz
-            })
-        }).then(function (r) {
-            if (r.ok) return r.json();
-            return r.json().catch(function () { return {}; }).then(function (j) {
-                var first = j.errors && Object.keys(j.errors).length ? j.errors[Object.keys(j.errors)[0]][0] : null;
-                throw new Error(first || j.message || (r.status === 429 ? 'Too many tries. Please wait a minute.' : 'Something went wrong. Please try again.'));
-            });
+        postEarlyAccess({
+            email: email,
+            name: F('name').value.trim(),
+            wants: (gateForm.querySelector('input[name="wants"]:checked') || {}).value || ''
         }).then(function () {
+            hideNudge();
             gate.querySelector('[data-qb-done-email]').textContent = email;
             var picked = gateForm.querySelector('input[name="wants"]:checked');
             gate.querySelector('[data-qb-done-vote]').hidden = !picked;
