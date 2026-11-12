@@ -1,0 +1,26 @@
+# Never upload secrets or local tooling
+.env
+.env.*
+!.env.example
+.git
+.codex
+.claude
+*.md
+
+# Installed on Vercel by the PHP runtime (composer install)
+vendor
+node_modules
+
+# Local caches and runtime files (Laravel writes to /tmp on Vercel)
+bootstrap/cache/*.php
+storage/logs/*
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/views/*
+public/storage
+public/hot
+
+# Not needed in production
+tests
+docker-compose.yml
+public/info.php
