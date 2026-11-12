@@ -67,7 +67,7 @@ class LeadsController extends Controller
             'services_interested.*'=> 'string',
             'message'             => 'nullable|string',
             'admin_notes'         => 'nullable|string',
-            'assigned_to'         => 'nullable|exists:users,id',
+            'assigned_to'         => ['nullable', \App\Support\BusinessRules::exists('users', 'id')],
         ]);
 
         $data['priority'] = $data['priority'] ?? 'Normal';

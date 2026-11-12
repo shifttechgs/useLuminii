@@ -72,11 +72,11 @@ class RequestController extends Controller
         $data = $request->validate([
             'client_id'        => 'required|string',
             'title'            => 'required|string|max:255',
-            'service_id'       => 'nullable|string|exists:business_services,service_id',
+            'service_id'       => ['nullable', 'string', \App\Support\BusinessRules::exists('business_services', 'service_id')],
             'description'      => 'nullable|string',
             'status'           => 'required|in:New,InReview,Quoted,Approved,Closed',
             'priority'         => 'nullable|in:Low,Medium,High,Urgent',
-            'assigned_to'      => 'nullable|exists:users,id',
+            'assigned_to'      => ['nullable', \App\Support\BusinessRules::exists('users', 'id')],
             'assessment_notes' => 'nullable|string',
         ]);
 
@@ -103,11 +103,11 @@ class RequestController extends Controller
     {
         $data = $request->validate([
             'title'            => 'required|string|max:255',
-            'service_id'       => 'nullable|string|exists:business_services,service_id',
+            'service_id'       => ['nullable', 'string', \App\Support\BusinessRules::exists('business_services', 'service_id')],
             'description'      => 'nullable|string',
             'status'           => 'required|in:New,InReview,Quoted,Approved,Closed',
             'priority'         => 'nullable|in:Low,Medium,High,Urgent',
-            'assigned_to'      => 'nullable|exists:users,id',
+            'assigned_to'      => ['nullable', \App\Support\BusinessRules::exists('users', 'id')],
             'assessment_notes' => 'nullable|string',
         ]);
 

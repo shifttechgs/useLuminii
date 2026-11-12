@@ -42,10 +42,10 @@ Route::get('/about', fn () => view('about'))->name('about');
 Route::get('/security', fn () => view('security'))->name('security');
 Route::get('/privacy-policy', fn () => view('privacy-policy'))->name('privacy-policy');
 Route::get('/terms', fn () => view('terms'))->name('terms');
-Route::post('/contact', [ContactController::class, 'submitForm'])->name('contact.submit');
-Route::post('/book-demo', [ContactController::class, 'bookDemo'])->name('demo.submit');
+Route::post('/contact', [ContactController::class, 'submitForm'])->middleware(\App\Http\Middleware\UsePlatformBusiness::class)->name('contact.submit');
+Route::post('/book-demo', [ContactController::class, 'bookDemo'])->middleware(\App\Http\Middleware\UsePlatformBusiness::class)->name('demo.submit');
 Route::post('/personal/early-access', [\App\Http\Controllers\PersonalEarlyAccessController::class, 'store'])
-    ->middleware('throttle:6,1')
+    ->middleware(['throttle:6,1', \App\Http\Middleware\UsePlatformBusiness::class])
     ->name('personal.early-access');
 // Anonymous funnel counts from the Personal builder (visit, PDF download, Send click)
 Route::post('/personal/metric', [\App\Http\Controllers\PersonalMetricsController::class, 'store'])

@@ -6,7 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class ContactFormSubmission extends Model
 {
+    use \App\Models\Concerns\BelongsToBusiness;
+
     protected $fillable = [
+        'business_id',
         'submission_id', 'name', 'email', 'phone', 'company', 'subject',
         'message', 'service_interest', 'lead_source', 'status',
         'converted_client_id', 'admin_notes', 'ip_address',

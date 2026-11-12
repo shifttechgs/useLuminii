@@ -7,7 +7,16 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class JobStatusLog extends Model
 {
+    use \App\Models\Concerns\BelongsToBusiness;
+
+    /** New records take their parent's business (they can be created without a signed-in user). */
+    public function businessParents(): array
+    {
+        return ['job_id' => [Job::class, 'job_id']];
+    }
+
     protected $fillable = [
+        'business_id',
         'job_id', 'from_status', 'to_status',
         'note', 'client_notified', 'changed_by',
     ];

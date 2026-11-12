@@ -12,6 +12,8 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Job extends Model
 {
+    use \App\Models\Concerns\BelongsToBusiness;
+
     use SoftDeletes;
 
     protected $table = 'crm_jobs';

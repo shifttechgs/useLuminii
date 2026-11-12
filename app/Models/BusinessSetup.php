@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class BusinessSetup extends Model
 {
+    use \App\Models\Concerns\BelongsToBusiness;
+
     protected $table = 'business_setup';
 
     protected $fillable = [
@@ -25,10 +27,32 @@ class BusinessSetup extends Model
     /**
      * Always return the single business record, creating it if missing.
      */
+    /**
+     * The current business's settings (see App\Support\CurrentBusiness), created on first use.
+     * Only the platform business starts with ShiftTech's details; any other business starts
+     * blank, so one business's name or bank details can never appear on another's documents.
+     */
     public static function current(): self
     {
+        $businessId = \App\Support\CurrentBusiness::idOrPlatform();
+
+        if ($businessId === \App\Support\CurrentBusiness::NONE) {
+            return new static(['business_name' => '']);   // signed in without a business: nothing to show
+        }
+
+        if ($businessId !== \App\Support\CurrentBusiness::platform()) {
+            return static::firstOrCreate(['business_id' => $businessId], [
+                'business_name'    => 'My business',
+                'currency'         => 'ZAR',
+                'timezone'         => config('app.timezone', 'UTC'),
+                'default_tax_rate' => '0',
+                'invoice_prefix'   => 'INV',
+                'quote_prefix'     => 'QUO',
+            ]);
+        }
+
         return static::firstOrCreate(
-            ['business_id' => 'ST-001'],
+            ['business_id' => $businessId],
             [
                 'business_name'   => 'ShiftTech Global Solutions',
                 'email'           => 'sales@shifttechgs.com',

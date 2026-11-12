@@ -7,7 +7,19 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Payment extends Model
 {
+    use \App\Models\Concerns\BelongsToBusiness;
+
+    /** New records take their parent's business (they can be created without a signed-in user). */
+    public function businessParents(): array
+    {
+        return [
+            'invoice_id' => [Invoice::class, 'invoice_id'],
+            'quote_id'   => [Quote::class, 'quote_id'],
+        ];
+    }
+
     protected $fillable = [
+        'business_id',
         'payment_id', 'invoice_id', 'quote_id', 'client_id',
         'amount', 'type', 'method', 'reference', 'notes',
         'received_at', 'recorded_by',

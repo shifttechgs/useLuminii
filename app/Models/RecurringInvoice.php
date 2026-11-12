@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class RecurringInvoice extends Model
 {
+    use \App\Models\Concerns\BelongsToBusiness;
+
     use SoftDeletes;
 
     protected $fillable = [

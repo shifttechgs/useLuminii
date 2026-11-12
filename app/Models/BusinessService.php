@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class BusinessService extends Model
 {
+    use \App\Models\Concerns\BelongsToBusiness;
+
     use \Illuminate\Database\Eloquent\SoftDeletes;
 
     protected $fillable = [

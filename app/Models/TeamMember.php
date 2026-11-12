@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class TeamMember extends Model
 {
+    use \App\Models\Concerns\BelongsToBusiness;
+
     protected $fillable = [
         'business_id', 'user_id', 'role', 'job_title',
         'phone', 'is_active', 'invited_at', 'joined_at',

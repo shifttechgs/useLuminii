@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class ActivityLog extends Model
 {
+    use \App\Models\Concerns\BelongsToBusiness;
+
     protected $fillable = [
         'business_id', 'user_id', 'action', 'entity_type',
         'entity_id', 'description', 'meta',
@@ -23,7 +25,7 @@ class ActivityLog extends Model
     public static function record(string $action, string $entityType, string $entityId, string $description, array $meta = []): void
     {
         static::create([
-            'business_id' => config('crm.business_id'),
+            'business_id' => \App\Support\CurrentBusiness::idOrPlatform(),
             'user_id'     => auth()->id(),
             'action'      => $action,
             'entity_type' => $entityType,

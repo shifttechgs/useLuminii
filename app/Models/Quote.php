@@ -14,6 +14,8 @@ use App\Services\NotificationService;
 
 class Quote extends Model
 {
+    use \App\Models\Concerns\BelongsToBusiness;
+
     use SoftDeletes;
 
     protected $fillable = [

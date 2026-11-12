@@ -80,7 +80,7 @@ class ClientController extends Controller
             'postal_code'            => 'nullable|string|max:20',
             'country'                => 'nullable|string|max:100',
             'notes'                  => 'nullable|string',
-            'user_id'                => 'nullable|exists:users,id',
+            'user_id'                => ['nullable', \App\Support\BusinessRules::exists('users', 'id')],
         ]);
 
         $client = BusinessClient::create($data);
@@ -114,7 +114,7 @@ class ClientController extends Controller
             'postal_code'            => 'nullable|string|max:20',
             'country'                => 'nullable|string|max:100',
             'notes'                  => 'nullable|string',
-            'user_id'                => 'nullable|exists:users,id',
+            'user_id'                => ['nullable', \App\Support\BusinessRules::exists('users', 'id')],
         ]);
 
         $client->update($data);

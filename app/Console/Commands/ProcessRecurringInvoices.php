@@ -15,7 +15,17 @@ class ProcessRecurringInvoices extends Command
     protected $signature   = 'crm:recurring-invoices';
     protected $description = 'Generate invoices from active recurring invoice schedules';
 
+    /** Runs once per business, so notifications and new records belong to that business. */
     public function handle(): void
+    {
+        $businessIds = \App\Models\RecurringInvoice::allBusinesses()->whereNotNull('business_id')->distinct()->pluck('business_id');
+
+        foreach ($businessIds as $businessId) {
+            \App\Support\CurrentBusiness::run($businessId, fn () => $this->runForBusiness());
+        }
+    }
+
+    private function runForBusiness(): void
     {
         $today     = Carbon::today();
         $due       = RecurringInvoice::where('status', 'Active')
