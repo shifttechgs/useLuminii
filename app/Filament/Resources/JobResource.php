@@ -261,7 +261,7 @@ class JobResource extends Resource
             ])
             ->bulkActions([Tables\Actions\BulkActionGroup::make([Tables\Actions\DeleteBulkAction::make()])])
             ->modifyQueryUsing(fn ($query) => $query
-                ->orderByRaw("FIELD(job_status, 'InProgress', 'Scheduled', 'New', 'Completed', 'Cancelled')")
+                ->orderByRaw("CASE job_status WHEN 'InProgress' THEN 1 WHEN 'Scheduled' THEN 2 WHEN 'New' THEN 3 WHEN 'Completed' THEN 4 WHEN 'Cancelled' THEN 5 ELSE 6 END")
                 ->orderBy('job_date_time', 'asc')
             )
             ->striped();

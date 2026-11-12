@@ -7,7 +7,7 @@
             <div class="lp-hiw__intro" data-aos="fade-up">
                 <div class="lp-hiw__plus">+</div>
                 <h2 class="lp-hiw__h2">
-                    <em>From</em> Manual to<br>Automated <em>in 3 Steps</em>
+                    <em>From</em> manual to<br>automated <em>in 3 steps</em>
                 </h2>
                 <p class="lp-section__sub">We turn manual processes into an operating flow that connects your tools, workflows, and team in one place.</p>
             </div>
@@ -62,7 +62,7 @@
                             <div class="lp-hiw__step-line"></div>
                         </div>
                         <div class="lp-hiw__step-body">
-                            <h4 class="lp-hiw__step-title">Launch and Optimise</h4>
+                            <h4 class="lp-hiw__step-title">Launch and optimise</h4>
                             <p class="lp-hiw__step-text">Go live in 48 hours. We monitor performance, refine automations, and help the system scale with your business.</p>
                         </div>
                     </div>

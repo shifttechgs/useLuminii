@@ -33,7 +33,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="{{ asset('useluminii/assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('useluminii/assets/css/aos.css') }}">
@@ -91,34 +91,114 @@ toastr.info("{{ session('info') }}");
 
 <script>
 (function () {
-    var nav = document.getElementById('lp-nav');
-    if (!nav) return;
+    var hdr = document.getElementById('lp-nav');
+    if (!hdr) return;
 
-    var menu = document.getElementById('lp-mobile-menu');
-    var btn = document.getElementById('lp-menu-btn');
+    var scrim = document.getElementById('lp-hdr-scrim');
+    var burger = document.getElementById('lp-menu-btn');
+    var triggers = hdr.querySelectorAll('.lp-hdr__trigger');
+    var panels = hdr.querySelectorAll('[data-menu-panel]');
+    var canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    var current = null;
+    var closeTimer = null;
+    var openTimer = null;
 
-    function syncNavState() {
-        if (window.scrollY > 40) nav.classList.add('lp-nav--scrolled');
-        else nav.classList.remove('lp-nav--scrolled');
+    // Scrolled state: pill hides, bar turns light
+    var lastY = window.scrollY;
+    function syncScroll() {
+        hdr.classList.toggle('is-scrolled', window.scrollY > 24);
+        // Desktop mega menus close once the page actually moves
+        if (current && current !== 'mobile' && Math.abs(window.scrollY - lastY) > 40) close();
+        if (!current) lastY = window.scrollY;
+    }
+    window.addEventListener('scroll', syncScroll, { passive: true });
+    syncScroll();
+
+    function open(name) {
+        clearTimeout(closeTimer);
+        current = name;
+        panels.forEach(function (p) { p.hidden = p.getAttribute('data-menu-panel') !== name; });
+        triggers.forEach(function (t) { t.setAttribute('aria-expanded', String(t.getAttribute('data-menu') === name)); });
+        if (burger) burger.setAttribute('aria-expanded', String(name === 'mobile'));
+        hdr.classList.add('is-open');
+        if (scrim) scrim.classList.add('is-visible');
     }
 
-    window.addEventListener('scroll', syncNavState, { passive: true });
-    syncNavState();
+    function close() {
+        clearTimeout(openTimer);
+        if (!current) return;
+        current = null;
+        hdr.classList.remove('is-open');
+        if (scrim) scrim.classList.remove('is-visible');
+        triggers.forEach(function (t) { t.setAttribute('aria-expanded', 'false'); });
+        if (burger) burger.setAttribute('aria-expanded', 'false');
+        // Hide content after the collapse animation finishes
+        closeTimer = setTimeout(function () {
+            if (!current) panels.forEach(function (p) { p.hidden = true; });
+        }, 380);
+    }
 
-    if (btn && menu) {
-        btn.addEventListener('click', function () {
-            menu.classList.toggle('open');
+    triggers.forEach(function (t) {
+        var name = t.getAttribute('data-menu');
+        t.addEventListener('click', function () {
+            if (current === name) close(); else open(name);
         });
+        if (canHover) {
+            t.addEventListener('mouseenter', function () {
+                clearTimeout(openTimer);
+                openTimer = setTimeout(function () { open(name); }, current ? 0 : 70);
+            });
+            t.addEventListener('mouseleave', function () { clearTimeout(openTimer); });
+        }
+    });
 
-        document.addEventListener('click', function (e) {
-            if (!nav.contains(e.target) && !menu.contains(e.target)) {
-                menu.classList.remove('open');
+    var bar = document.getElementById('lp-hdr-bar');
+    if (canHover && bar) {
+        bar.addEventListener('mouseenter', function () { clearTimeout(closeTimer); });
+        bar.addEventListener('mouseleave', function () {
+            if (current && current !== 'mobile') {
+                closeTimer = setTimeout(close, 180);
             }
         });
+    }
 
-        menu.querySelectorAll('a').forEach(function (link) {
-            link.addEventListener('click', function () {
-                menu.classList.remove('open');
+    if (burger) {
+        burger.addEventListener('click', function () {
+            if (current === 'mobile') close(); else open('mobile');
+        });
+    }
+
+    if (scrim) scrim.addEventListener('click', close);
+
+    document.addEventListener('keydown', function (e) {
+        if (e.key !== 'Escape' || !current) return;
+        var trigger = hdr.querySelector('.lp-hdr__trigger[data-menu="' + current + '"]') || burger;
+        close();
+        if (trigger) trigger.focus();
+    });
+
+    // Close after following any link inside the panel (covers same-page anchors)
+    hdr.querySelectorAll('.lp-hdr__panel a').forEach(function (a) {
+        a.addEventListener('click', close);
+    });
+
+    window.addEventListener('resize', function () {
+        if (current === 'mobile' && window.innerWidth > 1080) close();
+        if (current && current !== 'mobile' && window.innerWidth <= 1080) close();
+    });
+
+    // Business | Personal switch: slide the thumb, then navigate
+    var aud = hdr.querySelector('.lp-aud');
+    if (aud) {
+        aud.querySelectorAll('.lp-aud__opt').forEach(function (opt) {
+            opt.addEventListener('click', function (e) {
+                if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+                e.preventDefault();
+                if (opt.classList.contains('is-active')) return;
+                aud.setAttribute('data-active', opt.getAttribute('data-aud'));
+                aud.querySelectorAll('.lp-aud__opt').forEach(function (o) { o.classList.toggle('is-active', o === opt); });
+                var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                setTimeout(function () { window.location.href = opt.href; }, reduce ? 0 : 260);
             });
         });
     }
@@ -150,6 +230,14 @@ toastr.info("{{ session('info') }}");
     }
 
     function clearErrors(form) {
+        form.querySelectorAll('[data-booking-error]').forEach(function (input) {
+            input.removeAttribute('aria-invalid');
+            var previousDescription = input.getAttribute('data-booking-description');
+            if (previousDescription) input.setAttribute('aria-describedby', previousDescription);
+            else input.removeAttribute('aria-describedby');
+            input.removeAttribute('data-booking-error');
+            input.removeAttribute('data-booking-description');
+        });
         form.querySelectorAll('.lp-demo__field--error').forEach(function (field) {
             field.classList.remove('lp-demo__field--error');
         });
@@ -182,7 +270,12 @@ toastr.info("{{ session('info') }}");
 
         var error = document.createElement('span');
         error.className = 'lp-form-error';
+        error.id = (input.id || input.name) + '-error';
         error.textContent = message;
+        input.setAttribute('data-booking-description', input.getAttribute('aria-describedby') || '');
+        input.setAttribute('data-booking-error', error.id);
+        input.setAttribute('aria-invalid', 'true');
+        input.setAttribute('aria-describedby', ((input.getAttribute('aria-describedby') || '') + ' ' + error.id).trim());
         input.insertAdjacentElement('afterend', error);
     }
 
@@ -220,21 +313,22 @@ toastr.info("{{ session('info') }}");
 
         var box = document.createElement('div');
         box.className = type === 'success' ? 'lp-form-success' : 'lp-form-error-banner';
+        box.setAttribute('role', type === 'success' ? 'status' : 'alert');
         box.textContent = message;
         host.appendChild(box);
     }
 
     function bindBookingForm(form) {
         if (!form) return;
+        var inlineOnly = !!form.closest('.lp-cta--business');
 
         var submitBtn = form.querySelector('button[type="submit"]');
         var initialLabel = submitBtn ? submitBtn.querySelector('.lp-demo__submit-label, .lp-cta__submit-label') : null;
         var idleText = initialLabel ? initialLabel.textContent : (submitBtn ? submitBtn.textContent.trim() : 'Book a Demo');
 
-        form.setAttribute('novalidate', 'novalidate');
-
         form.addEventListener('submit', function (event) {
             event.preventDefault();
+            if (!form.reportValidity()) return;
             clearErrors(form);
             setButtonState(submitBtn, true);
 
@@ -258,7 +352,7 @@ toastr.info("{{ session('info') }}");
                 if (result.ok) {
                     form.reset();
                     showInlineMessage(form, 'success', result.payload.message || 'Booking successful.');
-                    showToast('success', result.payload.message || 'Booking successful.');
+                    if (!inlineOnly) showToast('success', result.payload.message || 'Booking successful.');
                     return;
                 }
 
@@ -267,14 +361,19 @@ toastr.info("{{ session('info') }}");
                         var input = form.querySelector('[name="' + name + '"]');
                         if (input) markError(input, result.payload.errors[name][0]);
                     });
-                    showToast('error', result.payload.message || 'Please check the highlighted fields.');
+                    var firstInvalid = form.querySelector('[aria-invalid="true"]');
+                    if (firstInvalid) firstInvalid.focus();
+                    if (inlineOnly) showInlineMessage(form, 'error', result.payload.message || 'Please check the highlighted fields.');
+                    else showToast('error', result.payload.message || 'Please check the highlighted fields.');
                     return;
                 }
 
-                showToast('error', result.payload.message || 'Something went wrong. Please try again.');
+                showInlineMessage(form, 'error', result.payload.message || 'Something went wrong. Please try again.');
+                if (!inlineOnly) showToast('error', result.payload.message || 'Something went wrong. Please try again.');
             })
             .catch(function () {
-                showToast('error', 'Something went wrong. Please try again.');
+                showInlineMessage(form, 'error', 'Something went wrong. Please try WhatsApp or call us directly.');
+                if (!inlineOnly) showToast('error', 'Something went wrong. Please try again.');
             })
             .finally(function () {
                 setButtonState(submitBtn, false);

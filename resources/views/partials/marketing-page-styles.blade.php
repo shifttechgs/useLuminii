@@ -17,9 +17,9 @@
 }
 .lp-ph__inner { position: relative; z-index: 2; }
 .lp-ph__h1 {
-    font-family: "Geist", system-ui, sans-serif;
+    font-family: var(--font-display);
     font-size: clamp(36px, 5vw, 60px);
-    font-weight: 800;
+    font-weight: 500;
     letter-spacing: -0.035em;
     line-height: 1.08;
     color: #fff;
@@ -81,9 +81,9 @@
 }
 .lp-ph__mini-card strong {
     display: block;
-    font-family: "Geist", system-ui, sans-serif;
+    font-family: var(--font-display);
     font-size: 15px;
-    font-weight: 700;
+    font-weight: 500;
     color: #fff;
     margin-bottom: 8px;
 }
@@ -97,7 +97,7 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    font-family: "Geist", system-ui, sans-serif;
+    font-family: var(--font-display);
     font-size: 13px;
     font-weight: 500;
     color: rgba(255,255,255,0.4);
@@ -127,9 +127,9 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    font-family: "Geist", system-ui, sans-serif;
+    font-family: var(--font-display);
     font-size: 12px;
-    font-weight: 700;
+    font-weight: 500;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: #647082;
@@ -175,9 +175,9 @@
 }
 .lp-page__stack h3,
 .lp-page__card h3 {
-    font-family: "Geist", system-ui, sans-serif;
+    font-family: var(--font-display);
     font-size: 20px;
-    font-weight: 700;
+    font-weight: 500;
     color: #081D3A;
     margin: 0 0 12px;
 }
@@ -196,9 +196,9 @@
     border-radius: 999px;
     background: rgba(8,29,58,0.05);
     color: #081D3A;
-    font-family: "Geist", system-ui, sans-serif;
+    font-family: var(--font-display);
     font-size: 12px;
-    font-weight: 700;
+    font-weight: 500;
     letter-spacing: 0.04em;
     text-transform: uppercase;
     margin-bottom: 16px;
@@ -211,9 +211,9 @@
     margin-top: 72px;
 }
 .lp-page__section h2 {
-    font-family: "Geist", system-ui, sans-serif;
+    font-family: var(--font-display);
     font-size: clamp(28px, 4vw, 38px);
-    font-weight: 800;
+    font-weight: 500;
     letter-spacing: -0.03em;
     color: #081D3A;
     margin: 0 0 16px;
@@ -240,9 +240,9 @@
     padding: 22px;
 }
 .lp-page__point h3 {
-    font-family: "Geist", system-ui, sans-serif;
+    font-family: var(--font-display);
     font-size: 18px;
-    font-weight: 700;
+    font-weight: 500;
     color: #081D3A;
     margin: 0 0 10px;
 }
@@ -278,17 +278,17 @@
     border-radius: 16px;
     background: #081D3A;
     color: #fff;
-    font-family: "Geist", system-ui, sans-serif;
+    font-family: var(--font-display);
     font-size: 18px;
-    font-weight: 800;
+    font-weight: 500;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 .lp-page__flow-step h3 {
-    font-family: "Geist", system-ui, sans-serif;
+    font-family: var(--font-display);
     font-size: 18px;
-    font-weight: 700;
+    font-weight: 500;
     color: #081D3A;
     margin: 0 0 8px;
 }
@@ -322,9 +322,9 @@
     margin-bottom: 22px;
 }
 .lp-page__visual-title {
-    font-family: "Geist", system-ui, sans-serif;
+    font-family: var(--font-display);
     font-size: 20px;
-    font-weight: 700;
+    font-weight: 500;
     color: #081D3A;
 }
 .lp-page__visual-badge {
@@ -332,9 +332,9 @@
     border-radius: 999px;
     background: rgba(8,29,58,0.08);
     color: #081D3A;
-    font-family: "Geist", system-ui, sans-serif;
+    font-family: var(--font-display);
     font-size: 12px;
-    font-weight: 700;
+    font-weight: 500;
 }
 .lp-page__visual-rows {
     display: grid;
@@ -368,7 +368,7 @@
 .lp-page__mini strong,
 .lp-page__compare-block h3 {
     display: block;
-    font-family: "Geist", system-ui, sans-serif;
+    font-family: var(--font-display);
     color: #081D3A;
 }
 .lp-page__visual-row strong {
@@ -389,9 +389,9 @@
     justify-content: center;
     padding: 8px 12px;
     border-radius: 999px;
-    font-family: "Geist", system-ui, sans-serif;
+    font-family: var(--font-display);
     font-size: 12px;
-    font-weight: 700;
+    font-weight: 500;
     white-space: nowrap;
 }
 .lp-page__pill--gold {
@@ -421,9 +421,9 @@
     border: 1px solid #E5EAF2;
 }
 .lp-page__metric-value {
-    font-family: "Geist", system-ui, sans-serif;
+    font-family: var(--font-display);
     font-size: 30px;
-    font-weight: 800;
+    font-weight: 500;
     letter-spacing: -0.03em;
     color: #081D3A;
     margin-bottom: 8px;
@@ -443,9 +443,9 @@
 .lp-page__rail-head h3 {
     margin: 0;
     color: #fff;
-    font-family: "Geist", system-ui, sans-serif;
+    font-family: var(--font-display);
     font-size: 22px;
-    font-weight: 700;
+    font-weight: 500;
 }
 .lp-page__rail-head p {
     margin: 8px 0 0;
@@ -471,9 +471,9 @@
     border-radius: 14px;
     background: #F5C542;
     color: #081D3A;
-    font-family: "Geist", system-ui, sans-serif;
+    font-family: var(--font-display);
     font-size: 16px;
-    font-weight: 800;
+    font-weight: 500;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -481,7 +481,7 @@
 .lp-page__rail-step strong {
     display: block;
     color: #fff;
-    font-family: "Geist", system-ui, sans-serif;
+    font-family: var(--font-display);
     font-size: 16px;
     margin-bottom: 6px;
 }
@@ -505,9 +505,9 @@
     align-items: start;
 }
 .lp-page__timeline-label {
-    font-family: "Geist", system-ui, sans-serif;
+    font-family: var(--font-display);
     font-size: 13px;
-    font-weight: 700;
+    font-weight: 500;
     color: #081D3A;
     padding-top: 4px;
 }
@@ -519,7 +519,7 @@
 }
 .lp-page__timeline-body strong {
     display: block;
-    font-family: "Geist", system-ui, sans-serif;
+    font-family: var(--font-display);
     font-size: 16px;
     color: #081D3A;
     margin-bottom: 6px;
@@ -623,9 +623,9 @@
     border: 1px solid #D7DEEA;
     background: #fff;
     color: #081D3A;
-    font-family: "Geist", system-ui, sans-serif;
+    font-family: var(--font-display);
     font-size: 13px;
-    font-weight: 700;
+    font-weight: 500;
     text-decoration: none;
 }
 .lp-page__link-chip:hover {

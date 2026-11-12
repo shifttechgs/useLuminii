@@ -29,9 +29,8 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 // Landing page
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+Route::get('/', fn () => view('welcome', ['audience' => 'business']))->name('home');
+Route::get('/personal', fn () => view('welcome', ['audience' => 'personal']))->name('personal');
 
 Route::get('/features', fn () => view('features'))->name('features');
 Route::get('/pricing', fn () => view('pricing'))->name('pricing');
@@ -45,6 +44,9 @@ Route::get('/privacy-policy', fn () => view('privacy-policy'))->name('privacy-po
 Route::get('/terms', fn () => view('terms'))->name('terms');
 Route::post('/contact', [ContactController::class, 'submitForm'])->name('contact.submit');
 Route::post('/book-demo', [ContactController::class, 'bookDemo'])->name('demo.submit');
+Route::post('/personal/early-access', [\App\Http\Controllers\PersonalEarlyAccessController::class, 'store'])
+    ->middleware('throttle:6,1')
+    ->name('personal.early-access');
 
 Route::get('sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
 

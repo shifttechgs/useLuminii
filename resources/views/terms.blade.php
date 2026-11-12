@@ -49,7 +49,7 @@
 <style>
 .lp-ph {
     background: #060F1E;
-    padding: 120px 0 80px;
+    padding: 150px 0 80px;
     text-align: center;
     position: relative;
 }
@@ -65,9 +65,9 @@
 }
 .lp-ph__inner { position: relative; z-index: 2; }
 .lp-ph__h1 {
-    font-family: "Geist", system-ui, sans-serif;
+    font-family: var(--font-display);
     font-size: clamp(36px, 5vw, 60px);
-    font-weight: 800;
+    font-weight: 500;
     letter-spacing: -0.035em;
     line-height: 1.1;
     color: #fff;
@@ -90,9 +90,9 @@
     color: #081D3A;
 }
 .lp-legal h2 {
-    font-family: "Geist", system-ui, sans-serif;
+    font-family: var(--font-display);
     font-size: 24px;
-    font-weight: 700;
+    font-weight: 500;
     margin: 0 0 14px;
 }
 .lp-legal h2 em {

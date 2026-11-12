@@ -278,7 +278,7 @@ class ClientRequestResource extends Resource
                 ]),
             ])
             ->modifyQueryUsing(fn ($query) => $query
-                ->orderByRaw("FIELD(priority, 'Urgent', 'High', 'Normal', 'Low')")
+                ->orderByRaw("CASE priority WHEN 'Urgent' THEN 1 WHEN 'High' THEN 2 WHEN 'Normal' THEN 3 WHEN 'Low' THEN 4 ELSE 5 END")
                 ->orderBy('created_at', 'asc')
             )
             ->striped();

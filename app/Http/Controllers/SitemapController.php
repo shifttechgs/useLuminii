@@ -14,6 +14,12 @@ class SitemapController extends Controller
                 'priority' => '1.0',
             ],
             [
+                'url' => url('/personal'),
+                'lastmod' => now()->toIso8601String(),
+                'changefreq' => 'weekly',
+                'priority' => '0.9',
+            ],
+            [
                 'url' => url('/features'),
                 'lastmod' => now()->toIso8601String(),
                 'changefreq' => 'monthly',
