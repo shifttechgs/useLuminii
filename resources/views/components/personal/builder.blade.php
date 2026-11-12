@@ -23,9 +23,12 @@
                     <button type="button" role="tab" class="qb__view-btn" data-qb-view="preview">Preview</button>
                 </div>
                 <button type="button" class="qb__reset" data-qb-reset><i class="ph ph-arrow-counter-clockwise" aria-hidden="true"></i> Start over</button>
-                <button type="button" class="qb__btn qb__btn--ghost" data-qb-pdf><i class="ph ph-download-simple" aria-hidden="true"></i> Download PDF</button>
-                <button type="button" class="qb__btn qb__btn--ghost qb__btn--wa" data-qb-wa aria-label="Share on WhatsApp"><i class="ph ph-whatsapp-logo" aria-hidden="true"></i> <span>WhatsApp</span></button>
-                <button type="button" class="qb__btn qb__btn--solid" data-qb-send><i class="ph ph-paper-plane-tilt" aria-hidden="true"></i> <span data-qb-send-label>Send quote</span></button>
+                {{-- Main actions: inline on desktop, a bar fixed to the bottom of the screen on phones --}}
+                <div class="qb__actions">
+                    <button type="button" class="qb__btn qb__btn--ghost" data-qb-pdf aria-label="Download PDF"><i class="ph ph-download-simple" aria-hidden="true"></i> <span><span class="qb__btn-long">Download </span>PDF</span></button>
+                    <button type="button" class="qb__btn qb__btn--ghost qb__btn--wa" data-qb-wa aria-label="Share on WhatsApp"><i class="ph ph-whatsapp-logo" aria-hidden="true"></i> <span>WhatsApp</span></button>
+                    <button type="button" class="qb__btn qb__btn--solid" data-qb-send><i class="ph ph-paper-plane-tilt" aria-hidden="true"></i> <span data-qb-send-label>Send quote</span></button>
+                </div>
             </div>
         </div>
 
@@ -361,7 +364,8 @@
         li.className = 'qb__item';
         li.innerHTML =
             '<input type="text" class="qb__in-d" maxlength="200" aria-label="Description">' +
-            '<input type="number" class="qb__in-q" min="0" step="any" inputmode="decimal" aria-label="Quantity">' +
+            '<label class="qb__qty"><span class="qb__qty-tag" aria-hidden="true">Qty</span>' +
+                '<input type="number" class="qb__in-q" min="0" step="any" inputmode="decimal" aria-label="Quantity"></label>' +
             '<label class="qb__price"><span class="qb__price-sym" aria-hidden="true"></span>' +
                 '<input type="number" class="qb__in-p" min="0" step="any" inputmode="decimal" placeholder="0.00" aria-label="Price"></label>' +
             '<output class="qb__line-amt" aria-label="Line amount"></output>' +
