@@ -5133,13 +5133,24 @@ html.has-gap-stack-motion .lp-gap__stack-card.is-revealed {
 .qb__items-head span:nth-child(2) { padding-right: 11px; }
 .qb__items-head span:nth-child(3) { padding-right: 11px; }
 .qb__items-head { margin-bottom: 4px; font-size: 12px; color: var(--qb-label); }
-.qb__items { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+/* clear: the fieldset legend is floated; without it the list sits beside it when the header row is hidden */
+.qb__items { clear: both; list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
 .qb__in-q, .qb__in-p { text-align: right; font-variant-numeric: tabular-nums; }
 .qb input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
 .qb input[type="number"]::-webkit-outer-spin-button, .qb input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
 .qb__item { border-radius: 10px; }
 .qb__item.is-new { animation: qbRowIn .18s ease-out; }
 @keyframes qbRowIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+/* Quantity sits in a box like the price, so it can carry a "Qty" tag on phones */
+.qb__qty {
+    display: flex; align-items: center; height: 36px; min-width: 0;
+    border: 1px solid var(--qb-field); border-radius: 8px; background: #fff; cursor: text;
+    transition: border-color .15s, box-shadow .15s;
+}
+.qb__qty:hover { border-color: #BCC7C3; }
+.qb__qty:focus-within { border-color: var(--ink); box-shadow: 0 0 0 3px rgba(8,29,58,0.08); }
+.qb .qb__qty .qb__in-q, .qb .qb__qty .qb__in-q:hover, .qb .qb__qty .qb__in-q:focus { height: 100%; border: 0; box-shadow: none; background: transparent; padding: 0 10px; }
+.qb__qty-tag { display: none; flex: 0 0 auto; padding-left: 10px; font-size: 12px; color: #8A9592; }
 .qb__price {
     display: flex; align-items: center; height: 36px; min-width: 0; padding-left: 10px;
     border: 1px solid var(--qb-field); border-radius: 8px; background: #fff; cursor: text;
@@ -5157,7 +5168,7 @@ html.has-gap-stack-motion .lp-gap__stack-card.is-revealed {
 @media (hover: none) { .qb__rm { opacity: 1; } }
 .qb__rm:hover { background: #FBEAEA; color: #B42318; }
 .qb__items-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 8px; }
-.qb__add { display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border: 0; border-radius: 8px; background: #EEF2F1; font: inherit; font-size: 13.5px; font-weight: 500; color: var(--ink); cursor: pointer; }
+.qb__add { flex: 0 0 auto; white-space: nowrap; display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border: 0; border-radius: 8px; background: #EEF2F1; font: inherit; font-size: 13.5px; font-weight: 500; color: var(--ink); cursor: pointer; }
 .qb__add:hover { background: #E3E9E7; }
 .qb__sum { display: flex; align-items: baseline; gap: 10px; }
 .qb__sum span { font-size: 12.5px; color: var(--muted); }
@@ -5437,7 +5448,7 @@ html.has-gap-stack-motion .lp-gap__stack-card.is-revealed {
     .qb__type-btn { height: 28px; }
     .qb__convert { height: 28px; }
     .qb__form { padding: 10px 16px 10px; }
-    .qb input, .qb select, .qb-cur__btn, .qb-date__btn, .qb__price, .qb-tax__box { height: 31px; }
+    .qb input, .qb select, .qb-cur__btn, .qb-date__btn, .qb__price, .qb__qty, .qb-tax__box { height: 31px; }
     .qb .qb-notes textarea { height: 31px; min-height: 31px; padding: 5px 10px; }
     .qb-cur__sym { height: 21px; }
     .qb__field { gap: 2px; margin-bottom: 5px; }
@@ -5462,7 +5473,7 @@ html.has-gap-stack-motion .lp-gap__stack-card.is-revealed {
     .qb__h1 { font-size: 22px; }
     .qb__panel-head { padding: 6px 14px; }
     .qb__type-btn { height: 26px; padding: 0 14px; font-size: 13px; }
-    .qb input, .qb select, .qb-cur__btn, .qb-date__btn, .qb__price, .qb-tax__box { height: 29px; }
+    .qb input, .qb select, .qb-cur__btn, .qb-date__btn, .qb__price, .qb__qty, .qb-tax__box { height: 29px; }
     .qb .qb-notes textarea { height: 29px; min-height: 29px; padding: 4px 10px; }
     .qb .qb-pay textarea { height: 29px; min-height: 29px; padding: 4px 10px; }
     .qb-pay__toggle { padding: 5px 10px; }
@@ -5500,15 +5511,74 @@ html.has-gap-stack-motion .lp-gap__stack-card.is-revealed {
     .qb__app[data-view="preview"] .qb__panel { display: none; }
     .qb__app[data-view="preview"] .qb__stage { display: flex; }
     .qb-paper { padding: 24px 18px; }
-    .qb-paper__head, .qb-paper__meta { flex-direction: column; gap: 14px; }
-    .qb-paper__doc, .qb-paper__dates { text-align: left; }
-    .qb-paper__dates .qb-paper__label { text-align: left; }
-    .qb-paper__pay { flex-direction: column; gap: 14px; }
     .qb__autosave { display: none; }
 }
 @media (max-width: 400px) {
     .qb__items-head, .qb__item { grid-template-columns: minmax(0, 1fr) 46px 92px 28px; gap: 6px; }
     .qb__line-amt, .qb__items-amt { display: none; }
+}
+
+/* ── Phones and narrow cards ──────────────────────────────────────────── */
+/* The card's single grid column must never grow past the card (it used to size to its widest line) */
+.qb__panel { grid-template-columns: minmax(0, 1fr); }
+.qb__panel-head { flex-wrap: wrap; row-gap: 8px; }
+.qb__actions { display: flex; align-items: center; gap: 10px; }
+.qb__btn { white-space: nowrap; }
+@container (max-width: 440px) {
+    /* Quote/Invoice switch on its own line, "Make it an invoice" full width underneath */
+    .qb__type { flex: 1 1 100%; }
+    .qb__type-btn { flex: 1 1 0; }
+    .qb__convert { flex: 1 1 100%; justify-content: center; margin-left: 0; }
+    /* Tax and Notes stacked, so neither gets squeezed */
+    .qb__row.qb__row--notes { grid-template-columns: 1fr; gap: 0; }
+    /* Each item on two lines: the description full width, then qty, price, amount, remove */
+    .qb__items-head { display: none; }
+    .qb__item {
+        grid-template-columns: 92px minmax(0, 1fr) auto 28px;
+        grid-template-areas: "d d d d" "q p a r";
+        row-gap: 6px; padding-bottom: 10px; border-bottom: 1px solid #EEF2F1; border-radius: 0;
+    }
+    .qb__item:last-child { padding-bottom: 0; border-bottom: 0; }
+    .qb__item .qb__in-d { grid-area: d; }
+    .qb__item .qb__qty { grid-area: q; }
+    .qb__item .qb__price { grid-area: p; }
+    .qb__item .qb__line-amt { grid-area: a; display: block; min-width: 72px; }
+    .qb__item .qb__rm { grid-area: r; opacity: 1; }
+    .qb__qty-tag { display: inline; }
+}
+@media (max-width: 860px) {
+    .qb__body { grid-template-columns: minmax(0, 1fr); }
+    .qb__tools { justify-content: space-between; }
+    /* Download / WhatsApp / Send stay reachable while filling in a long form */
+    .qb__actions {
+        position: fixed; left: 0; right: 0; bottom: 0; z-index: 900;
+        padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
+        background: rgba(255,255,255,0.96); border-top: 1px solid var(--qb-line);
+        box-shadow: 0 -6px 20px rgba(8,29,58,0.08);
+        -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+    }
+    .qb__actions .qb__btn { flex: 1 1 0; height: 44px; padding: 0 14px; }
+    .qb__actions .qb__btn--wa { flex: 0 0 44px; padding: 0; }
+    body:has(.qb__actions) { padding-bottom: calc(66px + env(safe-area-inset-bottom)); }
+    .qb-toast { bottom: calc(78px + env(safe-area-inset-bottom)); }
+    /* iOS Safari zooms the page when an input under 16px gets focus */
+    .qb input, .qb select, .qb textarea, .qb-cur__btn, .qb-date__btn { font-size: 16px; }
+}
+@media (max-width: 480px) {
+    .qb__btn-long { display: none; }
+}
+/* The preview paper adapts to its own width: stacked header and tighter table when narrow */
+.qb-paper { container-type: inline-size; }
+.qb-paper__table th:first-child { word-break: normal; }
+@container (max-width: 520px) {
+    .qb-paper__head, .qb-paper__meta { flex-direction: column; gap: 14px; }
+    .qb-paper__doc, .qb-paper__dates { text-align: left; }
+    .qb-paper__dates { justify-content: start; }
+    .qb-paper__dates .qb-paper__label { text-align: left; }
+    .qb-paper__pay { flex-direction: column; gap: 14px; }
+    .qb-paper__table th { letter-spacing: 0.06em; }
+    .qb-paper__table th:not(:first-child), .qb-paper__table td:not(:first-child) { padding-left: 10px; }
+    .qb-paper__table td { font-size: 13px; }
 }
 
 /* Direct PDF: an off-screen copy of the paper at A4 content width, with desktop spacing whatever the screen */
