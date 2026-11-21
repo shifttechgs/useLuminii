@@ -48,9 +48,22 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 
+    {{-- Lean pages (home, personal) use no Bootstrap grid/components and no AOS: they load only
+         Bootstrap's 10 KB reboot (verified identical layout) instead of the full 232 KB file. --}}
+    @hasSection('lean_css')
+    <link rel="stylesheet" href="{{ asset('css/bootstrap-reboot.min.css') }}">
+    @else
     <link rel="stylesheet" href="{{ asset('useluminii/assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('useluminii/assets/css/aos.css') }}">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
+    @endif
+    {{-- Icons: every page on this layout uses only the regular Phosphor weight. Load just that one
+         stylesheet, without blocking (the old loader script pulled in all six weights). --}}
+    <link rel="preconnect" href="https://unpkg.com" crossorigin>
+    <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css"></noscript>
+    {{-- toast styles are only needed after a form submit: load without blocking the first paint --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"></noscript>
     <link rel="stylesheet" href="{{ asset('css/lp.css') }}?v={{ filemtime(public_path('css/lp.css')) }}">
 
     {{-- Site-wide identity for search engines and AI answer engines: who we are (Organization,
@@ -110,24 +123,28 @@
 
 @include('components.footer')
 
-<script src="{{ asset('useluminii/assets/js/jquery-3.7.1.min.js') }}"></script>
-<script src="{{ asset('useluminii/assets/js/phosphor-icon.js') }}"></script>
-<script src="{{ asset('useluminii/assets/js/boostrap.bundle.min.js') }}"></script>
-<script src="{{ asset('useluminii/assets/js/aos.js') }}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+{{-- Non-critical scripts are deferred (they run after parsing, before DOMContentLoaded). jQuery is
+     only here for toastr; the Bootstrap JS bundle was unused by every page on this layout. --}}
+<script src="{{ asset('useluminii/assets/js/jquery-3.7.1.min.js') }}" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" defer></script>
+@unless(View::hasSection('lean_css'))
+<script src="{{ asset('useluminii/assets/js/aos.js') }}" defer></script>
+@endunless
 
 <script>
-AOS.init({ duration: 700, easing: 'ease-out-cubic', once: true, offset: 60 });
-
-@if(session('success'))
-toastr.success("{{ session('success') }}");
-@elseif(session('error'))
-toastr.error("{{ session('error') }}");
-@elseif(session('warning'))
-toastr.warning("{{ session('warning') }}");
-@elseif(session('info'))
-toastr.info("{{ session('info') }}");
-@endif
+document.addEventListener('DOMContentLoaded', function () {
+    if (window.AOS) AOS.init({ duration: 700, easing: 'ease-out-cubic', once: true, offset: 60 });
+    if (!window.toastr) return;
+    @if(session('success'))
+    toastr.success("{{ session('success') }}");
+    @elseif(session('error'))
+    toastr.error("{{ session('error') }}");
+    @elseif(session('warning'))
+    toastr.warning("{{ session('warning') }}");
+    @elseif(session('info'))
+    toastr.info("{{ session('info') }}");
+    @endif
+});
 </script>
 
 <style>
@@ -268,7 +285,9 @@ toastr.info("{{ session('info') }}");
 (function () {
     if (!window.fetch) return;
 
-    if (window.toastr) {
+    function toastrOptions() {
+        if (!window.toastr || toastrOptions.done) return;
+        toastrOptions.done = true;
         toastr.options = {
             closeButton: true,
             progressBar: true,
@@ -280,6 +299,7 @@ toastr.info("{{ session('info') }}");
     }
 
     function showToast(type, message) {
+        toastrOptions();
         if (window.toastr && typeof toastr[type] === 'function') {
             toastr[type](message);
             return;

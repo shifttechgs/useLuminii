@@ -5,22 +5,22 @@
     $ctaLabel = $isPersonal ? 'Create a quote' : 'Book a Demo';
     $ctaHref = $isPersonal ? route('crm.quotes.create') : url('/') . '#booking';
 
-    // Platform mega menu: the four stages of the flow
+    // Platform menu: the four stages of the flow [title, description, link]
     $platformTiles = $isPersonal ? [
-        ['ph-magnifying-glass', 'Get found', 'A website, Google reviews and WhatsApp that bring work to you.', url('/') . '#features'],
-        ['ph-handshake', 'Win the job', 'An AI receptionist that answers first, and quotes in two minutes.', url('/') . '#features'],
-        ['ph-wallet', 'Get paid', 'Invoice in one tap, online payments and polite auto-reminders.', url('/') . '#features'],
-        ['ph-shield-check', 'Stay sorted', 'Expenses and SARS-ready reports, handled as you go.', url('/') . '#features'],
+        ['Get found', 'A website, Google reviews and WhatsApp that bring work to you.', url('/') . '#features'],
+        ['Win the job', 'A receptionist that answers first, 24/7, and quotes in two minutes.', url('/') . '#features'],
+        ['Get paid', 'Invoice in one tap, online payments and polite auto-reminders.', url('/') . '#features'],
+        ['Stay sorted', 'Expenses and SARS-ready reports, handled as you go.', url('/') . '#features'],
     ] : [
-        ['ph-megaphone', 'Get noticed', 'Website, SEO, reviews and referrals that make you the obvious choice.', route('features')],
-        ['ph-trophy', 'Win jobs', 'AI receptionist, CRM and smart quotes that close before competitors reply.', route('features')],
-        ['ph-gear-six', 'Work smarter', 'Scheduling, team management and client updates in one flow.', route('features')],
-        ['ph-chart-line-up', 'Boost profits', 'Auto invoicing, expense tracking and SARS-ready compliance.', route('features')],
+        ['Get noticed', 'Website, SEO, reviews and referrals that make you the obvious choice.', route('features')],
+        ['Win jobs', 'A 24/7 receptionist, CRM and quotes that land before competitors reply.', route('features')],
+        ['Work smarter', 'Scheduling, team management and client updates in one flow.', route('features')],
+        ['Boost profits', 'Invoicing, expense tracking and SARS-ready compliance.', route('features')],
     ];
     $platformSide = [
-        ['ph-robot', 'AI receptionist', 'Replies to every enquiry 24/7.', url('/') . '#features', true],
-        ['ph-whatsapp-logo', 'WhatsApp leads', 'Capture and quote in the chat.', url('/') . '#features', false],
-        ['ph-browser', 'Client Hub', 'Clients approve quotes and pay online.', url('/') . '#features', false],
+        ['Receptionist, 24/7', 'Replies to every enquiry, day and night.', url('/') . '#features'],
+        ['WhatsApp leads', 'Capture and quote in the chat.', url('/') . '#features'],
+        ['Client Hub', 'Clients approve quotes and pay online.', url('/') . '#features'],
     ];
 
     $menus = [
@@ -50,8 +50,8 @@
         <div class="lp-hdr__bar" id="lp-hdr-bar">
             <div class="lp-hdr__row">
                 <a href="{{ $home }}" class="lp-hdr__logo" aria-label="useLuminii home">
-                    <img src="{{ asset('assets/images/logo/useluminii_logos/useluminii_dark.png') }}" alt="useLuminii" class="lp-hdr__logo-img lp-hdr__logo-img--dark">
-                    <img src="{{ asset('assets/images/logo/useluminii_logos/useluminii_light.png') }}" alt="" aria-hidden="true" class="lp-hdr__logo-img lp-hdr__logo-img--light">
+                    <img src="{{ asset('assets/images/logo/useluminii_logos/useluminii_dark.png') }}" alt="useLuminii" width="385" height="109" class="lp-hdr__logo-img lp-hdr__logo-img--dark">
+                    <img src="{{ asset('assets/images/logo/useluminii_logos/useluminii_light.png') }}" alt="" aria-hidden="true" width="385" height="109" class="lp-hdr__logo-img lp-hdr__logo-img--light">
                 </a>
 
                 <nav class="lp-hdr__links" aria-label="Main">
@@ -78,112 +78,96 @@
                 <div class="lp-hdr__panel-clip">
                     <div class="lp-hdr__panel-inner">
 
-                        {{-- PLATFORM --}}
+                        {{-- PLATFORM: numbered index of the four stages, what is included, and one quiet panel --}}
                         <div class="lp-menu lp-menu--platform" id="lp-menu-platform" data-menu-panel="platform" hidden>
-                            <div class="lp-menu__tiles">
-                                @foreach($platformTiles as [$icon, $title, $desc, $href])
-                                    <a href="{{ $href }}" class="lp-tile">
-                                        <span class="lp-tile__icon"><i class="ph {{ $icon }}"></i></span>
-                                        <span class="lp-tile__body">
-                                            <span class="lp-tile__title">{{ $title }} <i class="ph ph-arrow-right"></i></span>
-                                            <span class="lp-tile__desc">{{ $desc }}</span>
-                                        </span>
-                                    </a>
+                            <ol class="lp-mx">
+                                @foreach($platformTiles as $i => [$title, $desc, $href])
+                                    <li><a href="{{ $href }}" class="lp-mx__row">
+                                        <span class="lp-mx__num">{{ str_pad((string) ($i + 1), 2, '0', STR_PAD_LEFT) }}</span>
+                                        <span class="lp-mx__text"><span class="lp-mx__title">{{ $title }}</span><span class="lp-mx__desc">{{ $desc }}</span></span>
+                                        <i class="ph ph-arrow-right lp-mx__go" aria-hidden="true"></i>
+                                    </a></li>
                                 @endforeach
-                            </div>
-                            <div class="lp-menu__stack">
-                                @foreach($platformSide as [$icon, $title, $desc, $href, $isNew])
-                                    <a href="{{ $href }}" class="lp-mini">
-                                        <span class="lp-mini__title">{{ $title }} @if($isNew)<span class="lp-mini__badge">AI</span>@endif</span>
-                                        <span class="lp-mini__desc">{{ $desc }}</span>
-                                        <i class="ph ph-arrow-right lp-mini__arrow"></i>
-                                    </a>
-                                @endforeach
-                            </div>
-                            <a href="{{ url('/') }}#process" class="lp-feature-card">
-                                <span class="lp-feature-card__glow" aria-hidden="true"></span>
-                                <span class="lp-feature-card__flow" aria-hidden="true">
-                                    <span>Lead</span><i class="ph ph-arrow-right"></i>
-                                    <span>Quote</span><i class="ph ph-arrow-right"></i>
-                                    <span>Job</span><i class="ph ph-arrow-right"></i>
-                                    <span class="is-gold">Paid</span>
-                                </span>
-                                <span class="lp-feature-card__title">See the whole flow</span>
-                                <span class="lp-feature-card__desc">{{ $isPersonal ? 'From first enquiry to money in the bank, live in 48 hours.' : 'One connected flow from first enquiry to final invoice.' }}</span>
-                                <span class="lp-feature-card__link">How it works <i class="ph ph-arrow-right"></i></span>
-                            </a>
-                        </div>
-
-                        {{-- SOLUTIONS --}}
-                        <div class="lp-menu lp-menu--solutions" id="lp-menu-solutions" data-menu-panel="solutions" hidden>
-                            <a href="{{ route('solutions.business-operating-system') }}" class="lp-sol lp-sol--business">
-                                <span class="lp-sol__eyebrow">Business</span>
-                                <span class="lp-sol__title">Service businesses <i class="ph ph-arrow-right"></i></span>
-                                <span class="lp-sol__desc">For growing teams that want leads, quotes, jobs, invoices and reports connected in one operating system.</span>
-                                <span class="lp-sol__meta">From R1,799 / month, 3 users included</span>
-                            </a>
-                            <a href="{{ route('personal') }}" class="lp-sol lp-sol--personal">
-                                <span class="lp-sol__eyebrow">Personal</span>
-                                <span class="lp-sol__title">Solo operators <i class="ph ph-arrow-right"></i></span>
-                                <span class="lp-sol__desc">For freelancers and sole traders who want to get found, quote fast and get paid on time, from their phone.</span>
-                                <span class="lp-sol__meta">Free to start, no sign-up</span>
-                            </a>
-                            <div class="lp-menu__list">
-                                <span class="lp-menu__list-label">Built for</span>
+                            </ol>
+                            <div class="lp-mx-side">
+                                <p class="lp-mx-side__label">Included</p>
                                 <ul>
-                                    @foreach(['ph-wrench' => 'Plumbing', 'ph-lightning' => 'Electrical', 'ph-broom' => 'Cleaning', 'ph-tree' => 'Landscaping', 'ph-thermometer-simple' => 'HVAC & Air', 'ph-bug' => 'Pest Control'] as $icon => $trade)
-                                        <li><i class="ph {{ $icon }}"></i> {{ $trade }}</li>
+                                    @foreach($platformSide as [$title, $desc, $href])
+                                        <li><a href="{{ $href }}"><span>{{ $title }}</span><small>{{ $desc }}</small></a></li>
                                     @endforeach
                                 </ul>
-                                <a href="{{ route('case-studies') }}" class="lp-menu__list-link">Read case studies <i class="ph ph-arrow-right"></i></a>
+                            </div>
+                            <a href="{{ url('/') }}#workflow" class="lp-mx-panel">
+                                <span class="lp-mx-panel__title">One record, start to finish</span>
+                                <span class="lp-mx-panel__desc">{{ $isPersonal ? 'From first enquiry to money in the bank, live in 48 hours.' : 'Every enquiry, quote, job and invoice in one connected flow.' }}</span>
+                                <span class="lp-mx-panel__link">See how it works <i class="ph ph-arrow-right" aria-hidden="true"></i></span>
+                            </a>
+                        </div>
+
+                        {{-- SOLUTIONS: two flat panels and a plain list of trades --}}
+                        <div class="lp-menu lp-menu--solutions" id="lp-menu-solutions" data-menu-panel="solutions" hidden>
+                            <a href="{{ route('solutions.business-operating-system') }}" class="lp-mx-sol">
+                                <span class="lp-mx-sol__kicker">Business</span>
+                                <span class="lp-mx-sol__title">Service businesses</span>
+                                <span class="lp-mx-sol__desc">For growing teams that want leads, quotes, jobs, invoices and reports connected in one operating system.</span>
+                                <span class="lp-mx-sol__meta">From R1,799 / month, 3 users included <i class="ph ph-arrow-right" aria-hidden="true"></i></span>
+                            </a>
+                            <a href="{{ route('personal') }}" class="lp-mx-sol">
+                                <span class="lp-mx-sol__kicker">Personal</span>
+                                <span class="lp-mx-sol__title">Solo operators</span>
+                                <span class="lp-mx-sol__desc">For freelancers and sole traders who want to get found, quote fast and get paid on time, from their phone.</span>
+                                <span class="lp-mx-sol__meta">Free to start, no sign-up <i class="ph ph-arrow-right" aria-hidden="true"></i></span>
+                            </a>
+                            <div class="lp-mx-side">
+                                <p class="lp-mx-side__label">Built for</p>
+                                <p class="lp-mx-trades">Plumbing, Electrical, Cleaning, Landscaping, HVAC &amp; Air, Pest Control</p>
+                                <a href="{{ route('case-studies') }}" class="lp-mx-side__more">Read case studies <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
                             </div>
                         </div>
 
-                        {{-- COMPANY --}}
+                        {{-- COMPANY: numbered index and the talk-to-a-person panel --}}
                         <div class="lp-menu lp-menu--company" id="lp-menu-company" data-menu-panel="company" hidden>
-                            <div class="lp-menu__tiles lp-menu__tiles--company">
+                            <ol class="lp-mx">
                                 @foreach([
-                                    ['ph-sparkle', 'About', 'Why we built an operating system for service businesses.', route('about')],
-                                    ['ph-trophy', 'Case studies', 'Real businesses and their numbers.', route('case-studies')],
-                                    ['ph-lock-key', 'Security', 'How we protect your business and client data.', route('security')],
-                                    ['ph-envelope-simple', 'Contact', 'Questions, partnerships or support.', route('contact.page')],
-                                ] as [$icon, $title, $desc, $href])
-                                    <a href="{{ $href }}" class="lp-tile lp-tile--compact">
-                                        <span class="lp-tile__icon"><i class="ph {{ $icon }}"></i></span>
-                                        <span class="lp-tile__body">
-                                            <span class="lp-tile__title">{{ $title }} <i class="ph ph-arrow-right"></i></span>
-                                            <span class="lp-tile__desc">{{ $desc }}</span>
-                                        </span>
-                                    </a>
+                                    ['About', 'Why we built an operating system for service businesses.', route('about')],
+                                    ['Case studies', 'Real businesses and their numbers.', route('case-studies')],
+                                    ['Security', 'How we protect your business and client data.', route('security')],
+                                    ['Contact', 'Questions, partnerships or support.', route('contact.page')],
+                                ] as $i => [$title, $desc, $href])
+                                    <li><a href="{{ $href }}" class="lp-mx__row">
+                                        <span class="lp-mx__num">{{ str_pad((string) ($i + 1), 2, '0', STR_PAD_LEFT) }}</span>
+                                        <span class="lp-mx__text"><span class="lp-mx__title">{{ $title }}</span><span class="lp-mx__desc">{{ $desc }}</span></span>
+                                        <i class="ph ph-arrow-right lp-mx__go" aria-hidden="true"></i>
+                                    </a></li>
                                 @endforeach
-                            </div>
+                            </ol>
                             <div class="lp-talk">
                                 <span class="lp-talk__title">Talk to a person</span>
                                 <span class="lp-talk__desc">Real people, not a bot. Usually replies in minutes.</span>
-                                <a href="https://wa.me/27814303023" target="_blank" rel="noopener" class="lp-talk__row"><i class="ph ph-whatsapp-logo"></i> WhatsApp us</a>
-                                <a href="tel:+27814303023" class="lp-talk__row"><i class="ph ph-phone"></i> +27 81 430 3023</a>
+                                <a href="https://wa.me/27814303023" target="_blank" rel="noopener" class="lp-talk__row"><i class="ph ph-whatsapp-logo" aria-hidden="true"></i> WhatsApp us</a>
+                                <a href="tel:+27814303023" class="lp-talk__row"><i class="ph ph-phone" aria-hidden="true"></i> +27 81 430 3023</a>
                             </div>
                         </div>
 
                         {{-- MOBILE (all menus in one accordion) --}}
                         <div class="lp-menu lp-menu--mobile" id="lp-menu-mobile" data-menu-panel="mobile" hidden>
                             <details class="lp-macc">
-                                <summary>Platform <i class="ph ph-caret-down"></i></summary>
-                                @foreach($platformTiles as [$icon, $title, $desc, $href])
-                                    <a href="{{ $href }}" class="lp-macc__link"><i class="ph {{ $icon }}"></i> {{ $title }}</a>
+                                <summary>Platform <i class="ph ph-caret-down" aria-hidden="true"></i></summary>
+                                @foreach($platformTiles as [$title, $desc, $href])
+                                    <a href="{{ $href }}" class="lp-macc__link">{{ $title }}</a>
                                 @endforeach
                             </details>
                             <details class="lp-macc">
-                                <summary>Solutions <i class="ph ph-caret-down"></i></summary>
-                                <a href="{{ route('solutions.business-operating-system') }}" class="lp-macc__link"><i class="ph ph-buildings"></i> Service businesses</a>
-                                <a href="{{ route('personal') }}" class="lp-macc__link"><i class="ph ph-user"></i> Solo operators</a>
-                                <a href="{{ route('case-studies') }}" class="lp-macc__link"><i class="ph ph-trophy"></i> Case studies</a>
+                                <summary>Solutions <i class="ph ph-caret-down" aria-hidden="true"></i></summary>
+                                <a href="{{ route('solutions.business-operating-system') }}" class="lp-macc__link">Service businesses</a>
+                                <a href="{{ route('personal') }}" class="lp-macc__link">Solo operators</a>
+                                <a href="{{ route('case-studies') }}" class="lp-macc__link">Case studies</a>
                             </details>
                             <details class="lp-macc">
-                                <summary>Company <i class="ph ph-caret-down"></i></summary>
-                                <a href="{{ route('about') }}" class="lp-macc__link"><i class="ph ph-sparkle"></i> About</a>
-                                <a href="{{ route('security') }}" class="lp-macc__link"><i class="ph ph-lock-key"></i> Security</a>
-                                <a href="{{ route('contact.page') }}" class="lp-macc__link"><i class="ph ph-envelope-simple"></i> Contact</a>
+                                <summary>Company <i class="ph ph-caret-down" aria-hidden="true"></i></summary>
+                                <a href="{{ route('about') }}" class="lp-macc__link">About</a>
+                                <a href="{{ route('security') }}" class="lp-macc__link">Security</a>
+                                <a href="{{ route('contact.page') }}" class="lp-macc__link">Contact</a>
                             </details>
                             @unless($isPersonal)<a href="{{ route('pricing') }}" class="lp-macc__top">Pricing</a>@endunless
                             @unless($isPersonal)<a href="{{ $home }}#faq" class="lp-macc__top">FAQ</a>@endunless

@@ -5,7 +5,7 @@
         <div class="lp-footer__top">
             <div class="lp-footer__brand">
                 <a href="{{ url('/') }}" class="lp-footer__logo" aria-label="useLuminii home">
-                    <img src="{{ asset('assets/images/logo/useluminii_logos/useluminii_light.png') }}" alt="useLuminii" class="lp-footer__logo-img">
+                    <img src="{{ asset('assets/images/logo/useluminii_logos/useluminii_light.png') }}" alt="useLuminii" width="385" height="109" class="lp-footer__logo-img">
                 </a>
                 <p class="lp-footer__tagline">The connected business system for service teams. Capture leads, send quotes, manage jobs, track expenses and stay in control.</p>
             </div>
