@@ -18,14 +18,27 @@
     <meta property="og:type" content="@yield('og_type', 'website')">
     <meta property="og:title" content="@yield('og_title', 'useLuminii - Business Operating System for Service Businesses')">
     <meta property="og:description" content="@yield('og_description', 'Connect website leads, quotes, jobs, invoices, expenses, compliance, and reports in one controlled flow.')">
-    <meta property="og:image" content="@yield('og_image', asset('assets/images/logo/useluminii.png'))">
+    {{-- 1200x630 social preview (rendered from the brand design); pages can override og_image.
+         Built from APP_URL so shared links always point at https://useluminii.com (not a preview
+         host or http), with ?v= so WhatsApp/LinkedIn/Facebook refetch when the image changes. --}}
+    @php
+        $ogFile = 'assets/images/og/useluminii-og.png';
+        $ogDefault = rtrim(config('app.url'), '/') . '/' . $ogFile . '?v=' . @filemtime(public_path($ogFile));
+    @endphp
+    <meta property="og:image" content="@yield('og_image', $ogDefault)">
+    <meta property="og:image:secure_url" content="@yield('og_image', $ogDefault)">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="useLuminii: stop losing jobs between enquiry and invoice">
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:site_name" content="useLuminii">
 
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="@yield('twitter_title', 'useLuminii - Business Operating System for Service Businesses')">
     <meta name="twitter:description" content="@yield('twitter_description', 'Connect website leads, quotes, jobs, invoices, expenses, compliance, and reports in one controlled flow.')">
-    <meta name="twitter:image" content="@yield('twitter_image', asset('assets/images/logo/useluminii.png'))">
+    <meta name="twitter:image" content="@yield('twitter_image', $ogDefault)">
+    <meta name="twitter:image:alt" content="useLuminii: stop losing jobs between enquiry and invoice">
 
     <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
     <link rel="apple-touch-icon" href="{{ asset('favicon.svg') }}">
@@ -39,6 +52,52 @@
     <link rel="stylesheet" href="{{ asset('useluminii/assets/css/aos.css') }}">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/lp.css') }}?v={{ filemtime(public_path('css/lp.css')) }}">
+
+    {{-- Site-wide identity for search engines and AI answer engines: who we are (Organization,
+         with our social profiles as sameAs) and the site itself (WebSite). Page-specific
+         schema (SoftwareApplication, FAQPage, BreadcrumbList...) is pushed by each page. --}}
+    <script type="application/ld+json">
+    {!! json_encode([
+        '@context' => 'https://schema.org',
+        '@graph' => [
+            [
+                '@type' => 'Organization',
+                '@id' => url('/') . '#organization',
+                'name' => 'useLuminii',
+                'url' => url('/'),
+                'logo' => asset('assets/images/logo/useluminii.png'),
+                'description' => 'useLuminii is the business operating system for service businesses: website leads, quotes, jobs, invoices, expenses and reports in one connected flow.',
+                'email' => 'sales@shifttechgs.com',
+                'sameAs' => [
+                    'https://facebook.com/useluminii',
+                    'https://linkedin.com/company/useluminii',
+                    'https://instagram.com/useluminii',
+                ],
+                'parentOrganization' => [
+                    '@type' => 'Organization',
+                    'name' => 'ShiftTech',
+                    'url' => 'https://shifttechgs.com',
+                ],
+                'contactPoint' => [
+                    '@type' => 'ContactPoint',
+                    'telephone' => '+27814303023',
+                    'email' => 'sales@shifttechgs.com',
+                    'contactType' => 'sales',
+                    'areaServed' => 'ZA',
+                    'availableLanguage' => 'English',
+                ],
+            ],
+            [
+                '@type' => 'WebSite',
+                '@id' => url('/') . '#website',
+                'name' => 'useLuminii',
+                'url' => url('/'),
+                'inLanguage' => 'en',
+                'publisher' => ['@id' => url('/') . '#organization'],
+            ],
+        ],
+    ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG) !!}
+    </script>
 
     @stack('head-styles')
     @stack('head-scripts')

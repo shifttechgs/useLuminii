@@ -1,0 +1,40 @@
+# useLuminii
+
+> useLuminii is the business operating system for service businesses. It connects website enquiries, quotes, jobs, invoices, payments, expenses and reports in one client record, so the team works from the same history, schedule and next step. A product of ShiftTech, based in South Africa.
+
+useLuminii is for service businesses such as plumbing, electrical, cleaning, landscaping, HVAC, pest control, pool services, security, painting and construction. It replaces the mix of calls, WhatsApp, spreadsheets and separate tools that causes enquiries to go unanswered, quotes to go unfollowed and invoices to go out late.
+
+## What it does
+
+- Captures every enquiry (website form, AI receptionist, WhatsApp) into one client record with the next action visible.
+- Builds quotes, tracks the client's decision and turns an accepted quote into a job.
+- Schedules jobs and assigns technicians so the office, the team and the client share one plan.
+- Creates invoices from the work, records payments and shows outstanding balances.
+- Reports on revenue, expenses and outstanding invoices.
+- Setup is done for you: the team maps your workflow, configures the workspace, brings in agreed client data and trains your team.
+
+## Pricing (South African rand)
+
+- Starter: R999 per month, flat. For solo operators: website that captures enquiries, AI receptionist (24/7), lead capture and basic CRM, WhatsApp connection, standard build and onboarding included.
+- Business: R1,799 per month with 3 users included, then R299 per extra user per month. Everything in Starter plus full CRM and pipeline, quote and proposal builder, job scheduling, invoicing and expenses, business reports, priority onboarding and support.
+- Annual billing: 2 months free (Starter R833/month, Business R1,499/month, extra users R249/month). The Business setup fee is waived on annual billing.
+- Larger operations (multiple teams, locations or high job volumes): scoped and quoted after a call.
+- useLuminii Personal: a free quote and invoice maker for freelancers and sole traders. No sign-up.
+
+## Key pages
+
+- [Home](https://useluminii.com/): what useLuminii does, from enquiry to final payment
+- [Pricing](https://useluminii.com/pricing): plans, billing and pricing questions
+- [Features](https://useluminii.com/features): the platform in detail
+- [Business operating system for service businesses](https://useluminii.com/solutions/business-operating-system-for-service-businesses): who it is for and why
+- [Personal](https://useluminii.com/personal): free quote and invoice maker for sole traders
+- [Case studies](https://useluminii.com/case-studies): client results
+- [Security](https://useluminii.com/security): how data is protected
+- [About](https://useluminii.com/about): the company behind useLuminii
+
+## Contact
+
+- Book a demo: https://useluminii.com/#booking
+- Email: sales@shifttechgs.com
+- Phone and WhatsApp: +27 81 430 3023
+- Contact page: https://useluminii.com/contact
