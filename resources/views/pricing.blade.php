@@ -1,47 +1,59 @@
 @extends('layouts.app')
 
+@php
+    // Pricing questions: rendered below and published as FAQPage structured data.
+    $pricingFaqs = [
+        ['q' => 'Is the setup fee always required on Business?', 'a' => 'It depends on what you need. New website and implementation scope can affect the setup fee. If you commit to an annual plan, the setup fee is waived.'],
+        ['q' => 'What counts as a user on the Business plan?', 'a' => 'A user is anyone who logs into the system to manage jobs, quotes, clients, or operations. Business includes 3 users; each extra user is R299 per month (R249 on annual billing). Client portal access does not count as a paid user seat.'],
+        ['q' => 'Can I start on Starter and upgrade later?', 'a' => 'Yes. Many businesses start on Starter, then upgrade to Business once they are ready to connect the full operating flow.'],
+        ['q' => 'How does annual billing work?', 'a' => 'Annual plans are billed upfront for 10 months, giving you 2 months free. On Business, the setup fee is also waived when you pay annually.'],
+        ['q' => 'What about larger operations?', 'a' => 'For multiple teams, locations or high job volumes, pricing depends on team size, number of locations, and integration scope. We provide a custom proposal after a scoping call.'],
+    ];
+@endphp
+
 @section('title', 'Pricing - useLuminii for Service Businesses in South Africa')
-@section('description', 'Simple, transparent pricing for South African service businesses. Starter R999/mo flat. Business from R1,799/mo with 3 users included. Connect leads, quotes, jobs, invoicing, expenses, and reporting in one flow.')
+@section('description', 'Simple, transparent pricing for service businesses. Starter R999/month flat, or Business from R1,799/month with 3 users. Annual billing saves 2 months.')
 @section('keywords', 'CRM pricing South Africa, service business software cost, job management software pricing, useLuminii pricing, CRM for contractors price')
 @section('og_title', 'useLuminii Pricing - Transparent Plans for Service Businesses')
 @section('og_description', 'Starter R999/mo flat, or Business from R1,799/mo with 3 users included. One operating system for service businesses.')
 
 @push('head-scripts')
+@php
+    $monthly = fn (string $price, string $unit) => ['@type' => 'UnitPriceSpecification', 'price' => $price, 'priceCurrency' => 'ZAR', 'billingDuration' => 'P1M', 'unitText' => $unit];
+    $pricingSchema = [
+        '@context' => 'https://schema.org',
+        '@type' => 'WebPage',
+        'name' => 'useLuminii Pricing',
+        'url' => url('/pricing'),
+        'description' => 'Transparent pricing for useLuminii, the business operating system for service businesses.',
+        'isPartOf' => ['@id' => url('/') . '#website'],
+        'mainEntity' => [
+            '@type' => 'SoftwareApplication',
+            'name' => 'useLuminii',
+            'applicationCategory' => 'BusinessApplication',
+            'operatingSystem' => 'Web',
+            'provider' => ['@id' => url('/') . '#organization'],
+            'offers' => [
+                ['@type' => 'Offer', 'name' => 'Starter', 'price' => '999', 'priceCurrency' => 'ZAR',
+                 'priceSpecification' => $monthly('999', 'per month, flat'),
+                 'description' => 'For solo operators: website, AI receptionist, lead capture, basic CRM and WhatsApp connection. Standard build included. Annual billing R833/month.'],
+                ['@type' => 'Offer', 'name' => 'Business', 'price' => '1799', 'priceCurrency' => 'ZAR',
+                 'priceSpecification' => $monthly('1799', 'per month, 3 users included; R299 per extra user'),
+                 'description' => 'Everything in Starter plus full CRM, pipeline, quoting, job scheduling, invoicing, expenses and reports. 3 users included, R299 per extra user. Annual billing R1,499/month.'],
+            ],
+        ],
+    ];
+    $pricingFaqSchema = [
+        '@context' => 'https://schema.org',
+        '@type' => 'FAQPage',
+        'mainEntity' => array_map(fn ($f) => ['@type' => 'Question', 'name' => $f['q'], 'acceptedAnswer' => ['@type' => 'Answer', 'text' => $f['a']]], $pricingFaqs),
+    ];
+@endphp
 <script type="application/ld+json">
-{
-  "@@context": "https://schema.org",
-  "@@type": "WebPage",
-  "name": "useLuminii Pricing",
-  "url": "{{ url('/pricing') }}",
-  "description": "Transparent pricing for useLuminii, the business operating system for service businesses.",
-  "mainEntity": {
-    "@@type": "ItemList",
-    "itemListElement": [
-      {
-        "@@type": "ListItem",
-        "position": 1,
-        "item": {
-          "@@type": "Offer",
-          "name": "Starter Plan",
-          "price": "999",
-          "priceCurrency": "ZAR",
-          "description": "Website, AI receptionist, lead capture, basic CRM, and WhatsApp connection."
-        }
-      },
-      {
-        "@@type": "ListItem",
-        "position": 2,
-        "item": {
-          "@@type": "Offer",
-          "name": "Business Plan",
-          "price": "1799",
-          "priceCurrency": "ZAR",
-          "description": "Everything in Starter plus full CRM, pipeline, quoting, job scheduling, invoicing, expenses and reports. 3 users included, R299 per extra user."
-        }
-      }
-    ]
-  }
-}
+{!! json_encode($pricingSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG) !!}
+</script>
+<script type="application/ld+json">
+{!! json_encode($pricingFaqSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG) !!}
 </script>
 @endpush
 
@@ -112,55 +124,17 @@
                 <h2 class="lp-section__h2" data-aos="fade-up" data-aos-delay="60">Pricing questions <em>answered.</em></h2>
             </div>
             <div class="lp-faq__list" data-aos="fade-up" data-aos-delay="80">
+                @foreach($pricingFaqs as $faq)
                 <div class="lp-faq-item">
                     <button class="lp-faq-btn" aria-expanded="false">
-                        <span>Is the setup fee always required on Business?</span>
+                        <span>{{ $faq['q'] }}</span>
                         <span class="lp-faq-icon"><i class="ph ph-plus"></i></span>
                     </button>
                     <div class="lp-faq-body">
-                        <div class="lp-faq-body-inner">It depends on what you need. New website and implementation scope can affect the setup fee. If you commit to an annual plan, the setup fee is waived.</div>
+                        <div class="lp-faq-body-inner">{{ $faq['a'] }}</div>
                     </div>
                 </div>
-
-                <div class="lp-faq-item">
-                    <button class="lp-faq-btn" aria-expanded="false">
-                        <span>What counts as a user on the Business plan?</span>
-                        <span class="lp-faq-icon"><i class="ph ph-plus"></i></span>
-                    </button>
-                    <div class="lp-faq-body">
-                        <div class="lp-faq-body-inner">A user is anyone who logs into the system to manage jobs, quotes, clients, or operations. Business includes 3 users; each extra user is R299 per month (R249 on annual billing). Client portal access does not count as a paid user seat.</div>
-                    </div>
-                </div>
-
-                <div class="lp-faq-item">
-                    <button class="lp-faq-btn" aria-expanded="false">
-                        <span>Can I start on Starter and upgrade later?</span>
-                        <span class="lp-faq-icon"><i class="ph ph-plus"></i></span>
-                    </button>
-                    <div class="lp-faq-body">
-                        <div class="lp-faq-body-inner">Yes. Many businesses start on Starter, then upgrade to Business once they are ready to connect the full operating flow.</div>
-                    </div>
-                </div>
-
-                <div class="lp-faq-item">
-                    <button class="lp-faq-btn" aria-expanded="false">
-                        <span>How does annual billing work?</span>
-                        <span class="lp-faq-icon"><i class="ph ph-plus"></i></span>
-                    </button>
-                    <div class="lp-faq-body">
-                        <div class="lp-faq-body-inner">Annual plans are billed upfront for 10 months, giving you 2 months free. On Business, the setup fee is also waived when you pay annually.</div>
-                    </div>
-                </div>
-
-                <div class="lp-faq-item">
-                    <button class="lp-faq-btn" aria-expanded="false">
-                        <span>What about larger operations?</span>
-                        <span class="lp-faq-icon"><i class="ph ph-plus"></i></span>
-                    </button>
-                    <div class="lp-faq-body">
-                        <div class="lp-faq-body-inner">For multiple teams, locations or high job volumes, pricing depends on team size, number of locations, and integration scope. We provide a custom proposal after a scoping call.</div>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </section>
