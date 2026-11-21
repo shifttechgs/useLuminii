@@ -20,11 +20,11 @@
 
         <div class="lp-voices__supporting">
             <figure>
-                <blockquote>&ldquo;Luminii replaced all of it in one setup call. Two days to go live &mdash; and I haven't looked back since.&rdquo;</blockquote>
+                <blockquote>&ldquo;Luminii replaced all of it in one setup call. Two days to go live, and I haven't looked back since.&rdquo;</blockquote>
                 <figcaption><strong>Priya Govender</strong><span>Sparkle Cleaning &middot; Durban</span></figcaption>
             </figure>
             <figure>
-                <blockquote>&ldquo;My team finally has one system. Scheduling, invoicing, chasing payments &mdash; all handled.&rdquo;</blockquote>
+                <blockquote>&ldquo;My team finally has one system. Scheduling, invoicing, chasing payments. All handled.&rdquo;</blockquote>
                 <figcaption><strong>Karen Mokoena</strong><span>KM Electrical &middot; Pretoria</span></figcaption>
             </figure>
             <figure>

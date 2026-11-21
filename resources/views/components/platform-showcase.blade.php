@@ -9,74 +9,67 @@
     ];
 @endphp
 
-<section class="lp-platform lp-built" id="features" aria-labelledby="platform-heading">
+{{-- PLATFORM: one client record, six views. Chapters scroll on the left; the
+     record window stays put on the right and follows the chapter in focus. --}}
+<section class="lp-platform" id="features" aria-labelledby="platform-heading">
     <div class="lp-wrap">
         <header class="lp-platform__intro">
-            <div>
-                <div class="lp-section__label">Built different</div>
-                <h2 id="platform-heading">The details your business<br><em>cannot afford to miss.</em></h2>
-            </div>
+            <div class="lp-section__label">Built different</div>
+            <h2 id="platform-heading">The details your business<br><em>cannot afford to miss.</em></h2>
             <p>From the first enquiry to the final payment, your team works from the same client history, schedule and next step.</p>
         </header>
 
-        <div class="lp-built__grid">
+        <div class="lp-platform__story" data-pf>
+            <ol class="lp-platform__chapters">
                 @foreach($platformViews as $key => $view)
-                    <article class="lp-platform__panel lp-built__card lp-built__card--{{ $key }}{{ $loop->first || $loop->last ? ' lp-built__card--wide' : '' }}" aria-labelledby="feature-title-{{ $key }}">
-                        <div class="lp-platform__panel-copy">
-                            <span class="lp-platform__eyebrow">/ 0{{ $loop->iteration }}</span>
-                            <h3 id="feature-title-{{ $key }}">{{ $view['headline'] }}</h3>
-                            <p>{{ $view['description'] }}</p>
-                        </div>
+                <li class="lp-platform__chapter{{ $loop->first ? ' is-active' : '' }}" data-pf-chapter="{{ $key }}">
+                    <span class="lp-platform__num">{{ str_pad((string) $loop->iteration, 2, '0', STR_PAD_LEFT) }}</span>
+                    <div class="lp-platform__chapter-copy">
+                        <p class="lp-platform__kicker">{{ $view['title'] }}</p>
+                        <h3>{{ $view['headline'] }}</h3>
+                        <p>{{ $view['description'] }}</p>
+                    </div>
 
-                        <figure class="lp-platform__preview">
-                            <div class="lp-platform__app-bar"><span class="lp-platform__wordmark">use<strong>Luminii</strong><span></span></span><span>Workspace / {{ $view['title'] }}</span><span class="lp-platform__avatar">TN</span></div>
-                            <div class="lp-platform__app-body">
-                                <div class="lp-platform__screen-title"><h4><i class="ph {{ $view['icon'] }}" aria-hidden="true"></i> {{ $view['title'] }}</h4><span>TN Plumbing</span></div>
-
-                                @if($key === 'enquiries')
-                                    <div class="lp-platform__table-wrap">
-                                        <table class="lp-platform__table"><caption class="lp-platform__sr">Illustrative enquiry records</caption>
-                                            <thead><tr><th>Client</th><th>Status</th><th>Next action</th></tr></thead>
-                                            <tbody>
-                                                <tr><td><strong>Amina Dlamini</strong><small>Geyser replacement · Sandton</small></td><td><span class="lp-platform__status">New</span></td><td>Make first contact</td></tr>
-                                                <tr><td><strong>Oakwood Offices</strong><small>Maintenance · Rosebank</small></td><td><span class="lp-platform__status lp-platform__status--amber">Contacted</span></td><td>Qualify request</td></tr>
-                                                <tr><td><strong>David Jacobs</strong><small>Leak repair · Bryanston</small></td><td><span class="lp-platform__status">Qualified</span></td><td>Send proposal</td></tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="lp-platform__record-note"><i class="ph ph-address-book" aria-hidden="true"></i><span>Client details, service request and next action.<br><strong>Ready for the next conversation.</strong></span></div>
-                                @elseif($key === 'quotes')
-                                    <div class="lp-platform__document">
-                                        <div class="lp-platform__document-head"><span>QUOTE / QUO-1042</span><span class="lp-platform__status lp-platform__status--green">Accepted</span></div>
-                                        <h5>Geyser replacement</h5><p>Prepared for Amina Dlamini · Sandton</p>
-                                        <dl class="lp-platform__line-items"><div><dt>150L geyser supply</dt><dd>R 5,500</dd></div><div><dt>Installation &amp; fittings</dt><dd>R 3,000</dd></div><div class="lp-platform__total"><dt>Total</dt><dd>R 8,500</dd></div></dl>
-                                    </div>
-                                    <div class="lp-platform__record-note"><i class="ph ph-check-circle" aria-hidden="true"></i><span>Quote accepted.<br><strong>Linked job created for scheduling.</strong></span></div>
-                                @elseif($key === 'jobs')
-                                    <div class="lp-platform__day"><span>Today's schedule</span><strong>3 jobs</strong></div>
-                                    <ol class="lp-platform__schedule">
-                                        <li><time>08:30</time><div><strong>Leak repair</strong><small>David Jacobs · Bryanston</small></div><span class="lp-platform__status lp-platform__status--green">Completed</span></li>
-                                        <li class="lp-platform__schedule-current"><time>11:00</time><div><strong>Geyser replacement</strong><small>Amina Dlamini · Sandton</small><span class="lp-platform__assigned">Assigned to Thabo</span></div><span class="lp-platform__status">Scheduled</span></li>
-                                        <li><time>14:30</time><div><strong>Maintenance visit</strong><small>Oakwood Offices · Rosebank</small></div><span class="lp-platform__status">Scheduled</span></li>
-                                    </ol>
-                                @elseif($key === 'payments')
-                                    <div class="lp-platform__balance"><span>Outstanding balance</span><strong>R 8,500<span>.00</span></strong><small>INV-1042 · Amina Dlamini</small></div>
-                                    <dl class="lp-platform__payment-details"><div><dt>Job</dt><dd>Geyser replacement</dd></div><div><dt>Invoice status</dt><dd><span class="lp-platform__status lp-platform__status--amber">Sent</span></dd></div><div><dt>Total paid</dt><dd>R 0.00</dd></div><div><dt>Balance due</dt><dd>R 8,500.00</dd></div></dl>
-                                @elseif($key === 'clients')
-                                    <div class="lp-built__client"><span>AD</span><div><strong>Amina Dlamini</strong><small>Sandton · Residential client</small></div></div>
-                                    <ol class="lp-built__history"><li><span>Request</span><strong>Geyser replacement</strong><small>Site visit requested</small></li><li><span>Quote</span><strong>QUO-1042 · R 8,500</strong><small>Accepted by client</small></li><li><span>Job</span><strong>Assigned to Thabo</strong><small>Appointment scheduled</small></li></ol>
-                                @else
-                                    <div class="lp-built__report"><span>Revenue overview</span><strong>R 42,500<small>This month</small></strong><div class="lp-built__bars" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div><div class="lp-built__axis"><span>Week 1</span><span>Week 2</span><span>Week 3</span><span>Week 4</span></div></div>
-                                    <dl class="lp-built__totals"><div><dt>Revenue</dt><dd>R 42,500</dd></div><div><dt>Expenses</dt><dd>R 18,200</dd></div><div><dt>Outstanding</dt><dd>R 8,500</dd></div></dl>
-                                @endif
-                            </div>
-                            <figcaption>Illustrative product preview · Sample business and client data</figcaption>
-                        </figure>
-                    </article>
+                    {{-- small screens: each chapter carries its own view --}}
+                    <figure class="lp-pf-window lp-pf-window--inline" aria-hidden="true">
+                        <div class="lp-pf-window__bar"><span class="lp-pf-wordmark">use<strong>Luminii</strong></span><span>Workspace / {{ $view['title'] }}</span><span class="lp-pf-avatar">TN</span></div>
+                        <div class="lp-pf-screen is-active">@include('components.partials.platform-screen', ['key' => $key, 'view' => $view])</div>
+                    </figure>
+                </li>
                 @endforeach
+            </ol>
+
+            <div class="lp-platform__stage">
+                <figure class="lp-pf-window lp-pf-window--stage">
+                    <div class="lp-pf-window__bar">
+                        <span class="lp-pf-wordmark">use<strong>Luminii</strong></span>
+                        <span>Workspace / <b data-pf-crumb>{{ reset($platformViews)['title'] }}</b></span>
+                        <span class="lp-pf-avatar">TN</span>
+                    </div>
+                    <div class="lp-pf-window__body">
+                        <nav class="lp-pf-nav" aria-label="Product views">
+                            @foreach($platformViews as $key => $view)
+                            <button type="button" class="lp-pf-nav__item{{ $loop->first ? ' is-active' : '' }}" data-pf-nav="{{ $key }}">
+                                <i class="ph {{ $view['icon'] }}" aria-hidden="true"></i><span>{{ $view['title'] }}</span>
+                            </button>
+                            @endforeach
+                        </nav>
+                        <div class="lp-pf-screens">
+                            @foreach($platformViews as $key => $view)
+                            <div class="lp-pf-screen{{ $loop->first ? ' is-active' : '' }}" data-pf-screen="{{ $key }}">
+                                @include('components.partials.platform-screen', ['key' => $key, 'view' => $view])
+                            </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </figure>
+                <p class="lp-platform__caption">Illustrative preview · sample business and client data</p>
+            </div>
         </div>
 
-        <div class="lp-platform__footer"><p>One client record. The whole job history.</p><a href="{{ url('/') }}#booking">See it in a demo <i class="ph ph-arrow-right" aria-hidden="true"></i></a></div>
+        <div class="lp-platform__footer">
+            <p>One client record. <em>The whole job history.</em></p>
+            <a href="{{ url('/') }}#booking">See it in a demo <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+        </div>
     </div>
 </section>
-

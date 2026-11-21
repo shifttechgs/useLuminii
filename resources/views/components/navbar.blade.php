@@ -120,7 +120,7 @@
                                 <span class="lp-sol__eyebrow">Business</span>
                                 <span class="lp-sol__title">Service businesses <i class="ph ph-arrow-right"></i></span>
                                 <span class="lp-sol__desc">For growing teams that want leads, quotes, jobs, invoices and reports connected in one operating system.</span>
-                                <span class="lp-sol__meta">From R299 / user / month</span>
+                                <span class="lp-sol__meta">From R1,799 / month, 3 users included</span>
                             </a>
                             <a href="{{ route('personal') }}" class="lp-sol lp-sol--personal">
                                 <span class="lp-sol__eyebrow">Personal</span>

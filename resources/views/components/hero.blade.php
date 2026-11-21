@@ -1,19 +1,20 @@
 @php
     // Copy and the day's flow. Each card is something useLuminii does for the team.
     $h = [
-        'eyebrow' => 'The operating system for service businesses',
+        'eyebrow' => null,   // e.g. 'The operating system for service businesses'; null hides it
         'line1'   => 'Stop losing jobs',
-        'pre'     => 'to ',
-        'accent'  => 'missed follow-ups',
-        'sub'     => 'Every enquiry answered. Every quote chased. A business you can actually see, from first call to paid invoice.',
+        'pre'     => 'between ',
+        'accent'  => 'enquiry and invoice',
+        'sub'     => 'Keep every lead, quote, job and invoice connected. Know what needs attention, follow up on opportunities and stay in control from first contact to final payment.',
         'primary' => ['Book a demo', url('/') . '#booking'],
         'ghost'   => ['See pricing', route('pricing')],
-        'trust'   => ['For South African service businesses', 'Guided setup and team handover'],
+        // Risk reducers under the buttons: only promises we can keep
+        'trust'   => ['Live within days', 'Guided setup and team handover', 'No credit card needed'],
         'events'  => [
-            ['time' => '8:47 AM',  'tone' => 'blue',  'icon' => 'ph-chat-circle-text', 'title' => 'Enquiry answered', 'detail' => 'Burst geyser, Sandton. Site visit booked'],
-            ['time' => '10:15 AM', 'tone' => 'gold',  'icon' => 'ph-file-text',        'title' => 'Quote sent',       'detail' => 'R 8,500 · Geyser replacement'],
+            ['time' => '8:47 AM',  'tone' => 'blue',  'icon' => 'ph-chat-circle-text', 'title' => 'Enquiry answered', 'detail' => 'Burst pipe, kitchen. Site visit booked'],
+            ['time' => '10:15 AM', 'tone' => 'gold',  'icon' => 'ph-file-text',        'title' => 'Quote sent',       'detail' => '8,500.00 · Water heater replacement'],
             ['time' => '11:02 AM', 'tone' => 'lilac', 'icon' => 'ph-calendar-check',   'title' => 'Job scheduled',    'detail' => 'Thabo assigned, client notified'],
-            ['time' => '4:30 PM',  'tone' => 'green', 'icon' => 'ph-receipt',          'title' => 'Invoice paid',     'detail' => 'Instant EFT · VAT recorded'],
+            ['time' => '4:30 PM',  'tone' => 'green', 'icon' => 'ph-receipt',          'title' => 'Invoice paid',     'detail' => 'Paid online · Tax recorded'],
         ],
         'sysDid'  => '14 admin tasks today',
         'chips'   => ['ph-chat-circle-text', 'ph-file-text', 'ph-receipt'],
@@ -28,10 +29,12 @@
 
     <div class="lp-wrap lp-fh__wrap">
         <div class="lp-fh__copy">
+            @if($h['eyebrow'])
             <div class="lp-fh__eyebrow" data-aos="fade-up" data-aos-duration="600">
                 <img src="{{ asset('favicon.svg') }}" alt="" class="lp-fh__eyebrow-mark" width="20" height="20">
                 {{ $h['eyebrow'] }}
             </div>
+            @endif
 
             <h1 class="lp-fh__h1" data-aos="fade-up" data-aos-duration="700" data-aos-delay="60">
                 <span class="lp-fh__h1-line">{{ $h['line1'] }}</span><br>
@@ -48,9 +51,9 @@
             </div>
 
             <div class="lp-fh__trust" data-aos="fade-up" data-aos-duration="700" data-aos-delay="240">
-                <span>{{ $h['trust'][0] }}</span>
-                <span class="lp-fh__trust-sep" aria-hidden="true"></span>
-                <span>{{ $h['trust'][1] }}</span>
+                @foreach($h['trust'] as $point)
+                    <span class="lp-fh__trust-item"><i class="ph ph-check-circle" aria-hidden="true"></i>{{ $point }}</span>
+                @endforeach
             </div>
         </div>
 
