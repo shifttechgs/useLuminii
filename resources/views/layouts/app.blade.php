@@ -61,9 +61,6 @@
     <link rel="preconnect" href="https://unpkg.com" crossorigin>
     <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css"></noscript>
-    {{-- toast styles are only needed after a form submit: load without blocking the first paint --}}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"></noscript>
     <link rel="stylesheet" href="{{ asset('css/lp.css') }}?v={{ filemtime(public_path('css/lp.css')) }}">
 
     {{-- Site-wide identity for search engines and AI answer engines: who we are (Organization,
@@ -119,51 +116,58 @@
 
 @include('components.navbar')
 
+<main id="main">
 @yield('content')
+</main>
 
 @include('components.footer')
 
-{{-- Non-critical scripts are deferred (they run after parsing, before DOMContentLoaded). jQuery is
-     only here for toastr; the Bootstrap JS bundle was unused by every page on this layout. --}}
-<script src="{{ asset('useluminii/assets/js/jquery-3.7.1.min.js') }}" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" defer></script>
 @unless(View::hasSection('lean_css'))
 <script src="{{ asset('useluminii/assets/js/aos.js') }}" defer></script>
 @endunless
 
+{{-- Toasts: a tiny native notice (replaces toastr + jQuery, ~33 KB of JS). Styles in lp.css (.lp-toast). --}}
+<div class="lp-toasts" id="lp-toasts" aria-live="polite" aria-atomic="false"></div>
 <script>
+window.lpToast = function (type, message) {
+    var box = document.getElementById('lp-toasts');
+    if (!box || !message) return;
+    var t = document.createElement('div');
+    t.className = 'lp-toast lp-toast--' + (type === 'success' ? 'success' : type === 'error' ? 'error' : 'info');
+    t.setAttribute('role', type === 'error' ? 'alert' : 'status');
+    var p = document.createElement('p');
+    p.textContent = message;
+    var x = document.createElement('button');
+    x.type = 'button';
+    x.className = 'lp-toast__close';
+    x.setAttribute('aria-label', 'Dismiss');
+    x.innerHTML = '<i class="ph ph-x" aria-hidden="true"></i>';
+    t.append(p, x);
+    box.prepend(t);
+    var gone = false;
+    function hide() {
+        if (gone) return; gone = true;
+        t.classList.add('is-leaving');
+        setTimeout(function () { t.remove(); }, 260);
+    }
+    x.addEventListener('click', hide);
+    var timer = setTimeout(hide, 5000);
+    t.addEventListener('mouseenter', function () { clearTimeout(timer); });
+    t.addEventListener('mouseleave', function () { timer = setTimeout(hide, 2000); });
+};
 document.addEventListener('DOMContentLoaded', function () {
     if (window.AOS) AOS.init({ duration: 700, easing: 'ease-out-cubic', once: true, offset: 60 });
-    if (!window.toastr) return;
     @if(session('success'))
-    toastr.success("{{ session('success') }}");
+    lpToast('success', @json(session('success')));
     @elseif(session('error'))
-    toastr.error("{{ session('error') }}");
+    lpToast('error', @json(session('error')));
     @elseif(session('warning'))
-    toastr.warning("{{ session('warning') }}");
+    lpToast('info', @json(session('warning')));
     @elseif(session('info'))
-    toastr.info("{{ session('info') }}");
+    lpToast('info', @json(session('info')));
     @endif
 });
 </script>
-
-<style>
-#toast-container > .toast-success {
-    background-color: #dcfce7 !important;
-    border: 1px solid #86efac !important;
-    box-shadow: 0 14px 34px rgba(20, 83, 45, 0.16) !important;
-}
-#toast-container > .toast-success,
-#toast-container > .toast-success .toast-title,
-#toast-container > .toast-success .toast-message,
-#toast-container > .toast-success .toast-close-button {
-    color: #14532d !important;
-}
-#toast-container > .toast-success .toast-close-button {
-    text-shadow: none !important;
-    opacity: 0.8 !important;
-}
-</style>
 
 <script>
 (function () {
@@ -285,27 +289,8 @@ document.addEventListener('DOMContentLoaded', function () {
 (function () {
     if (!window.fetch) return;
 
-    function toastrOptions() {
-        if (!window.toastr || toastrOptions.done) return;
-        toastrOptions.done = true;
-        toastr.options = {
-            closeButton: true,
-            progressBar: true,
-            newestOnTop: true,
-            positionClass: 'toast-top-right',
-            timeOut: 5000,
-            extendedTimeOut: 2000
-        };
-    }
-
     function showToast(type, message) {
-        toastrOptions();
-        if (window.toastr && typeof toastr[type] === 'function') {
-            toastr[type](message);
-            return;
-        }
-
-        alert(message);
+        if (window.lpToast) window.lpToast(type, message);
     }
 
     function clearErrors(form) {

@@ -9,8 +9,8 @@
     --ink: #081D3A;
     --ink-2: #040F1F;
     --ink-3: #102B52;
-    --muted: #647082;
-    --muted-2: #8490A3;
+    --muted: #5C6879;
+    --muted-2: #626E80;
     --border: #E5EAF2;
     --border-2: #CBD5E4;
     --bg: #FFFFFF;
@@ -18,7 +18,7 @@
     --bg-3: #EEF2F8;
     --gold: #F5C542;
     --gold-dark: #D9A441;
-    --gold-muted: #B88912;
+    --gold-muted: #8C6809; /* text-safe gold: 4.7:1 on the tint, 5.1:1 on white */
     --gold-tint: #FFF4C2;
     --gold-border: rgba(245, 197, 66, 0.42);
     --teal: var(--gold);
@@ -120,6 +120,9 @@
 .lp-section--dark .lp-section__label {
     color: var(--gold-tint);
 }
+/* light standalone sections (not .lp-section) */
+.lp-gap .lp-section__label,
+.lp-platform .lp-section__label { color: var(--gold-muted); }
 .lp-section--dark .lp-section__label::before {
     background: var(--gold);
 }
@@ -2504,7 +2507,7 @@
     border-top: 1px solid var(--ft-rule);
 }
 .lp-footer__copy { margin: 0; color: rgba(255,255,255,.5); font-size: 14px; }
-.lp-footer__maker { color: #D5BD6A; }
+.lp-footer__maker { color: #D5BD6A; text-decoration: underline !important; text-decoration-color: rgba(213,189,106,.45) !important; text-underline-offset: 3px; }
 .lp-footer__maker:hover { color: var(--gold); }
 .lp-footer__legal { display: flex; gap: 24px; }
 .lp-footer__legal a { color: rgba(255,255,255,.5); font-size: 14px; transition: color .25s ease; }
@@ -3482,7 +3485,7 @@ body .lp-page__visual-title { font-weight: 400; letter-spacing: -0.02em; }
     text-wrap: balance;
 }
 .lp-fh__h1-line { display: block; }
-.lp-fh__accent { color: var(--gold-muted); }
+.lp-fh__accent { color: #A47A10; } /* large display text: 3.6:1 on the tint */
 
 /* Sub line and actions sit side by side under the headline on wide screens */
 .lp-fh__lower {
@@ -3625,7 +3628,7 @@ body .lp-page__visual-title { font-weight: 400; letter-spacing: -0.02em; }
    ================================================================ */
 .lp-gap {
     --gap-panel: #EEF2F0;
-    --gap-warn: #B0642B;
+    --gap-warn: #A85F28;
     --gap-ok: #2F7D60;
     --gap-ease: cubic-bezier(.16, 1, .3, 1);
     padding: clamp(96px, 11vw, 148px) 0 clamp(64px, 6vw, 88px);
@@ -6560,3 +6563,32 @@ body .lp-page__visual-title { font-weight: 400; letter-spacing: -0.02em; }
     html.qb-printing #qb-print .qb-paper__logo.is-empty, html.qb-printing #qb-print .qb-paper__logo-add, html.qb-printing #qb-print .qb-paper__logo-x, html.qb-printing #qb-print .qb-paper__pay-add { display: none !important; }
     html.qb-printing #qb-print .qb-paper__pay-link { color: #081D3A; }
 }
+
+/* ================================================================
+   TOASTS (native, replaces toastr): flat card, top right
+   ================================================================ */
+.lp-toasts { position: fixed; top: 20px; right: 20px; z-index: 10000; display: grid; gap: 10px; width: min(380px, calc(100vw - 32px)); pointer-events: none; }
+.lp-toast {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 14px 14px 16px;
+    border: 1px solid var(--border);
+    border-left-width: 3px;
+    border-radius: var(--r-inner);
+    background: #fff;
+    color: var(--ink);
+    box-shadow: 0 12px 32px rgba(8,29,58,.12);
+    pointer-events: auto;
+    animation: lp-toast-in .32s cubic-bezier(.16, 1, .3, 1);
+}
+.lp-toast p { flex: 1; margin: 0; font-size: 15px; line-height: 1.45; }
+.lp-toast--success { border-color: #BBE5CB; border-left-color: #1F8A4C; background: #F1FAF4; color: #14532D; }
+.lp-toast--error { border-color: #F2C9C4; border-left-color: #B42318; background: #FEF5F4; color: #7A1A12; }
+.lp-toast--info { border-left-color: var(--ink); }
+.lp-toast__close { flex: none; display: grid; place-items: center; width: 26px; height: 26px; margin: -3px -3px 0 0; padding: 0; border: 0; border-radius: 6px; background: transparent; color: inherit; opacity: .7; cursor: pointer; }
+.lp-toast__close:hover { opacity: 1; background: rgba(8,29,58,.06); }
+.lp-toast__close:focus-visible { outline: 2px solid var(--gold); outline-offset: 1px; }
+.lp-toast.is-leaving { opacity: 0; transform: translateY(-6px); transition: opacity .25s ease, transform .25s ease; }
+@keyframes lp-toast-in { from { opacity: 0; transform: translateY(-8px); } }
+@media (prefers-reduced-motion: reduce) { .lp-toast { animation: none; } .lp-toast.is-leaving { transition: none; } }
