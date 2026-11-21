@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Crm;
 
 use App\Http\Controllers\Controller;
 use App\Mail\TeamMemberInvite;
+use App\Models\Subscription;
 use App\Models\TeamMember;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -26,6 +27,10 @@ class TeamController extends Controller
 
     public function store(Request $request)
     {
+        if (! (Subscription::current()?->hasFreeSeat() ?? true)) {
+            return back()->withInput()->with('error', 'Every seat on your plan is in use. Add a seat or upgrade on the Plan and billing page.');
+        }
+
         $data = $request->validate([
             'name'      => 'required|string|max:255',
             'email'     => 'required|email|unique:users,email',

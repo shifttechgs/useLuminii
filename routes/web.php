@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\SignupController;
+use App\Http\Controllers\Crm\BillingController;
 use App\Http\Controllers\ClientHubController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Crm\BusinessServiceController;
@@ -106,7 +109,10 @@ Route::get('/luminii/pdf/quote/{quoteId}/preview', [QuotePdfController::class, '
     ->name('quote.pdf.preview');
 
 // Luminii CRM
-Route::prefix('luminii')->name('crm.')->middleware(['auth'])->group(function () {
+Route::prefix('luminii')->name('crm.')->middleware(['auth', 'subscription'])->group(function () {
+    // Plan and billing (always reachable, even when read-only)
+    Route::get('billing', [BillingController::class, 'index'])->name('billing');
+
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::resource('clients', ClientController::class)->names('clients');
@@ -126,31 +132,45 @@ Route::prefix('luminii')->name('crm.')->middleware(['auth'])->group(function () 
     Route::get('pipeline', [PipelineController::class, 'index'])->name('pipeline');
     Route::post('pipeline/{clientRequest}/move', [PipelineController::class, 'move'])->name('pipeline.move');
 
-    Route::get('quotes/ajax/client-requests', [QuoteController::class, 'clientRequests'])->name('quotes.ajax.requests');
-    Route::get('quotes/ajax/services', [QuoteController::class, 'services'])->name('quotes.ajax.services');
-    Route::resource('quotes', QuoteController::class)->names('quotes');
-    Route::post('quotes/{quote}/send', [QuoteController::class, 'send'])->name('quotes.send');
-    Route::post('quotes/{quote}/convert-to-job', [QuoteController::class, 'convertToJob'])->name('quotes.convert-to-job');
+    Route::middleware('plan.feature:quotes')->group(function () {
+        Route::get('quotes/ajax/client-requests', [QuoteController::class, 'clientRequests'])->name('quotes.ajax.requests');
+        Route::get('quotes/ajax/services', [QuoteController::class, 'services'])->name('quotes.ajax.services');
+        Route::resource('quotes', QuoteController::class)->names('quotes');
+        Route::post('quotes/{quote}/send', [QuoteController::class, 'send'])->name('quotes.send');
+        Route::post('quotes/{quote}/convert-to-job', [QuoteController::class, 'convertToJob'])->middleware('plan.feature:jobs')->name('quotes.convert-to-job');
+    });
 
-    Route::get('jobs/ajax/client-requests', [JobController::class, 'clientRequests'])->name('jobs.ajax.requests');
-    Route::get('jobs/ajax/services', [JobController::class, 'servicesCatalogue'])->name('jobs.ajax.services');
-    Route::resource('jobs', JobController::class)->names('jobs');
-    Route::post('jobs/{job}/create-invoice', [JobController::class, 'createInvoice'])->name('jobs.create-invoice');
-    Route::post('jobs/{job}/status', [JobController::class, 'updateStatus'])->name('jobs.status');
+    Route::middleware('plan.feature:jobs')->group(function () {
+        Route::get('jobs/ajax/client-requests', [JobController::class, 'clientRequests'])->name('jobs.ajax.requests');
+        Route::get('jobs/ajax/services', [JobController::class, 'servicesCatalogue'])->name('jobs.ajax.services');
+        Route::resource('jobs', JobController::class)->names('jobs');
+        Route::post('jobs/{job}/create-invoice', [JobController::class, 'createInvoice'])->name('jobs.create-invoice');
+        Route::post('jobs/{job}/status', [JobController::class, 'updateStatus'])->name('jobs.status');
+    });
 
-    Route::get('calendar', [CalendarController::class, 'index'])->name('calendar');
-    Route::post('calendar/schedule', [CalendarController::class, 'schedule'])->name('calendar.schedule');
-    Route::get('calendar/events', [CalendarController::class, 'events'])->name('calendar.events');
+    Route::middleware('plan.feature:calendar')->group(function () {
+        Route::get('calendar', [CalendarController::class, 'index'])->name('calendar');
+        Route::post('calendar/schedule', [CalendarController::class, 'schedule'])->name('calendar.schedule');
+        Route::get('calendar/events', [CalendarController::class, 'events'])->name('calendar.events');
+    });
 
-    Route::resource('invoices', InvoiceController::class)->names('invoices');
-    Route::post('invoices/{invoice}/send', [InvoiceController::class, 'send'])->name('invoices.send');
-    Route::post('invoices/{invoice}/payment', [InvoiceController::class, 'recordPayment'])->name('invoices.payment');
+    Route::middleware('plan.feature:invoices')->group(function () {
+        Route::resource('invoices', InvoiceController::class)->names('invoices');
+        Route::post('invoices/{invoice}/send', [InvoiceController::class, 'send'])->name('invoices.send');
+        Route::post('invoices/{invoice}/payment', [InvoiceController::class, 'recordPayment'])->name('invoices.payment');
+    });
 
-    Route::resource('expenses', ExpenseController::class)->names('expenses');
+    Route::middleware('plan.feature:expenses')->group(function () {
+        Route::resource('expenses', ExpenseController::class)->names('expenses');
+    });
 
-    Route::resource('recurring', RecurringInvoiceController::class)->names('recurring');
+    Route::middleware('plan.feature:recurring')->group(function () {
+        Route::resource('recurring', RecurringInvoiceController::class)->names('recurring');
+    });
 
-    Route::get('reports', [ReportsController::class, 'index'])->name('reports');
+    Route::middleware('plan.feature:reports')->group(function () {
+        Route::get('reports', [ReportsController::class, 'index'])->name('reports');
+    });
 
     Route::get('notifications', [NotificationsController::class, 'index'])->name('notifications.index');
     Route::post('notifications/{notification}/read', [NotificationsController::class, 'markRead'])->name('notifications.read');
@@ -165,6 +185,20 @@ Route::prefix('luminii')->name('crm.')->middleware(['auth'])->group(function () 
     Route::post('team/{teamMember}/invite', [TeamController::class, 'resendInvite'])->name('team.invite');
 
     Route::resource('users', UserController::class)->names('users');
+});
+
+// Self-serve sign-up: a new business on a 14-day trial (see App\Actions\CreateBusiness)
+Route::middleware('guest')->group(function () {
+    Route::get('/signup', [SignupController::class, 'show'])->name('signup');
+    Route::post('/signup', [SignupController::class, 'store'])->middleware('throttle:5,60')->name('signup.store');
+});
+
+// Email verification (sign-up sends the link; the CRM shows a reminder until it is used)
+Route::middleware('auth')->group(function () {
+    Route::get('/email/verify/{id}/{hash}', [EmailVerificationController::class, 'verify'])
+        ->middleware(['signed', 'throttle:6,1'])->name('verification.verify');
+    Route::post('/email/verification-notification', [EmailVerificationController::class, 'send'])
+        ->middleware('throttle:3,10')->name('verification.send');
 });
 
 // CRM authentication

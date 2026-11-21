@@ -9,6 +9,7 @@ use App\Models\Invoice;
 use App\Models\Job;
 use App\Models\Notification;
 use App\Models\Quote;
+use App\Models\Subscription;
 use Illuminate\View\Component;
 
 class Layout extends Component
@@ -20,10 +21,12 @@ class Layout extends Component
     public int $draftQuotesCount;
     public int $activeJobsCount;
     public int $unreadNotifications;
+    public ?Subscription $subscription;
 
     public function __construct(
         public string $title = 'Dashboard',
     ) {
+        $this->subscription         = Subscription::current();
         $this->leadsCount           = BusinessClient::where('client_type', 'Lead')->count();
         $this->newRequestsCount     = ClientRequest::whereIn('status', ['New', 'InReview'])->count();
         $this->newLeadsCount        = Lead::whereIn('status', ['New', 'Contacted'])->count();
@@ -33,6 +36,12 @@ class Layout extends Component
         $this->unreadNotifications  = auth()->check()
             ? Notification::where('user_id', auth()->id())->where('is_read', false)->count()
             : 0;
+    }
+
+    /** Sidebar tag for sections the current plan doesn't include. */
+    public function needsUpgrade(string $feature): bool
+    {
+        return $this->subscription !== null && ! $this->subscription->hasFeature($feature);
     }
 
     public function render()

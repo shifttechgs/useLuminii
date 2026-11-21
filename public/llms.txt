@@ -15,8 +15,8 @@ useLuminii is for service businesses such as plumbing, electrical, cleaning, lan
 
 ## Pricing (South African rand)
 
-- Starter: R999 per month, flat. For solo operators: website that captures enquiries, AI receptionist (24/7), lead capture and basic CRM, WhatsApp connection, standard build and onboarding included.
-- Business: R1,799 per month with 3 users included, then R299 per extra user per month. Everything in Starter plus full CRM and pipeline, quote and proposal builder, job scheduling, invoicing and expenses, business reports, priority onboarding and support.
+- Starter: R999 per month, flat. For solo operators: website that captures enquiries, AI receptionist (24/7), quotes and invoices with online payment, lead capture and CRM, WhatsApp connection, standard build and onboarding included.
+- Business: R1,799 per month with 3 users included, then R299 per extra user per month. Everything in Starter plus full CRM and pipeline, jobs and team scheduling, recurring invoices and expenses, business reports, priority onboarding and support.
 - Annual billing: 2 months free (Starter R833/month, Business R1,499/month, extra users R249/month). The Business setup fee is waived on annual billing.
 - Larger operations (multiple teams, locations or high job volumes): scoped and quoted after a call.
 - useLuminii Personal: a free quote and invoice maker for freelancers and sole traders. No sign-up.

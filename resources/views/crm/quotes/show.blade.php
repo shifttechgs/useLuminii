@@ -21,7 +21,8 @@
             </button>
         </form>
         @endif
-        @if($quote->status === 'Accepted' && !$quote->job()->exists())
+        {{-- Turning a quote into a job needs Jobs (Business plan) --}}
+        @if($quote->status === 'Accepted' && !$quote->job()->exists() && (\App\Models\Subscription::current()?->hasFeature('jobs') ?? true))
         <form method="POST" action="{{ route('crm.quotes.convert-to-job', $quote) }}">@csrf
             <button type="submit" class="crm-btn crm-btn-secondary">Convert to Job</button>
         </form>

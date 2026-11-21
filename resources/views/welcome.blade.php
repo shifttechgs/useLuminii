@@ -9,7 +9,7 @@
         ['q' => 'How long does setup take?', 'a' => 'Timing depends on the workspace, data migration and connections your business needs. We agree the scope and timeline with you before the build, then guide your team through the handover.'],
         ['q' => 'Can I bring my existing client data?', 'a' => 'We review your spreadsheets or current system with you and agree what can be brought into the new workspace. The migration requirements form part of your setup plan.'],
         ['q' => 'Does my team need technical experience?', 'a' => 'No. We configure the workspace and train your team in plain language, using the jobs and tasks they work with every day.'],
-        ['q' => 'Which plan should I choose?', 'a' => 'Starter covers your website, enquiry capture and basic CRM for a solo operator. Business adds the full flow across quotes, jobs, invoices and reports, with 3 users included. Larger operations are scoped to their requirements. We can work through the choice during your demo.'],
+        ['q' => 'Which plan should I choose?', 'a' => 'Starter covers your website, enquiries, quotes and invoices for a solo operator. Business adds jobs, team scheduling, recurring invoices, expenses and reports, with 3 users included. Larger operations are scoped to their requirements. We can work through the choice during your demo.'],
         ['q' => 'How do billing and setup fees work?', 'a' => 'You can choose monthly or annual billing, and annual gives you 2 months free. Standard setup is included with Starter. Business setup depends on build scope on monthly billing and is waived with annual billing. Larger operations are quoted for their requirements. Full plan details are on the Pricing page.'],
     ];
 
@@ -83,7 +83,7 @@
                 'price' => '999',
                 'priceCurrency' => 'ZAR',
                 'priceSpecification' => $monthly('999', 'per month, flat'),
-                'description' => 'For solo operators: website, AI receptionist, lead capture, basic CRM and WhatsApp connection. Standard build included.',
+                'description' => 'For solo operators: website, AI receptionist, quotes and invoices, lead capture, CRM and WhatsApp connection. Standard build included.',
             ],
             [
                 '@type' => 'Offer',
@@ -92,7 +92,7 @@
                 'price' => '1799',
                 'priceCurrency' => 'ZAR',
                 'priceSpecification' => $monthly('1799', 'per month, 3 users included; R299 per extra user'),
-                'description' => 'Everything in Starter plus full CRM, pipeline, quoting, job scheduling, invoicing, expenses and reports. 3 users included, R299 per extra user per month.',
+                'description' => 'Everything in Starter plus full CRM, pipeline, jobs and team scheduling, recurring invoices, expenses and reports. 3 users included, R299 per extra user per month.',
             ],
         ],
         'provider' => $orgRef,

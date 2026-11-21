@@ -27,7 +27,7 @@
 
             <!-- Left: sticky heading + trust list -->
             <div class="lp-cta__left">
-                @if($isPersonal)<div class="lp-cta__plus">+</div>@else<div class="lp-section__label">Let's talk</div>@endif
+                @if($isPersonal)<div class="lp-cta__plus">+</div>@else<div class="lp-section__label">Prefer a walkthrough?</div>@endif
                 @if($isPersonal)
                 <h2 class="lp-cta__h2" id="booking-heading">Ready to get your<br>evenings back?</h2>
                 <p class="lp-cta__sub">Quote in minutes, invoice when the job is done, and see what has been paid. We set it up for you. Live in 48 hours.</p>

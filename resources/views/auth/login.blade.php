@@ -1,300 +1,147 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-ZA">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Sign In — Luminii CRM</title>
+    <title>Sign in | useLuminii</title>
+    <meta name="robots" content="noindex, follow">
     <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('css/crm-design-system.css') }}">
-    <style>
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-        body {
-            font-family: 'Inter', system-ui, sans-serif;
-            background: #f4f6f9;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        .login-wrap {
-            width: 100%;
-            max-width: 420px;
-            padding: 24px;
-        }
-
-        .login-logo {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 32px;
-            text-decoration: none;
-            line-height: 1;
-            user-select: none;
-        }
-        .login-logo img {
-            display: block;
-            width: 168px;
-            height: auto;
-            object-fit: contain;
-        }
-
-        .login-card {
-            background: #ffffff;
-            border: 1px solid #e4e9f0;
-            border-radius: 16px;
-            box-shadow: 0 4px 24px rgba(13, 27, 46, 0.08), 0 1px 4px rgba(13, 27, 46, 0.04);
-            padding: 40px;
-        }
-
-        .login-card__hd {
-            margin-bottom: 28px;
-        }
-        .login-card__title {
-            font-size: 1.375rem;
-            font-weight: 700;
-            color: #0d1b2e;
-            letter-spacing: -0.025em;
-        }
-        .login-card__sub {
-            font-size: 0.875rem;
-            color: #5a6a7e;
-            margin-top: 4px;
-        }
-
-        .login-field {
-            margin-bottom: 18px;
-        }
-        .login-label {
-            display: block;
-            font-size: 0.8125rem;
-            font-weight: 600;
-            color: #0d1b2e;
-            margin-bottom: 6px;
-        }
-        .login-input {
-            width: 100%;
-            padding: 10px 14px;
-            font-size: 0.9375rem;
-            font-family: inherit;
-            color: #0d1b2e;
-            background: #fff;
-            border: 1.5px solid #e4e9f0;
-            border-radius: 8px;
-            outline: none;
-            transition: border-color 0.15s, box-shadow 0.15s;
-        }
-        .login-input:focus {
-            border-color: #635bff;
-            box-shadow: 0 0 0 3px rgba(99, 91, 255, 0.12);
-        }
-        .login-input.is-error {
-            border-color: #f04438;
-            box-shadow: 0 0 0 3px rgba(240, 68, 56, 0.10);
-        }
-        .login-password-wrap {
-            position: relative;
-        }
-        .login-password-wrap .login-input {
-            padding-right: 44px;
-        }
-        .login-password-toggle {
-            position: absolute;
-            top: 50%;
-            right: 10px;
-            transform: translateY(-50%);
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 30px;
-            height: 30px;
-            border: 0;
-            border-radius: 6px;
-            background: transparent;
-            color: #8898aa;
-            cursor: pointer;
-            transition: background 0.15s, color 0.15s;
-        }
-        .login-password-toggle:hover {
-            background: #f4f6f9;
-            color: #0d1b2e;
-        }
-        .login-password-toggle svg {
-            width: 18px;
-            height: 18px;
-        }
-        .login-password-toggle .eye-off {
-            display: none;
-        }
-        .login-password-toggle.is-visible .eye {
-            display: none;
-        }
-        .login-password-toggle.is-visible .eye-off {
-            display: block;
-        }
-        .login-error {
-            font-size: 0.8125rem;
-            color: #b42318;
-            margin-top: 5px;
-        }
-
-        .login-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 24px;
-        }
-        .login-remember {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.8125rem;
-            color: #5a6a7e;
-            cursor: pointer;
-        }
-        .login-remember input[type="checkbox"] {
-            width: 16px;
-            height: 16px;
-            accent-color: #635bff;
-            cursor: pointer;
-        }
-
-        .login-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            padding: 11px 20px;
-            font-size: 0.9375rem;
-            font-weight: 600;
-            font-family: inherit;
-            color: #fff;
-            background: #0a1628;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
-            letter-spacing: -0.01em;
-        }
-        .login-btn:hover {
-            background: #0f2040;
-            box-shadow: 0 4px 12px rgba(10, 22, 40, 0.25);
-            transform: translateY(-1px);
-        }
-        .login-btn:active {
-            transform: translateY(0);
-        }
-
-        .login-back {
-            display: block;
-            text-align: center;
-            margin-top: 20px;
-            font-size: 0.8125rem;
-            color: #8898aa;
-            text-decoration: none;
-            transition: color 0.15s;
-        }
-        .login-back:hover { color: #0d1b2e; }
-    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/bootstrap-reboot.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/lp.css') }}?v={{ filemtime(public_path('css/lp.css')) }}">
 </head>
-<body>
+<body class="lp lp-su-body">
 
-<div class="login-wrap">
+@php
+    $logos = array_values(array_filter([
+        ['file' => 'vpw.png',             'name' => 'Vision Plus Wealth',   'w' => 718, 'h' => 234, 'size' => 27],
+        ['file' => 'payhse.png',          'name' => 'Payhouse Finance',     'w' => 722, 'h' => 296, 'size' => 36],
+        ['file' => 'BSlwebbold.png',      'name' => 'BSL Services',         'w' => 508, 'h' => 219, 'size' => 34],
+        ['file' => 'baardy.png',          'name' => 'Baardy Micro Capital', 'w' => 510, 'h' => 151, 'size' => 28],
+        ['file' => 'spring_kleaners.png', 'name' => 'Spring Kleaners',      'w' => 389, 'h' => 84,  'size' => 21, 'light' => true],
+    ], fn ($l) => file_exists(public_path('assets/images/logo/clients/' . $l['file']))));
+@endphp
 
-    <a href="{{ url('/') }}" class="login-logo">
-        <img
-            src="{{ asset('assets/images/logo/useluminii_logos/useluminii_dark.png') }}"
-            alt="useLuminii"
-        >
-    </a>
+<div class="lp-su lp-su--signin">
+    <main class="lp-su__main">
+        <header class="lp-su__top">
+            <a href="{{ url('/') }}" class="lp-su__logo" aria-label="useLuminii home">
+                <img src="{{ asset('assets/images/logo/useluminii_logos/useluminii_dark.png') }}" alt="useLuminii" width="385" height="109">
+            </a>
+            <p class="lp-su__have"><span class="lp-su__have-pre">New to useLuminii? </span><a href="{{ route('signup') }}">Start a free trial</a></p>
+        </header>
 
-    <div class="login-card">
-        <div class="login-card__hd">
-            <h1 class="login-card__title">Sign in to your CRM</h1>
-            <p class="login-card__sub">Enter your credentials to continue</p>
-        </div>
+        <div class="lp-su__body lp-su__body--narrow">
+            <h1 class="lp-su__title">Welcome back</h1>
+            <p class="lp-su__lead">Sign in to your workspace.</p>
 
-        <form method="POST" action="{{ route('crm.login.post') }}" novalidate>
-            @csrf
-
-            <div class="login-field">
-                <label class="login-label" for="email">Email address</label>
-                <input
-                    id="email"
-                    type="email"
-                    name="email"
-                    value="{{ old('email') }}"
-                    class="login-input {{ $errors->has('email') ? 'is-error' : '' }}"
-                    autocomplete="email"
-                    autofocus
-                    required
-                >
-                @error('email')
-                    <p class="login-error">{{ $message }}</p>
-                @enderror
-            </div>
-
-            <div class="login-field">
-                <label class="login-label" for="password">Password</label>
-                <div class="login-password-wrap">
-                    <input
-                        id="password"
-                        type="password"
-                        name="password"
-                        class="login-input {{ $errors->has('password') ? 'is-error' : '' }}"
-                        autocomplete="current-password"
-                        required
-                    >
-                    <button type="button" class="login-password-toggle" id="password-toggle" aria-label="Show password" aria-pressed="false">
-                        <svg class="eye" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M2.25 12s3.75-6.75 9.75-6.75S21.75 12 21.75 12 18 18.75 12 18.75 2.25 12 2.25 12z"/>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-                        </svg>
-                        <svg class="eye-off" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 3l18 18M10.58 10.58A2 2 0 0012 14a2 2 0 001.42-.58M9.88 5.5A9.42 9.42 0 0112 5.25c6 0 9.75 6.75 9.75 6.75a18.8 18.8 0 01-3.04 3.76M6.53 6.53A18.55 18.55 0 002.25 12S6 18.75 12 18.75a9.64 9.64 0 004.04-.9"/>
-                        </svg>
-                    </button>
+            @if($errors->any())
+                <div class="lp-su__alert" role="alert">
+                    <strong>{{ $errors->first('email') ?: $errors->first() }}</strong>
                 </div>
-                @error('password')
-                    <p class="login-error">{{ $message }}</p>
-                @enderror
-            </div>
+            @endif
 
-            <div class="login-row">
-                <label class="login-remember">
-                    <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}>
-                    Remember me
+            <form method="POST" action="{{ route('crm.login.post') }}" class="lp-su__form" data-si-form novalidate>
+                @csrf
+
+                <div class="lp-su__field">
+                    <label for="si-email">Email</label>
+                    <input id="si-email" type="email" name="email" value="{{ old('email') }}" autocomplete="username" inputmode="email" required autofocus
+                           aria-describedby="si-email-err" @error('email') aria-invalid="true" @enderror>
+                    <p class="lp-su__err" id="si-email-err" data-err-for="si-email"></p>
+                </div>
+
+                <div class="lp-su__field">
+                    <label for="si-password">Password</label>
+                    <div class="lp-su__pw">
+                        <input id="si-password" type="password" name="password" autocomplete="current-password" required
+                               aria-describedby="si-password-err" @error('password') aria-invalid="true" @enderror>
+                        <button type="button" class="lp-su__pw-toggle" data-pw-toggle aria-controls="si-password" aria-pressed="false">Show</button>
+                    </div>
+                    <p class="lp-su__err" id="si-password-err" data-err-for="si-password">@error('password'){{ $message }}@enderror</p>
+                </div>
+
+                <label class="lp-su__remember">
+                    <input type="checkbox" name="remember" value="1" @checked(old('remember', true))>
+                    <span>Keep me signed in on this device</span>
                 </label>
+
+                <button type="submit" class="lp-su__submit" data-su-submit>
+                    <span data-su-label>Sign in</span>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                </button>
+
+                <p class="lp-su__legal">Trouble signing in? <a href="{{ route('contact.page') }}">Contact us</a></p>
+            </form>
+        </div>
+    </main>
+
+    <aside class="lp-su__aside" aria-label="About useLuminii">
+        <div class="lp-su__aside-inner">
+            <div class="lp-su__lede">
+                <p class="lp-su__statement">Pick up where you left off. <span>Your enquiries, quotes, jobs and invoices are waiting.</span></p>
+                @include('auth.partials.record')
             </div>
 
-            <button type="submit" class="login-btn">Sign in</button>
-        </form>
-    </div>
-
-    <a href="{{ url('/') }}" class="login-back">← Back to website</a>
-
+            <div class="lp-su__proof">
+                @if($logos)
+                    <p class="lp-su__aside-label">Our clients</p>
+                    <ul class="lp-su__logos" aria-label="Client businesses">
+                        @foreach($logos as $l)
+                            <li class="{{ !empty($l['light']) ? 'is-light-mark' : '' }}" style="--h: {{ $l['size'] }}px">
+                                <img src="{{ asset('assets/images/logo/clients/' . $l['file']) }}" alt="{{ $l['name'] }}" width="{{ $l['w'] }}" height="{{ $l['h'] }}" loading="lazy" decoding="async">
+                            </li>
+                        @endforeach
+                    </ul>
+                @endif
+                <p class="lp-su__demo"><a href="{{ url('/') }}">Back to useluminii.com</a></p>
+            </div>
+        </div>
+    </aside>
 </div>
 
 <script>
 (function () {
-    var password = document.getElementById('password');
-    var toggle = document.getElementById('password-toggle');
-    if (!password || !toggle) return;
+    var form = document.querySelector('[data-si-form]');
+    if (!form) return;
 
+    var pw = document.getElementById('si-password');
+    var toggle = form.querySelector('[data-pw-toggle]');
     toggle.addEventListener('click', function () {
-        var visible = password.type === 'text';
-        password.type = visible ? 'password' : 'text';
-        toggle.classList.toggle('is-visible', !visible);
-        toggle.setAttribute('aria-pressed', String(!visible));
-        toggle.setAttribute('aria-label', visible ? 'Show password' : 'Hide password');
+        var show = pw.type === 'password';
+        pw.type = show ? 'text' : 'password';
+        toggle.textContent = show ? 'Hide' : 'Show';
+        toggle.setAttribute('aria-pressed', String(show));
+    });
+
+    var messages = { 'si-email': 'Please enter your email address.', 'si-password': 'Please enter your password.' };
+    function check(input) {
+        var ok = input.checkValidity() && input.value.trim() !== '';
+        if (ok) input.removeAttribute('aria-invalid'); else input.setAttribute('aria-invalid', 'true');
+        form.querySelector('[data-err-for="' + input.id + '"]').textContent = ok ? '' : messages[input.id];
+        return ok;
+    }
+    Object.keys(messages).forEach(function (id) {
+        var input = document.getElementById(id);
+        input.addEventListener('input', function () { if (input.getAttribute('aria-invalid') === 'true') check(input); });
+    });
+
+    form.addEventListener('submit', function (e) {
+        var first = null;
+        Object.keys(messages).forEach(function (id) {
+            var input = document.getElementById(id);
+            if (!check(input) && !first) first = input;
+        });
+        if (first) { e.preventDefault(); first.focus(); return; }
+        var btn = form.querySelector('[data-su-submit]');
+        btn.disabled = true;
+        btn.classList.add('is-busy');
+        form.querySelector('[data-su-label]').textContent = 'Signing in';
     });
 })();
 </script>
-
 </body>
 </html>

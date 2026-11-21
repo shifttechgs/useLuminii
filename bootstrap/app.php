@@ -18,6 +18,12 @@ $app = Application::configure(basePath: dirname(__DIR__))
     })
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->redirectGuestsTo('/luminii/login');
+        $middleware->redirectUsersTo('/luminii');   // signed-in users opening /signup go to the CRM
+
+        $middleware->alias([
+            'subscription' => \App\Http\Middleware\EnforceSubscription::class,
+            'plan.feature' => \App\Http\Middleware\RequirePlanFeature::class,
+        ]);
 
         // On Vercel every request arrives through its proxy; trust it so URLs are https
         if (getenv('VERCEL')) {

@@ -2,8 +2,9 @@
     $aud = $audience ?? 'business';
     $isPersonal = $aud === 'personal';
     $home = $isPersonal ? route('personal') : url('/');
-    $ctaLabel = $isPersonal ? 'Create a quote' : 'Book a Demo';
-    $ctaHref = $isPersonal ? route('crm.quotes.create') : url('/') . '#booking';
+    // One main action per place: the free trial. The demo is the quieter second choice.
+    $ctaLabel = $isPersonal ? 'Create a quote' : 'Start free trial';
+    $ctaHref = $isPersonal ? route('crm.quotes.create') : route('signup');
 
     // Platform menu: the four stages of the flow [title, description, link]
     $platformTiles = $isPersonal ? [
@@ -173,6 +174,7 @@
                             @unless($isPersonal)<a href="{{ $home }}#faq" class="lp-macc__top">FAQ</a>@endunless
                             <div class="lp-macc__actions">
                                 @unless($isPersonal)<a href="{{ $ctaHref }}" class="lp-hdr__cta lp-hdr__cta--block">{{ $ctaLabel }}</a>@endunless
+                                @unless($isPersonal)<a href="{{ $home }}#booking" class="lp-hdr__login lp-hdr__login--block">Book a demo</a>@endunless
                                 <a href="{{ route('crm.login') }}" class="lp-hdr__login lp-hdr__login--block">Sign in</a>
                             </div>
                         </div>

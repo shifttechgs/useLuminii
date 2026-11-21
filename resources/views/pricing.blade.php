@@ -5,7 +5,7 @@
     $pricingFaqs = [
         ['q' => 'Is the setup fee always required on Business?', 'a' => 'It depends on what you need. New website and implementation scope can affect the setup fee. If you commit to an annual plan, the setup fee is waived.'],
         ['q' => 'What counts as a user on the Business plan?', 'a' => 'A user is anyone who logs into the system to manage jobs, quotes, clients, or operations. Business includes 3 users; each extra user is R299 per month (R249 on annual billing). Client portal access does not count as a paid user seat.'],
-        ['q' => 'Can I start on Starter and upgrade later?', 'a' => 'Yes. Many businesses start on Starter, then upgrade to Business once they are ready to connect the full operating flow.'],
+        ['q' => 'Can I start on Starter and upgrade later?', 'a' => 'Yes. Many businesses start on Starter, then upgrade to Business when they take on a team or need jobs, scheduling and reports.'],
         ['q' => 'How does annual billing work?', 'a' => 'Annual plans are billed upfront for 10 months, giving you 2 months free. On Business, the setup fee is also waived when you pay annually.'],
         ['q' => 'What about larger operations?', 'a' => 'For multiple teams, locations or high job volumes, pricing depends on team size, number of locations, and integration scope. We provide a custom proposal after a scoping call.'],
     ];
@@ -36,10 +36,10 @@
             'offers' => [
                 ['@type' => 'Offer', 'name' => 'Starter', 'price' => '999', 'priceCurrency' => 'ZAR',
                  'priceSpecification' => $monthly('999', 'per month, flat'),
-                 'description' => 'For solo operators: website, AI receptionist, lead capture, basic CRM and WhatsApp connection. Standard build included. Annual billing R833/month.'],
+                 'description' => 'For solo operators: website, AI receptionist, quotes and invoices, lead capture, CRM and WhatsApp connection. Standard build included. Annual billing R833/month.'],
                 ['@type' => 'Offer', 'name' => 'Business', 'price' => '1799', 'priceCurrency' => 'ZAR',
                  'priceSpecification' => $monthly('1799', 'per month, 3 users included; R299 per extra user'),
-                 'description' => 'Everything in Starter plus full CRM, pipeline, quoting, job scheduling, invoicing, expenses and reports. 3 users included, R299 per extra user. Annual billing R1,499/month.'],
+                 'description' => 'Everything in Starter plus full CRM, pipeline, jobs and team scheduling, recurring invoices, expenses and reports. 3 users included, R299 per extra user. Annual billing R1,499/month.'],
             ],
         ],
     ];

@@ -4,20 +4,20 @@
     // Annual = 10 months paid (2 months free), shown as the monthly equivalent.
     $businessPlans = [
         [
-            'key' => 'starter', 'name' => 'Starter', 'for' => 'A digital front door',
-            'description' => 'For solo operators who need a website, enquiry capture and a basic CRM.',
+            'key' => 'starter', 'name' => 'Starter', 'for' => 'Get found, quote, get paid',
+            'description' => 'For solo operators who need a website, enquiries, quotes and invoices in one place.',
             'monthly' => '999', 'annual' => '833', 'unit' => '/ month, flat',
             'extra_monthly' => null, 'extra_annual' => null,
             'monthly_setup' => 'Audit and standard build included.', 'annual_setup' => 'Audit and standard build included.',
-            'features' => ['Website that captures enquiries', 'AI receptionist, available 24/7', 'Lead capture and basic CRM', 'WhatsApp connected', 'Standard build and onboarding'],
+            'features' => ['Website that captures enquiries', 'AI receptionist, available 24/7', 'Quotes and invoices, paid online', 'Lead capture and CRM', 'WhatsApp connected', 'Standard build and onboarding'],
         ],
         [
             'key' => 'business', 'name' => 'Business', 'for' => 'The full operating flow',
-            'description' => 'For teams connecting their clients, quotes, jobs and finances in one workspace.',
+            'description' => 'For teams connecting their clients, jobs, scheduling and finances in one workspace.',
             'monthly' => '1,799', 'annual' => '1,499', 'unit' => '/ month, 3 users included',
             'extra_monthly' => '+ R299 per extra user / month', 'extra_annual' => '+ R249 per extra user / month',
             'monthly_setup' => 'Setup fee depends on the build scope.', 'annual_setup' => 'Setup fee waived with annual billing.',
-            'features' => ['Everything in Starter', 'Full CRM and deal pipeline', 'Quote and proposal builder', 'Job scheduling', 'Invoicing and expenses', 'Business reports', 'Priority onboarding and support'],
+            'features' => ['Everything in Starter', 'Full CRM and deal pipeline', 'Jobs and team scheduling', 'Recurring invoices and expenses', 'Business reports', '3 users included', 'Priority onboarding and support'],
         ],
     ];
 @endphp
@@ -62,7 +62,10 @@
                             @endforeach
                         </ul>
                     </div>
-                    <a href="{{ url('/') }}?plan={{ $plan['key'] }}#booking" class="lp-rates__link" aria-label="Book a demo of {{ $plan['name'] }}">Book a demo<i class="ph ph-arrow-up-right" aria-hidden="true"></i></a>
+                    <div class="lp-rates__actions">
+                    <a href="{{ route('signup', ['plan' => $plan['key'], 'interval' => 'monthly']) }}" class="lp-rates__link" data-signup-link data-plan="{{ $plan['key'] }}" aria-label="Start a free trial of {{ $plan['name'] }}">Start free trial<i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+                    <a href="{{ url('/') }}?plan={{ $plan['key'] }}#booking" class="lp-rates__demo">or book a demo</a>
+                    </div>
                 </article>
             @endforeach
         </div>
@@ -92,6 +95,11 @@
             buttons.forEach(function (item) { item.setAttribute('aria-pressed', String(item === button)); });
             section.querySelectorAll('[data-rate-swap]').forEach(function (item) {
                 item.textContent = item.getAttribute('data-' + period);
+            });
+            section.querySelectorAll('[data-signup-link]').forEach(function (link) {
+                var url = new URL(link.href);
+                url.searchParams.set('interval', period);
+                link.href = url.toString();
             });
             section.querySelector('[data-rate-note]').textContent = period === 'annual'
                 ? 'Annual billing. Monthly equivalent shown.'

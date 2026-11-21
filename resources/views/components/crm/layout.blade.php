@@ -26,6 +26,16 @@
         if (open) document.documentElement.classList.add('crm-sb-open');
     })();
     </script>
+    <style>
+        .crm-plan-tag { margin-left: auto; padding: 1px 7px; border: 1px solid rgba(255,214,10,.35); border-radius: 99px; color: #FFD60A; font-size: .625rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; }
+        .crm-plan-bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .5rem 1rem; padding: .625rem 1.5rem; border-bottom: 1px solid; font-size: .875rem; }
+        .crm-plan-bar a, .crm-plan-bar button { padding: 0; border: 0; background: none; color: inherit; font: inherit; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+        .crm-plan-bar form { margin: 0; }
+        .crm-plan-bar--info { background: #f4f6f9; border-color: #e4e9f0; color: #0d1b2e; }
+        .crm-plan-bar--warn { background: #fffaeb; border-color: #fedf89; color: #93370d; }
+        .crm-plan-bar--danger { background: #fef3f2; border-color: #fecdca; color: #b42318; }
+        .crm-plan-bar--quiet { background: #fff; border-color: #eef1f6; color: #5a6a7e; }
+    </style>
     {{ $head ?? '' }}
     @stack('head')
 </head>
@@ -120,15 +130,18 @@
                     <a href="{{ route('crm.quotes.index') }}" class="crm-nav-leaf {{ request()->routeIs('crm.quotes.*') ? 'active' : '' }}">
                         <span class="crm-leaf-dot"></span>
                         Quotes
+                        @if($needsUpgrade('quotes')) <span class="crm-plan-tag">Business</span> @endif
                         @if($draftQuotesCount > 0) <span class="crm-nav-badge">{{ $draftQuotesCount }}</span> @endif
                     </a>
                     <a href="{{ route('crm.calendar') }}" class="crm-nav-leaf {{ request()->routeIs('crm.calendar') ? 'active' : '' }}">
                         <span class="crm-leaf-dot"></span>
                         Job Calendar
+                        @if($needsUpgrade('calendar')) <span class="crm-plan-tag">Business</span> @endif
                     </a>
                     <a href="{{ route('crm.jobs.index') }}" class="crm-nav-leaf {{ request()->routeIs('crm.jobs.*') ? 'active' : '' }}">
                         <span class="crm-leaf-dot"></span>
                         Jobs
+                        @if($needsUpgrade('jobs')) <span class="crm-plan-tag">Business</span> @endif
                         @if($activeJobsCount > 0) <span class="crm-nav-badge">{{ $activeJobsCount }}</span> @endif
                     </a>
                 </div>
@@ -149,15 +162,18 @@
                     <a href="{{ route('crm.invoices.index') }}" class="crm-nav-leaf {{ request()->routeIs('crm.invoices.*') ? 'active' : '' }}">
                         <span class="crm-leaf-dot"></span>
                         Invoices
+                        @if($needsUpgrade('invoices')) <span class="crm-plan-tag">Business</span> @endif
                         @if($overdueInvoicesCount > 0) <span class="crm-nav-badge">{{ $overdueInvoicesCount }}</span> @endif
                     </a>
                     <a href="{{ route('crm.recurring.index') }}" class="crm-nav-leaf {{ request()->routeIs('crm.recurring.*') ? 'active' : '' }}">
                         <span class="crm-leaf-dot"></span>
                         Recurring Invoices
+                        @if($needsUpgrade('recurring')) <span class="crm-plan-tag">Business</span> @endif
                     </a>
                     <a href="{{ route('crm.expenses.index') }}" class="crm-nav-leaf {{ request()->routeIs('crm.expenses.*') ? 'active' : '' }}">
                         <span class="crm-leaf-dot"></span>
                         Expenses
+                        @if($needsUpgrade('expenses')) <span class="crm-plan-tag">Business</span> @endif
                     </a>
                 </div>
             </div>
@@ -177,6 +193,7 @@
                     <a href="{{ route('crm.reports') }}" class="crm-nav-leaf {{ request()->routeIs('crm.reports') ? 'active' : '' }}">
                         <span class="crm-leaf-dot"></span>
                         Reports
+                        @if($needsUpgrade('reports')) <span class="crm-plan-tag">Business</span> @endif
                     </a>
                 </div>
             </div>
@@ -213,6 +230,10 @@
                     <a href="{{ route('crm.settings') }}" class="crm-dropdown-item {{ request()->routeIs('crm.settings') ? 'active' : '' }}" role="menuitem">
                         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                         Settings
+                    </a>
+                    <a href="{{ route('crm.billing') }}" class="crm-dropdown-item {{ request()->routeIs('crm.billing') ? 'active' : '' }}" role="menuitem">
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
+                        Plan and billing
                     </a>
                     <div class="crm-dropdown-sep"></div>
                     <form method="POST" action="{{ route('logout') }}">
@@ -296,6 +317,10 @@
                                     </svg>
                                     Settings
                                 </a>
+                                <a href="{{ route('crm.billing') }}" class="crm-topbar-dd-item {{ request()->routeIs('crm.billing') ? 'active' : '' }}" role="menuitem">
+                                    <svg style="width:0.875rem;height:0.875rem;flex-shrink:0;" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
+                                    Plan and billing
+                                </a>
                                 <div class="crm-topbar-dd-sep"></div>
                                 <form method="POST" action="{{ route('logout') }}" style="margin:0;">
                                     @csrf
@@ -313,6 +338,35 @@
                 @endauth
             </div>
         </header>
+
+        {{-- Plan status: trial days left, read-only, unconfirmed email --}}
+        @php $sub = $subscription; @endphp
+        @if($sub && ! $sub->complimentary && ($sub->onTrial() || $sub->isReadOnly() || $sub->status === 'past_due'))
+            @php
+                $tone = $sub->isReadOnly() || $sub->status === 'past_due' ? 'danger' : ($sub->trialDaysLeft() <= 3 ? 'warn' : 'info');
+                $days = $sub->trialDaysLeft();
+            @endphp
+            <div class="crm-plan-bar crm-plan-bar--{{ $tone }}" role="{{ $tone === 'danger' ? 'alert' : 'status' }}">
+                <span>
+                    @if($sub->isReadOnly())
+                        <strong>Your trial has ended.</strong> Your data is safe and read-only until you choose a plan.
+                    @elseif($sub->status === 'past_due')
+                        <strong>Your last payment didn't go through.</strong> Update your card to keep your account active.
+                    @else
+                        <strong>{{ $days }} {{ \Illuminate\Support\Str::plural('day', $days) }} left in your trial.</strong> Every Business feature is included.
+                    @endif
+                </span>
+                @unless(request()->routeIs('crm.billing'))
+                    <a href="{{ route('crm.billing') }}">Choose a plan</a>
+                @endunless
+            </div>
+        @endif
+        @if($sub && $sub->status === 'trialing' && auth()->check() && ! auth()->user()->hasVerifiedEmail())
+            <div class="crm-plan-bar crm-plan-bar--quiet" role="status">
+                <span>Confirm your email: we sent a link to <strong>{{ auth()->user()->email }}</strong>.</span>
+                <form method="POST" action="{{ route('verification.send') }}">@csrf<button type="submit">Send it again</button></form>
+            </div>
+        @endif
 
         {{-- Flash messages --}}
         @if(session('success'))

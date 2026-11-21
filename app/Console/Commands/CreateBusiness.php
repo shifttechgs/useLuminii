@@ -2,19 +2,15 @@
 
 namespace App\Console\Commands;
 
-use App\Models\BusinessSetup;
+use App\Actions\CreateBusiness as CreateBusinessAction;
 use App\Models\User;
-use App\Support\CurrentBusiness;
-use Database\Seeders\ExpenseCategorySeeder;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 
 /**
- * Set up a new, separate business: its settings, default expense categories and an owner
- * who can sign in to the CRM. The owner's password comes from LUMINII_OWNER_PASSWORD so it
- * never appears in the command line or shell history.
+ * Set up a new, separate business by hand (complimentary: never charged): its settings,
+ * default expense categories, an owner who can sign in to the CRM, and its subscription.
+ * The owner's password comes from LUMINII_OWNER_PASSWORD so it never appears in the
+ * command line or shell history. Self-serve sign-up uses the same App\Actions\CreateBusiness.
  *
  *   LUMINII_OWNER_PASSWORD=... php artisan crm:create-business "Acme Plumbing" owner@acme.example --owner-name="Sam Doe"
  */
@@ -56,37 +52,17 @@ class CreateBusiness extends Command
             return self::FAILURE;
         }
 
-        do {
-            $businessId = 'BUS-' . strtoupper(Str::random(8));
-        } while (BusinessSetup::allBusinesses()->where('business_id', $businessId)->exists());
-
         $name = trim($this->argument('name'));
 
-        CurrentBusiness::run($businessId, function () use ($businessId, $name, $email, $password, $currency) {
-            DB::transaction(function () use ($businessId, $name, $email, $password, $currency) {
-                BusinessSetup::create([
-                    'business_id'      => $businessId,
-                    'business_name'    => $name,
-                    'email'            => $email,
-                    'currency'         => $currency,
-                    'timezone'         => $this->option('timezone') ?: config('app.timezone', 'UTC'),
-                    'default_tax_rate' => '0',
-                    'invoice_prefix'   => 'INV',
-                    'quote_prefix'     => 'QUO',
-                ]);
-
-                (new ExpenseCategorySeeder())->run($businessId);
-
-                User::create([
-                    'business_id' => $businessId,
-                    'name'        => $this->option('owner-name') ?: $name,
-                    'email'       => $email,
-                    'password'    => Hash::make($password),
-                    'role'        => 'Admin',
-                    'is_active'   => true,
-                ]);
-            });
-        });
+        $result = (new CreateBusinessAction())->handle([
+            'name'        => $name,
+            'owner_name'  => $this->option('owner-name') ?: $name,
+            'owner_email' => $email,
+            'password'    => $password,
+            'currency'    => $currency,
+            'timezone'    => $this->option('timezone'),
+        ]);
+        $businessId = $result['business_id'];
 
         $this->info("Created {$name} ({$businessId}).");
         $this->line("Owner {$email} can sign in at " . url('/useluminii') . '.');

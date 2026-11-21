@@ -1,7 +1,7 @@
 @php
     // Plan lines are taken from the FAQ answer "Which plan should I choose?"
     $plans = [
-        ['name' => 'Starter', 'line' => 'Website, enquiry capture and basic CRM.',              'from' => '', 'price' => 'R999', 'unit' => '/month, flat'],
+        ['name' => 'Starter', 'line' => 'Website, enquiries, quotes and invoices.',             'from' => '', 'price' => 'R999', 'unit' => '/month, flat'],
         ['name' => 'Business', 'line' => 'Adds quotes, jobs, invoices and reports.', 'from' => 'from', 'price' => 'R1,799', 'unit' => '/month, 3 users'],
     ];
 @endphp
@@ -39,7 +39,7 @@
         <p class="lp-cost__scale">Larger operation? <a href="{{ url('/') }}?plan=scale#booking">Let's scope it <i class="ph ph-arrow-right" aria-hidden="true"></i></a></p>
 
         <div class="lp-cost__actions">
-            <a href="{{ url('/') }}#booking" class="lp-cost__primary">Book a demo <i class="ph ph-arrow-up-right" aria-hidden="true"></i></a>
+            <a href="{{ route('signup') }}" class="lp-cost__primary">Start free trial <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
             <a href="{{ route('pricing') }}" class="lp-cost__secondary">View full pricing <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
         </div>
     </div>

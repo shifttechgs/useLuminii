@@ -69,7 +69,7 @@
 
         <div class="lp-platform__footer">
             <p>One client record. <em>The whole job history.</em></p>
-            <a href="{{ url('/') }}#booking">See it in a demo <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+            <a href="{{ route('signup') }}">Try it free for 14 days <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
         </div>
     </div>
 </section>
