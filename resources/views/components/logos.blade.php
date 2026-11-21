@@ -33,10 +33,10 @@
     // h = rendered height in px, tuned per mark so every logo reads at the same optical weight.
     // dark = a light mark (white/yellow on transparent) that needs a silhouette to show on the light band.
     $clientLogos = [
-        ['file' => 'wcbs_header_logo.png', 'name' => 'Western Cape Blood Service', 'w' => 276, 'hh' => 61,  'h' => 38],
         ['file' => 'vpw.png',              'name' => 'Vision Plus Wealth',         'w' => 718, 'hh' => 234, 'h' => 44],
         ['file' => 'payhse.png',           'name' => 'Payhouse Finance',           'w' => 722, 'hh' => 296, 'h' => 58],
         ['file' => 'BSlwebbold.png',       'name' => 'BSL Services',               'w' => 508, 'hh' => 219, 'h' => 56],
+        ['file' => 'baardy.png',           'name' => 'Baardy Micro Capital',       'w' => 510, 'hh' => 151, 'h' => 46],
         ['file' => 'spring_kleaners.png',  'name' => 'Spring Kleaners',            'w' => 275, 'hh' => 200, 'h' => 54, 'dark' => true],
     ];
     $clientLogos = array_values(array_filter(

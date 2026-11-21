@@ -29,11 +29,19 @@ class ContactFormMail extends Mailable
      */
     public function build()
     {
-       // dd(view()->exists('mail.contact_form')); // Replace with your view name
-
-        return $this->markdown('mail.contact_form')
+        // Branded HTML (table layout, inline styles) with a plain-text alternative.
+        $mail = $this->view('mail.contact_form')
+            ->text('mail.contact_form_text')
             ->with('data', $this->data)
-            ->subject('New Contact Form Submission');
+            // demo bookings set their own subject, e.g. "New Demo Booking - Plumbing (2-5 people)"
+            ->subject($this->data['subject'] ?? 'New Contact Form Submission');
+
+        // Replying goes straight to the prospect, not back to our own address.
+        if (! empty($this->data['email'])) {
+            $mail->replyTo($this->data['email'], $this->data['fullname'] ?? null);
+        }
+
+        return $mail;
 
     }
 }

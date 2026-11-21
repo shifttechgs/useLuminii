@@ -34,10 +34,8 @@ class ContactController extends Controller
 
         $data = $validator->validated();
 
-        $contactEmail = env('CONTACT_EMAIL');
-
         try {
-            Mail::to($contactEmail)->send(new ContactFormMail($data));
+            $this->notifySales(new ContactFormMail($data));
         } catch (\Exception $e) {
             return redirect('/contact')->with('error', 'An error occurred while sending your message. Please try again later.');
         }
@@ -77,7 +75,8 @@ class ContactController extends Controller
         }
 
         $data = $validator->validated();
-        $data['subject'] = 'New Demo Booking - ' . $data['business_type'] . ' (' . $data['team_size'] . ')';
+        // Inbox-scannable subject: who, then what, e.g. "New demo request: Amina Dlamini (Plumbing, 2-5 people)"
+        $data['subject'] = 'New demo request: ' . $data['fullname'] . ' (' . $data['business_type'] . ', ' . $data['team_size'] . ')';
         $data['message'] = trim(
             $data['pain_point'] .
             (!empty($data['current_tools']) ? "\n\nCurrent tools: " . $data['current_tools'] : '')
@@ -103,9 +102,18 @@ class ContactController extends Controller
             ]);
         }
 
-        $contactEmail = env('CONTACT_EMAIL');
+        // Context for the sales email: where it came from and a link to the CRM record.
+        $data['source_page'] = $redirectTarget;
+        if ($submission) {
+            try {
+                $data['crm_url'] = route('filament.admin.resources.contact-submissions.view', ['record' => $submission]);
+            } catch (Throwable $e) {
+                $data['crm_url'] = url('/useluminii/contact-submissions');
+            }
+        }
+
         try {
-            Mail::to($contactEmail)->send(new ContactFormMail($data));
+            $this->notifySales(new ContactFormMail($data));
 
             if ($submission) {
                 $submission->update(['email_sent_to_admin' => true]);
@@ -158,5 +166,16 @@ class ContactController extends Controller
                 ->with('demo_error', true)
                 ->withInput();
         }
+    }
+
+    /**
+     * Email a website enquiry to sales, copying the configured addresses
+     * (config/mail.php "notifications": sales@shifttechgs.com, cc shifttechgs1@gmail.com).
+     */
+    private function notifySales(ContactFormMail $mail): void
+    {
+        Mail::to(config('mail.notifications.to'))
+            ->cc(config('mail.notifications.cc', []))
+            ->send($mail);
     }
 }

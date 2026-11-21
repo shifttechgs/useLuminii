@@ -39,7 +39,14 @@ return [
 
         'smtp' => [
             'transport' => 'smtp',
-            'scheme' => env('MAIL_ENCRYPTION'),
+            // Laravel 12 only accepts "smtp" or "smtps" here. Translate the older
+            // MAIL_ENCRYPTION values (ssl/tls) still used in our .env files, which
+            // otherwise make every SMTP send fail ("ssl" scheme is not supported).
+            'scheme' => env('MAIL_SCHEME') ?: match (strtolower((string) env('MAIL_ENCRYPTION'))) {
+                'ssl', 'smtps' => 'smtps',
+                'tls', 'starttls', 'smtp' => 'smtp',
+                default => null,
+            },
             'url' => env('MAIL_URL'),
             'host' => env('MAIL_HOST', '127.0.0.1'),
             'port' => env('MAIL_PORT', 2525),
@@ -120,6 +127,25 @@ return [
     'from' => [
         'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
         'name' => env('MAIL_FROM_NAME', 'Example'),
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Website Enquiry Notifications
+    |--------------------------------------------------------------------------
+    |
+    | Who is told about demo bookings and contact form enquiries. Read here
+    | (not with env() in controllers) so it still works when config is
+    | cached in production. CONTACT_CC_EMAIL accepts a comma-separated list.
+    |
+    */
+
+    'notifications' => [
+        'to' => env('CONTACT_EMAIL', 'sales@shifttechgs.com'),
+        'cc' => array_values(array_filter(array_map(
+            'trim',
+            explode(',', (string) env('CONTACT_CC_EMAIL', 'shifttechgs1@gmail.com'))
+        ))),
     ],
 
 ];
