@@ -50,6 +50,10 @@
                         <label class="qb__field"><span>Your name or business</span><input type="text" data-qb="from.name" placeholder="Acme Studio" maxlength="120" autocomplete="organization"></label>
                         <label class="qb__field"><span>Email</span><input type="email" data-qb="from.email" placeholder="you@example.com" maxlength="160" autocomplete="email"></label>
                         <label class="qb__field"><span>Address <em>optional</em></span><input type="text" data-qb="from.address" placeholder="Street, city, country" maxlength="300" autocomplete="street-address"></label>
+                        <div class="qb__row qb__row--tax">
+                            <label class="qb__field"><span>TIN <em>optional</em></span><input type="text" data-qb="from.tin" placeholder="Tax number" maxlength="40" autocomplete="off" spellcheck="false"></label>
+                            <label class="qb__field"><span>VAT number <em>optional</em></span><input type="text" data-qb="from.vat" placeholder="VAT number" maxlength="40" autocomplete="off" spellcheck="false"></label>
+                        </div>
                         <button type="button" class="qb__logo-btn" data-qb-logo-pick><i class="ph ph-image" aria-hidden="true"></i> <span data-qb-logo-label>Add logo</span></button>
                         <input type="file" id="qb-logo-input" accept="image/png,image/jpeg,image/webp,image/svg+xml" hidden>
                         <p class="qb__logo-err" data-qb-logo-err role="alert" hidden></p>
@@ -59,6 +63,10 @@
                         <label class="qb__field"><span>Client name</span><input type="text" data-qb="to.name" placeholder="Client or company" maxlength="120" autocomplete="off"></label>
                         <label class="qb__field"><span>Client email <em>optional</em></span><input type="email" data-qb="to.email" placeholder="client@example.com" maxlength="160" autocomplete="off"></label>
                         <label class="qb__field"><span>Client address <em>optional</em></span><input type="text" data-qb="to.address" placeholder="Street, city, country" maxlength="300" autocomplete="off"></label>
+                        <div class="qb__row qb__row--tax">
+                            <label class="qb__field"><span>TIN <em>optional</em></span><input type="text" data-qb="to.tin" aria-label="Client TIN" placeholder="Tax number" maxlength="40" autocomplete="off" spellcheck="false"></label>
+                            <label class="qb__field"><span>VAT number <em>optional</em></span><input type="text" data-qb="to.vat" aria-label="Client VAT number" placeholder="VAT number" maxlength="40" autocomplete="off" spellcheck="false"></label>
+                        </div>
                     </fieldset>
                 </div>
 
@@ -152,6 +160,8 @@
                             <div class="qb-paper__from" data-pv="from.name"></div>
                             <div class="qb-paper__muted qb-paper__pre" data-pv="from.email"></div>
                             <div class="qb-paper__muted qb-paper__pre" data-pv="from.address"></div>
+                            <div class="qb-paper__muted qb-paper__taxid" data-pv="from.tin"></div>
+                            <div class="qb-paper__muted qb-paper__taxid" data-pv="from.vat"></div>
                         </div>
                         <div class="qb-paper__doc">
                             <div class="qb-paper__type" data-pv="type"></div>
@@ -166,6 +176,8 @@
                             <div class="qb-paper__strong" data-pv="to.name"></div>
                             <div class="qb-paper__muted qb-paper__pre" data-pv="to.email"></div>
                             <div class="qb-paper__muted qb-paper__pre" data-pv="to.address"></div>
+                            <div class="qb-paper__muted qb-paper__taxid" data-pv="to.tin"></div>
+                            <div class="qb-paper__muted qb-paper__taxid" data-pv="to.vat"></div>
                         </div>
                         <div class="qb-paper__dates">
                             <div><span class="qb-paper__label">Date</span><span data-pv="date"></span></div>
@@ -343,8 +355,8 @@
     function fresh(type) {
         return {
             type: type || 'quote',
-            from: { name: '', email: '', address: '' },
-            to: { name: '', email: '', address: '', phone: '' },
+            from: { name: '', email: '', address: '', tin: '', vat: '' },
+            to: { name: '', email: '', address: '', phone: '', tin: '', vat: '' },
             number: (type === 'invoice' ? 'INV' : 'QUO') + '-0001',
             currency: guessCurrency(),
             date: iso(new Date()),
@@ -358,8 +370,16 @@
             quoteRef: ''
         };
     }
+    // Fill in fields added after a draft was saved (e.g. TIN / VAT), so older drafts load cleanly.
+    function normalize(st) {
+        var base = fresh(st.type);
+        st.from = Object.assign(base.from, st.from || {});
+        st.to = Object.assign(base.to, st.to || {});
+        if (!st.pay || typeof st.pay !== 'object') st.pay = { link: '', details: '' };
+        return st;
+    }
     var S = fresh('quote');
-    try { var saved = JSON.parse(localStorage.getItem(KEY) || 'null'); if (saved && saved.items) { S = Object.assign(fresh(saved.type), saved); if (!S.pay || typeof S.pay !== 'object') S.pay = { link: '', details: '' }; } } catch (e) {}
+    try { var saved = JSON.parse(localStorage.getItem(KEY) || 'null'); if (saved && saved.items) { S = normalize(Object.assign(fresh(saved.type), saved)); } } catch (e) {}
     function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
 
     function get(path) { return path.split('.').reduce(function (o, k) { return o == null ? '' : o[k]; }, S); }
@@ -457,6 +477,11 @@
         ph('to.name', S.to.name, 'Client name');
         pv('to.email', S.to.email);
         pv('to.address', S.to.address);
+        // Optional tax identifiers: shown only when filled in
+        pv('from.tin', (S.from.tin || '').trim() ? 'TIN: ' + S.from.tin.trim() : '');
+        pv('from.vat', (S.from.vat || '').trim() ? 'VAT No: ' + S.from.vat.trim() : '');
+        pv('to.tin', (S.to.tin || '').trim() ? 'TIN: ' + S.to.tin.trim() : '');
+        pv('to.vat', (S.to.vat || '').trim() ? 'VAT No: ' + S.to.vat.trim() : '');
         pv('date', fmtDate(S.date));
         pv('dueLabel', isInv ? 'Due' : 'Valid until');
         pv('due', fmtDate(S.due));
@@ -1024,7 +1049,7 @@
         if (!undoSnap) return hideToast();
         try {
             var back = JSON.parse(undoSnap);
-            S = Object.assign(fresh(back.type), back);
+            S = normalize(Object.assign(fresh(back.type), back));
         } catch (e) { return hideToast(); }
         hideToast();
         renderItems();

@@ -6178,6 +6178,10 @@ body .lp-page__visual-title { font-weight: 400; letter-spacing: -0.02em; }
 .qb__row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .qb__row.qb__row--4 { grid-template-columns: 1.1fr .8fr 1fr 1fr; margin: 4px 0 6px; padding-top: 12px; border-top: 1px solid #EEF2F1; }
 .qb__row.qb__row--notes { grid-template-columns: 150px 1fr; align-items: start; }
+/* optional TIN / VAT pair inside the From and Bill to groups */
+.qb__row.qb__row--tax { gap: 10px; }
+.qb-paper__taxid { font-size: 12px; letter-spacing: .01em; }
+.qb-paper__taxid:empty { display: none; }
 /* Tax: name + rate in one field */
 .qb-tax__box {
     display: flex; align-items: center; height: 36px; min-width: 0;
