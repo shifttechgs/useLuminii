@@ -119,9 +119,8 @@ class ContactController extends Controller
                 $submission->update(['email_sent_to_admin' => true]);
             }
 
-            $message = $submission
-                ? 'Your demo request was saved and emailed successfully.'
-                : 'Your demo request was sent successfully.';
+            // Visitor-facing copy only; saved/email_sent below carry the internal detail.
+            $message = 'Thanks. Your demo request is in.';
 
             if ($request->expectsJson()) {
                 return response()->json([
@@ -133,7 +132,9 @@ class ContactController extends Controller
 
             return redirect($redirectWithAnchor)
                 ->with('demo_success', true)
-                ->with('demo_message', $message);
+                ->with('demo_message', $message)
+                ->with('demo_first', strtok($data['fullname'], ' '))
+                ->with('demo_email', $data['email']);
         } catch (\Exception $e) {
             Log::warning('Demo booking email failed', [
                 'error' => $e->getMessage(),
@@ -141,7 +142,8 @@ class ContactController extends Controller
             ]);
 
             if ($submission) {
-                $message = 'Your demo request was saved. We will follow up manually.';
+                // Saved, but the sales notification failed: still a success for the visitor.
+                $message = 'Thanks. Your demo request is in.';
 
                 if ($request->expectsJson()) {
                     return response()->json([
@@ -153,7 +155,9 @@ class ContactController extends Controller
 
                 return redirect($redirectWithAnchor)
                     ->with('demo_success', true)
-                    ->with('demo_message', $message);
+                    ->with('demo_message', $message)
+                    ->with('demo_first', strtok($data['fullname'], ' '))
+                    ->with('demo_email', $data['email']);
             }
 
             if ($request->expectsJson()) {

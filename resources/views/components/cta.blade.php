@@ -69,7 +69,7 @@
             </div>
 
             <!-- Right: booking form card -->
-            <div class="lp-cta__card" data-aos="fade-up" data-aos-delay="100">
+            <div class="lp-cta__card{{ session('demo_success') && !$isPersonal ? ' is-done' : '' }}" data-aos="fade-up" data-aos-delay="100">
                 <div class="lp-cta__card-accent"></div>
 
                 <div class="lp-cta__card-body">
@@ -83,7 +83,14 @@
                     <p class="lp-cta__card-sub">Tell us a little about your business. We'll contact you to arrange your demo.</p>
                     @endif
 
-                    @if(session('demo_success'))
+                    @if(!$isPersonal)
+                    {{-- cloned by the booking script after a successful AJAX submit --}}
+                    <template id="booking-done-tpl">@include('components.partials.booking-success', ['first' => null, 'email' => null])</template>
+                    @endif
+
+                    @if(session('demo_success') && !$isPersonal)
+                    @include('components.partials.booking-success', ['first' => session('demo_first'), 'email' => session('demo_email')])
+                    @elseif(session('demo_success'))
                     <div class="lp-cta__success">
                         <i class="ph ph-check-circle"></i>
                         <div>
