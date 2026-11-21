@@ -37,7 +37,7 @@
         ['file' => 'payhse.png',           'name' => 'Payhouse Finance',           'w' => 722, 'hh' => 296, 'h' => 58],
         ['file' => 'BSlwebbold.png',       'name' => 'BSL Services',               'w' => 508, 'hh' => 219, 'h' => 56],
         ['file' => 'baardy.png',           'name' => 'Baardy Micro Capital',       'w' => 510, 'hh' => 151, 'h' => 46],
-        ['file' => 'spring_kleaners.png',  'name' => 'Spring Kleaners',            'w' => 275, 'hh' => 200, 'h' => 54, 'dark' => true],
+        ['file' => 'spring_kleaners.png',  'name' => 'Spring Kleaners',            'w' => 389, 'hh' => 84,  'h' => 34, 'dark' => true],
     ];
     $clientLogos = array_values(array_filter(
         $clientLogos,
