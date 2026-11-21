@@ -65,7 +65,7 @@
                 </nav>
 
                 <div class="lp-hdr__actions">
-                    <a href="{{ route('crm.login') }}" class="lp-hdr__login">@auth Go to CRM @else Log in @endauth</a>
+                    <a href="{{ route('crm.login') }}" class="lp-hdr__login">Sign in</a>
                     @unless($isPersonal)<a href="{{ $ctaHref }}" class="lp-hdr__cta" id="lp-nav-cta">{{ $ctaLabel }}</a>@endunless
                     <button type="button" class="lp-hdr__burger" id="lp-menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="lp-menu-mobile">
                         <span></span><span></span>
@@ -189,7 +189,7 @@
                             @unless($isPersonal)<a href="{{ $home }}#faq" class="lp-macc__top">FAQ</a>@endunless
                             <div class="lp-macc__actions">
                                 @unless($isPersonal)<a href="{{ $ctaHref }}" class="lp-hdr__cta lp-hdr__cta--block">{{ $ctaLabel }}</a>@endunless
-                                <a href="{{ route('crm.login') }}" class="lp-hdr__login lp-hdr__login--block">@auth Go to CRM @else Log in @endauth</a>
+                                <a href="{{ route('crm.login') }}" class="lp-hdr__login lp-hdr__login--block">Sign in</a>
                             </div>
                         </div>
 
