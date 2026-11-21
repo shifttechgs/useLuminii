@@ -34,6 +34,11 @@
     /* card corners: set by the Platform record window; nested blocks use --r-inner */
     --r-card: 10px;
     --r-inner: 8px;
+    /* light section backgrounds: two only, alternating. Dark sections keep their own. */
+    --bg-light: #FFFFFF;
+    --bg-tint: #F2F6F5;
+    /* dark sections: one navy, the brand ink */
+    --bg-dark: var(--ink);
     --shadow-sm: 0 1px 3px rgba(8,29,58,0.08), 0 1px 2px rgba(8,29,58,0.04);
     --shadow: 0 12px 32px rgba(8,29,58,0.08), 0 2px 8px rgba(8,29,58,0.04);
     --shadow-lg: 0 28px 80px rgba(4,15,31,0.16), 0 8px 24px rgba(8,29,58,0.08);
@@ -2422,7 +2427,7 @@
     --ft-rule: rgba(255,255,255,.12);
     --ft-dim: rgba(255,255,255,.64);
     padding: clamp(72px, 8vw, 112px) 0 36px;
-    background: #081D3A;
+    background: var(--bg-dark);
     color: #fff;
 }
 .lp-footer__top {
@@ -3559,7 +3564,7 @@ body .lp-page__visual-title { font-weight: 400; letter-spacing: -0.02em; }
    split layout, animated activity stream
    ================================================================ */
 .lp-fh {
-    --fh-bg: #F2F6F5;
+    --fh-bg: var(--bg-tint);
     --fh-green: #4E9E7E;
     position: relative;
     overflow: hidden;
@@ -3846,7 +3851,7 @@ body .lp-page__visual-title { font-weight: 400; letter-spacing: -0.02em; }
     --gap-ok: #2F7D60;
     --gap-ease: cubic-bezier(.16, 1, .3, 1);
     padding: clamp(96px, 11vw, 148px) 0 clamp(64px, 6vw, 88px);
-    background: #fff;
+    background: var(--bg-light);
 }
 
 /* Intro */
@@ -4212,10 +4217,10 @@ body .lp-page__visual-title { font-weight: 400; letter-spacing: -0.02em; }
    own form and take their colour on hover.
    ================================================================ */
 .lp-clients {
-    /* warm stone: its own beat between the white gap and the mint platform */
-    --cl-rule: #E4DFD3;
+    /* tint band between the white gap and the white platform */
+    --cl-rule: #D3DEDA;
     padding: clamp(80px, 8vw, 120px) 0 clamp(72px, 7vw, 104px);
-    background: #F7F5EF;
+    background: var(--bg-tint);
 }
 .lp-clients__statement {
     max-width: none;
@@ -4247,7 +4252,7 @@ body .lp-page__visual-title { font-weight: 400; letter-spacing: -0.02em; }
 .lp-clients__mark::after {
     content: "";
     position: absolute;
-    background: #CFC8B8;
+    background: #B3C2BB;
 }
 .lp-clients__mark::before { left: 5px; top: 0; width: 1px; height: 11px; }
 .lp-clients__mark::after { top: 5px; left: 0; width: 11px; height: 1px; }
@@ -4345,7 +4350,7 @@ body .lp-page__visual-title { font-weight: 400; letter-spacing: -0.02em; }
     --pf-soft: #F6F8FB;
     --pf-focus: #FFF8E1;
     padding: clamp(96px, 10vw, 144px) 0 clamp(80px, 8vw, 112px);
-    background: #F2F6F5;
+    background: var(--bg-light);
 }
 
 /* Intro */
@@ -4661,7 +4666,7 @@ body .lp-page__visual-title { font-weight: 400; letter-spacing: -0.02em; }
     --im-ring: rgba(255,255,255,.16);
     --im-ease: cubic-bezier(.16, 1, .3, 1);
     padding: clamp(96px, 10vw, 140px) 0;
-    background: var(--ink-2);
+    background: var(--bg-dark);
     color: #fff;
 }
 .lp-impact__layout {
@@ -4780,7 +4785,7 @@ body .lp-page__visual-title { font-weight: 400; letter-spacing: -0.02em; }
     margin: -4.5px 0 0 -4.5px;
     border-radius: 50%;
     background: var(--gold);
-    box-shadow: 0 0 0 5px var(--ink-2);
+    box-shadow: 0 0 0 5px var(--bg-dark);
     transition: transform .5s cubic-bezier(.34, 1.56, .64, 1), opacity .3s ease;
 }
 .lp-impact__node--t { left: 50%; top: 25%; }
@@ -4862,7 +4867,7 @@ body .lp-page__visual-title { font-weight: 400; letter-spacing: -0.02em; }
     --pa-rule: #DCE3EC;
     --pa-ease: cubic-bezier(.16, 1, .3, 1);
     padding: clamp(96px, 10vw, 140px) 0;
-    background: #fff;
+    background: var(--bg-light);
 }
 
 /* Intro */
@@ -5063,16 +5068,18 @@ body .lp-page__visual-title { font-weight: 400; letter-spacing: -0.02em; }
 
 
 /* ================================================================
-   WORKFLOW: a kinetic type band. One oversized line of the job's
-   stages slides sideways as the page scrolls; the stage nearest the
-   centre turns gold. JS adds .is-kinetic to [data-flow] and moves
-   .is-lit; without JS / reduced motion the line wraps statically.
+   WORKFLOW: the record builds up. Five stage columns; each stage adds
+   one piece (gold, "New") and carries every earlier piece (dimmed),
+   so the stack grows left to right. Hover/focus a piece to trace it
+   (.is-tracing on the grid, .is-lit on every copy of that piece).
+   Under 900px: one stage per row, only the new piece, plus a
+   "Carries ..." line.
    ================================================================ */
 .lp-workflow {
-    --wf-dim: rgba(255,255,255,.16);
-    padding: clamp(96px, 10vw, 136px) 0 clamp(72px, 8vw, 104px);
-    overflow: hidden;
-    background: var(--ink);
+    --wf-line: rgba(255,255,255,.12);
+    --wf-ease: cubic-bezier(.16, 1, .3, 1);
+    padding: clamp(96px, 10vw, 136px) 0;
+    background: var(--bg-dark);
     color: #fff;
 }
 
@@ -5082,11 +5089,9 @@ body .lp-page__visual-title { font-weight: 400; letter-spacing: -0.02em; }
     grid-template-columns: minmax(0, 1fr) minmax(280px, .5fr);
     align-items: end;
     gap: 48px;
+    margin-bottom: clamp(56px, 6vw, 88px);
 }
 .lp-workflow__label {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
     margin-bottom: 26px;
     color: var(--gold-tint);
     font-family: var(--font-mono);
@@ -5094,7 +5099,6 @@ body .lp-page__visual-title { font-weight: 400; letter-spacing: -0.02em; }
     letter-spacing: .12em;
     text-transform: uppercase;
 }
-
 .lp-workflow__intro h2 {
     margin: 0;
     color: #fff;
@@ -5104,13 +5108,7 @@ body .lp-page__visual-title { font-weight: 400; letter-spacing: -0.02em; }
     letter-spacing: -.05em;
 }
 .lp-workflow__intro h2 em { display: block; font-style: normal; color: rgba(255,255,255,.45); }
-.lp-workflow__intro-side p {
-    margin: 0 0 22px;
-    color: rgba(255,255,255,.68);
-    font-size: 18px;
-    font-weight: 300;
-    line-height: 1.55;
-}
+.lp-workflow__intro-side p { margin: 0 0 22px; color: rgba(255,255,255,.68); font-size: 18px; font-weight: 300; line-height: 1.55; }
 .lp-workflow__intro-side a {
     display: inline-flex;
     align-items: center;
@@ -5124,79 +5122,107 @@ body .lp-page__visual-title { font-weight: 400; letter-spacing: -0.02em; }
 }
 .lp-workflow__intro-side a:hover { gap: 12px; border-color: var(--gold); color: var(--gold); }
 
-.lp-workflow__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; margin: 0; padding: 0; }
-
-/* Band */
-.lp-workflow__band {
-    margin: clamp(56px, 7vw, 96px) 0 clamp(48px, 6vw, 80px);
-    padding: clamp(18px, 2vw, 28px) 0;
-    border-top: 1px solid rgba(255,255,255,.1);
-    border-bottom: 1px solid rgba(255,255,255,.1);
-}
-.lp-workflow__track {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    column-gap: .32em;
-    padding: 0 28px;
-    font-size: clamp(44px, 7vw, 104px);
-    font-weight: 300;
-    line-height: 1.05;
-    letter-spacing: -.055em;
-    white-space: nowrap;
-}
-.lp-workflow__word { color: #fff; transition: color .35s ease; }
-.lp-workflow__sep { display: inline-flex; color: var(--gold); font-size: .42em; }
-/* static fallback shows a single pass */
-.lp-workflow__track .is-repeat { display: none; }
-.lp-workflow__track > .lp-workflow__sep:nth-last-child(1 of :not(.is-repeat)) { display: none; }
-
-/* Kinetic mode */
-.lp-workflow__band.is-kinetic { padding: clamp(10px, 1.4vw, 20px) 0; }
-.is-kinetic .lp-workflow__track {
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    width: max-content;
-    padding: 0;
-    font-size: clamp(64px, 11vw, 196px);
-    will-change: transform;
-}
-.is-kinetic .lp-workflow__track .is-repeat,
-.is-kinetic .lp-workflow__track > .lp-workflow__sep { display: inline-flex; }
-.is-kinetic .lp-workflow__word { color: var(--wf-dim); }
-.is-kinetic .lp-workflow__word.is-lit { color: var(--gold); }
-.is-kinetic .lp-workflow__sep { color: var(--wf-dim); }
-
-/* What stays connected */
-.lp-workflow__record {
+/* Stage columns */
+.lp-carry {
     display: grid;
-    grid-template-columns: auto minmax(0, 1fr) auto;
-    align-items: center;
-    gap: 32px;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
 }
-.lp-workflow__record-label { margin: 0; color: rgba(255,255,255,.5); font-size: 15px; }
-.lp-workflow__record ul { display: flex; flex-wrap: wrap; gap: 10px; margin: 0; padding: 0; list-style: none; }
-.lp-workflow__record li {
-    padding: 8px 16px;
-    border: 1px solid rgba(255,255,255,.18);
-    border-radius: 999px;
-    color: #fff;
-    font-size: 15px;
-}
-.lp-workflow__record-note { margin: 0; color: var(--gold); font-size: 16px; }
+.lp-carry__stage { min-width: 0; }
+.lp-carry__head { padding: 0 2px 18px; margin-bottom: 14px; border-bottom: 1px solid var(--wf-line); }
+.lp-carry__num { color: var(--gold-tint); font-family: var(--font-mono); font-size: 12px; }
+.lp-carry__head h3 { margin: 10px 0 4px; color: #fff; font-size: clamp(22px, 1.9vw, 28px); font-weight: 300; letter-spacing: -.035em; }
+.lp-carry__head p { margin: 0; color: rgba(255,255,255,.6); font-size: 15px; }
 
+/* Pieces */
+.lp-carry__stack { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.lp-carry__piece {
+    display: grid;
+    gap: 2px;
+    padding: 12px 14px;
+    border: 1px solid var(--wf-line);
+    border-radius: var(--r-inner);
+    background: rgba(255,255,255,.03);
+    cursor: default;
+    transition: opacity .35s ease, border-color .3s ease, background .3s ease, translate .6s var(--wf-ease);
+}
+.lp-carry__piece-label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    color: rgba(255,255,255,.55);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+.lp-carry__piece-label em {
+    padding: 2px 7px;
+    border-radius: 999px;
+    background: var(--gold);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 500;
+    letter-spacing: 0;
+    text-transform: none;
+}
+.lp-carry__piece strong { overflow: hidden; color: #fff; font-size: 16px; font-weight: 400; letter-spacing: -.01em; text-overflow: ellipsis; white-space: nowrap; }
+.lp-carry__piece small { color: rgba(255,255,255,.55); font-size: 13px; }
+.lp-carry__piece.is-new { border-color: rgba(245,197,66,.7); background: rgba(245,197,66,.07); }
+.lp-carry__piece.is-carried { opacity: .5; }
+.lp-carry__carries { display: none; }
+
+.lp-carry__piece:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+/* Cascade in: column by column, piece by piece */
+.lp-carry.is-armed .lp-carry__piece { opacity: 0; translate: 0 14px; }
+.lp-carry.is-armed.is-in .lp-carry__piece { opacity: 1; translate: 0 0; transition-delay: calc(var(--s) * .14s + var(--p) * .04s); }
+.lp-carry.is-armed.is-in .lp-carry__piece.is-carried { opacity: .5; }
+
+/* Trace a piece across every stage (JS drops .is-armed once the cascade ends,
+   so these only compete with .is-carried) */
+.lp-carry.is-tracing .lp-carry__piece { opacity: .22; }
+.lp-carry.is-tracing .lp-carry__piece.is-lit { opacity: 1; border-color: var(--gold); background: rgba(245,197,66,.1); }
+
+.lp-workflow__note {
+    max-width: 640px;
+    margin: clamp(40px, 5vw, 64px) 0 0;
+    color: rgba(255,255,255,.68);
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 1.55;
+}
+.lp-workflow__note span { color: var(--gold); }
+
+@media (max-width: 1100px) {
+    .lp-carry__piece { padding: 10px 11px; }
+    .lp-carry__piece strong { font-size: 15px; }
+}
 @media (max-width: 900px) {
     .lp-workflow__intro { grid-template-columns: 1fr; gap: 24px; }
-    .lp-workflow__record { grid-template-columns: 1fr; gap: 16px; }
+    .lp-carry { grid-template-columns: 1fr; gap: 0; border-top: 1px solid var(--wf-line); }
+    .lp-carry__stage { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); align-items: center; gap: 8px 20px; padding: 20px 0; border-bottom: 1px solid var(--wf-line); }
+    .lp-carry__head { margin: 0; padding: 0; border: 0; }
+    .lp-carry__piece.is-carried { display: none; }
+    .lp-carry__carries { display: block; grid-column: 2; margin: 0; color: rgba(255,255,255,.55); font-size: 14px; }
 }
 @media (max-width: 560px) {
-    .is-kinetic .lp-workflow__track { font-size: clamp(56px, 18vw, 80px); }
+    .lp-carry__stage { grid-template-columns: 1fr; }
+    .lp-carry__carries { grid-column: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .lp-carry__piece { transition: none; }
 }
 
 
 /* Customer voices: editorial quotations, no auto-moving review cards. */
-.lp-voices { padding: 110px 0 96px; background: #fff; }
+.lp-voices { padding: 110px 0 96px; background: var(--bg-light); }
 .lp-voices__intro { margin-bottom: 50px; }
 .lp-voices__intro .lp-section__label { margin-bottom: 22px; color: var(--ink); }
 .lp-voices__intro h2 { margin: 0; font-size: clamp(36px, 4.1vw, 58px); font-weight: 300; line-height: 1.03; letter-spacing: -.045em; }
@@ -5244,9 +5270,9 @@ body .lp-page__visual-title { font-weight: 400; letter-spacing: -0.02em; }
    turn: JS adds .is-armed to the list, then .is-in to each step.
    ================================================================ */
 .lp-setup {
-    --su-rule: #DAD3C3;
+    --su-rule: #C8D4CD;
     padding: clamp(96px, 10vw, 136px) 0;
-    background: #F7F5EF;
+    background: var(--bg-tint);
     scroll-margin-top: 110px;
 }
 .lp-setup__layout {
@@ -5266,7 +5292,7 @@ body .lp-page__visual-title { font-weight: 400; letter-spacing: -0.02em; }
     letter-spacing: -.05em;
     text-wrap: balance;
 }
-.lp-setup__intro h2 em { display: block; font-style: normal; color: #7A7F78; text-wrap: balance; }
+.lp-setup__intro h2 em { display: block; font-style: normal; color: #6A777A; text-wrap: balance; }
 .lp-setup__intro > p {
     max-width: 440px;
     margin: 0 0 34px;
@@ -5342,7 +5368,7 @@ body .lp-page__visual-title { font-weight: 400; letter-spacing: -0.02em; }
     align-items: center;
     gap: 10px;
     padding-top: 14px;
-    border-top: 1px dashed #CFC6B3;
+    border-top: 1px dashed #B3C2BB;
     color: var(--ink);
     font-size: 16px;
     font-weight: 400;
@@ -5442,7 +5468,7 @@ body .lp-page__visual-title { font-weight: 400; letter-spacing: -0.02em; }
     --co-rule: #DCE3EC;
     --co-ease: cubic-bezier(.16, 1, .3, 1);
     padding: clamp(96px, 10vw, 136px) 0;
-    background: #fff;
+    background: var(--bg-light);
     scroll-margin-top: 110px;
 }
 .lp-cost__intro {
@@ -5587,7 +5613,7 @@ body .lp-page__visual-title { font-weight: 400; letter-spacing: -0.02em; }
     --fq-rule: #C8D4CD;
     --fq-ease: cubic-bezier(.16, 1, .3, 1);
     padding: clamp(96px, 10vw, 136px) 0;
-    background: #F2F6F5;
+    background: var(--bg-tint);
     scroll-margin-top: 110px;
     interpolate-size: allow-keywords;
 }
@@ -5742,7 +5768,7 @@ body .lp-page__visual-title { font-weight: 400; letter-spacing: -0.02em; }
    call / WhatsApp alternatives are full-size tappable cards.
    Scoped to .lp-cta--business so the Personal page is untouched.
    ================================================================ */
-.lp-cta--business { padding: clamp(96px, 10vw, 136px) 0; background: #fff; border-top: 0; overflow: visible; scroll-margin-top: 110px; }
+.lp-cta--business { padding: clamp(96px, 10vw, 136px) 0; background: var(--bg-light); border-top: 0; overflow: visible; scroll-margin-top: 110px; }
 .lp-cta--business::before, .lp-cta--business .lp-cta__glow, .lp-cta--business .lp-cta__card-accent { display: none; }
 .lp-cta--business .lp-cta__grid { gap: clamp(48px, 6vw, 96px); align-items: start; }
 .lp-cta--business .lp-cta__left { position: sticky; top: 120px; }
@@ -5813,6 +5839,67 @@ body .lp-page__visual-title { font-weight: 400; letter-spacing: -0.02em; }
 }
 .lp-cta--business .lp-cta__form-input:hover { border-color: #9FB0A4; }
 .lp-cta--business .lp-cta__form-input:focus { border-color: var(--ink); box-shadow: 0 0 0 3px rgba(245,197,66,.45); outline: none; }
+
+/* Dropdowns: placeholder reads as a placeholder (grey) until a real option is
+   chosen; clearer navy chevron. Where the browser supports customisable selects
+   (appearance: base-select), the open list is styled to match the form too. */
+.lp-cta--business select.lp-cta__form-input {
+    padding-right: 46px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23081D3A' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-position: right 16px center;
+    background-size: 14px 14px;
+    cursor: pointer;
+}
+.lp-cta--business select.lp-cta__form-input:invalid { color: var(--muted-2); }
+.lp-cta--business select.lp-cta__form-input option { color: var(--ink); }
+@supports (appearance: base-select) {
+    .lp-cta--business select.lp-cta__form-input,
+    .lp-cta--business select.lp-cta__form-input::picker(select) { appearance: base-select; }
+    .lp-cta--business select.lp-cta__form-input {
+        display: flex;
+        align-items: center;
+        padding-right: 16px;
+        background-image: none;
+    }
+    .lp-cta--business select.lp-cta__form-input::picker-icon {
+        content: "";
+        width: 14px;
+        height: 14px;
+        margin-left: auto;
+        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23081D3A' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") center / 14px 14px no-repeat;
+        transition: rotate .25s cubic-bezier(.16, 1, .3, 1);
+    }
+    .lp-cta--business select.lp-cta__form-input:open::picker-icon { rotate: 180deg; }
+    .lp-cta--business select.lp-cta__form-input::picker(select) {
+        /* capped so the list fits below the field instead of flipping up over the page */
+        max-height: min(320px, 45vh);
+        /* open below the field when it fits (Chrome's default picks the roomier side) */
+        position-try-order: normal;
+        overflow-y: auto;
+        scrollbar-width: thin;
+        scrollbar-color: #C7D2C9 transparent;
+        margin: 6px 0;
+        padding: 6px;
+        border: 1px solid #C7D2C9;
+        border-radius: var(--r-inner);
+        background: #fff;
+        box-shadow: 0 22px 48px -18px rgba(8,29,58,.28);
+    }
+    .lp-cta--business select.lp-cta__form-input option {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 11px 12px;
+        border-radius: 6px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+    .lp-cta--business select.lp-cta__form-input option[value=""] { display: none; }
+    .lp-cta--business select.lp-cta__form-input option:hover,
+    .lp-cta--business select.lp-cta__form-input option:focus-visible { background: var(--bg-tint); outline: none; }
+    .lp-cta--business select.lp-cta__form-input option:checked { background: rgba(245,197,66,.16); font-weight: 500; }
+    .lp-cta--business select.lp-cta__form-input option::checkmark { order: 1; margin-left: auto; color: var(--gold-muted); }
+}
 .lp-cta--business .lp-cta__form-input[aria-invalid="true"],
 .lp-cta--business .lp-cta__form-input--err { border-color: #B64836; }
 .lp-cta--business .lp-cta__form-err,

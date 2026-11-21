@@ -231,51 +231,36 @@
         });
     })();
 
-    // Workflow: slide the stage line sideways with scroll; light the word nearest the centre.
+    // Workflow: the record cascades in stage by stage; hovering or focusing a piece
+    // traces it through every stage it travels to.
     (function () {
-        var band = document.querySelector('[data-flow]');
-        if (!band) return;
-        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-        var track = band.querySelector('[data-flow-track]');
-        var words = band.querySelectorAll('[data-flow-word]');
-        band.classList.add('is-kinetic');
-        var ticking = false;
-        var lit = null;
+        var wf = document.querySelector('[data-wf]');
+        if (!wf) return;
+        var pieces = wf.querySelectorAll('[data-piece]');
 
-        function update() {
-            ticking = false;
-            var vh = window.innerHeight;
-            var r = band.getBoundingClientRect();
-            if (r.bottom < -200 || r.top > vh + 200) return;
-            // 0 when the band enters at the bottom, 1 when it leaves at the top
-            var p = Math.max(0, Math.min(1, (vh - r.top) / (vh + r.height)));
-            // start with the second pass's "Enquiry" centred, then travel exactly one pass,
-            // so the stages light up in order: Enquiry, Quote, Job, Invoice, Payment
-            var anchor = words[5];
-            var pass = words[10].offsetLeft - anchor.offsetLeft;
-            var start = band.clientWidth / 2 - (anchor.offsetLeft + anchor.offsetWidth / 2);
-            track.style.transform = 'translate3d(' + (start - p * pass).toFixed(1) + 'px,0,0)';
+        function trace(n) {
+            wf.classList.toggle('is-tracing', !!n);
+            pieces.forEach(function (p) { p.classList.toggle('is-lit', p.getAttribute('data-piece') === n); });
+        }
+        pieces.forEach(function (p) {
+            p.addEventListener('pointerenter', function () { trace(p.getAttribute('data-piece')); });
+            p.addEventListener('focus', function () { trace(p.getAttribute('data-piece')); });
+            p.addEventListener('pointerleave', function () { trace(null); });
+            p.addEventListener('blur', function () { trace(null); });
+        });
 
-            var mid = band.clientWidth / 2, best = null, bestD = Infinity;
-            words.forEach(function (w) {
-                var wr = w.getBoundingClientRect();
-                var d = Math.abs(wr.left + wr.width / 2 - mid);
-                if (d < bestD) { bestD = d; best = w; }
+        if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        wf.classList.add('is-armed');
+        var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (!entry.isIntersecting) return;
+                wf.classList.add('is-in');
+                io.disconnect();
+                // once the cascade has played, drop the entrance rules so tracing owns opacity
+                setTimeout(function () { wf.classList.remove('is-armed', 'is-in'); }, 1600);
             });
-            if (best !== lit) {
-                if (lit) lit.classList.remove('is-lit');
-                if (best) best.classList.add('is-lit');
-                lit = best;
-            }
-        }
-        function request() {
-            if (ticking) return;
-            ticking = true;
-            requestAnimationFrame(update);
-        }
-        window.addEventListener('scroll', request, { passive: true });
-        window.addEventListener('resize', request);
-        update();
+        }, { threshold: 0.3 });
+        io.observe(wf);
     })();
 
     // Setup: steps fade up in turn as they enter (IntersectionObserver, so late layout shifts can't strand them).
