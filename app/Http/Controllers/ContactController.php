@@ -75,7 +75,8 @@ class ContactController extends Controller
         }
 
         $data = $validator->validated();
-        $data['subject'] = 'New Demo Booking - ' . $data['business_type'] . ' (' . $data['team_size'] . ')';
+        // Inbox-scannable subject: who, then what, e.g. "New demo request: Amina Dlamini (Plumbing, 2-5 people)"
+        $data['subject'] = 'New demo request: ' . $data['fullname'] . ' (' . $data['business_type'] . ', ' . $data['team_size'] . ')';
         $data['message'] = trim(
             $data['pain_point'] .
             (!empty($data['current_tools']) ? "\n\nCurrent tools: " . $data['current_tools'] : '')
@@ -99,6 +100,16 @@ class ContactController extends Controller
                 'error' => $e->getMessage(),
                 'email' => $data['email'] ?? null,
             ]);
+        }
+
+        // Context for the sales email: where it came from and a link to the CRM record.
+        $data['source_page'] = $redirectTarget;
+        if ($submission) {
+            try {
+                $data['crm_url'] = route('filament.admin.resources.contact-submissions.view', ['record' => $submission]);
+            } catch (Throwable $e) {
+                $data['crm_url'] = url('/useluminii/contact-submissions');
+            }
         }
 
         try {
