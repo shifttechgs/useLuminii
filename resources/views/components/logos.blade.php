@@ -29,21 +29,44 @@
     ];
 @endphp
 @if(!$isPersonal)
+@php
+    // h = rendered height in px, tuned per mark so every logo reads at the same optical weight.
+    // dark = a light mark (white/yellow on transparent) that needs a silhouette to show on the light band.
+    $clientLogos = [
+        ['file' => 'wcbs_header_logo.png', 'name' => 'Western Cape Blood Service', 'w' => 276, 'hh' => 61,  'h' => 38],
+        ['file' => 'vpw.png',              'name' => 'Vision Plus Wealth',         'w' => 718, 'hh' => 234, 'h' => 44],
+        ['file' => 'payhse.png',           'name' => 'Payhouse Finance',           'w' => 722, 'hh' => 296, 'h' => 58],
+        ['file' => 'BSlwebbold.png',       'name' => 'BSL Services',               'w' => 508, 'hh' => 219, 'h' => 56],
+        ['file' => 'spring_kleaners.png',  'name' => 'Spring Kleaners',            'w' => 275, 'hh' => 200, 'h' => 54, 'dark' => true],
+    ];
+    $clientLogos = array_values(array_filter(
+        $clientLogos,
+        fn ($logo) => file_exists(public_path('assets/images/logo/clients/' . $logo['file']))
+    ));
+@endphp
 <section class="lp-clients" aria-labelledby="clients-heading">
     <div class="lp-wrap">
         <h2 class="lp-clients__statement" id="clients-heading">
-            <span>Your whole business, connected.</span><br>
-            From first enquiry to <em>final payment.</em>
+            Your whole business, connected.
+            <span>From first enquiry to final payment.</span>
         </h2>
-        <div class="lp-clients__row">
+
+        <div class="lp-clients__strip">
+            <span class="lp-clients__mark lp-clients__mark--tl" aria-hidden="true"></span>
+            <span class="lp-clients__mark lp-clients__mark--tr" aria-hidden="true"></span>
+            <span class="lp-clients__mark lp-clients__mark--bl" aria-hidden="true"></span>
+            <span class="lp-clients__mark lp-clients__mark--br" aria-hidden="true"></span>
+
             <p class="lp-clients__label">Our clients</p>
-            <ul class="lp-clients__logos" aria-label="Client businesses">
-                <li><img src="{{ asset('assets/images/logo/clients/wcbs_header_logo.png') }}" alt="Western Cape Blood Service" width="273" height="61" loading="lazy" decoding="async"></li>
-                <li><img src="{{ asset('assets/images/logo/clients/vpw.png') }}" alt="Vision Plus Wealth" width="718" height="234" loading="lazy" decoding="async"></li>
-                <li><img src="{{ asset('assets/images/logo/clients/payhse.png') }}" alt="Payhouse Finance" width="722" height="296" loading="lazy" decoding="async"></li>
-                <li><img src="{{ asset('assets/images/logo/clients/BSlwebbold.png') }}" alt="BSL Services" width="508" height="219" loading="lazy" decoding="async"></li>
+            <ul class="lp-clients__logos" aria-label="Client businesses" style="--count: {{ count($clientLogos) }}">
+                @foreach($clientLogos as $logo)
+                <li class="{{ !empty($logo['dark']) ? 'is-light-mark' : '' }}" style="--h: {{ $logo['h'] }}px">
+                    <img src="{{ asset('assets/images/logo/clients/' . $logo['file']) }}" alt="{{ $logo['name'] }}" width="{{ $logo['w'] }}" height="{{ $logo['hh'] }}" loading="lazy" decoding="async">
+                </li>
+                @endforeach
             </ul>
         </div>
+        <p class="lp-clients__index" aria-hidden="true"><i></i>01 Clients</p>
     </div>
 </section>
 @else

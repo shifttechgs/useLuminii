@@ -10,7 +10,7 @@
         <div class="lp-questions__list">
             @foreach($faqs as $faq)
                 <details class="lp-questions__item" name="business-questions"{{ $loop->first ? ' open' : '' }}>
-                    <summary><span class="lp-questions__number" aria-hidden="true">/ 0{{ $loop->iteration }}</span><span>{{ $faq['q'] }}</span><span class="lp-questions__symbol" aria-hidden="true"></span></summary>
+                    <summary><span class="lp-questions__number" aria-hidden="true">{{ str_pad((string) $loop->iteration, 2, '0', STR_PAD_LEFT) }}</span><span>{{ $faq['q'] }}</span><span class="lp-questions__symbol" aria-hidden="true"></span></summary>
                     <div class="lp-questions__answer"><p>{{ $faq['a'] }}</p></div>
                 </details>
             @endforeach

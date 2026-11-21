@@ -1,8 +1,24 @@
 @php
+    // Two plans. Business includes 3 users so it always starts above Starter
+    // (previously Growth at R299/user undercut Starter for teams of 1-3).
+    // Annual = 10 months paid (2 months free), shown as the monthly equivalent.
     $businessPlans = [
-        ['key' => 'starter', 'name' => 'Starter', 'for' => 'A digital front door', 'description' => 'For solo operators and small teams that need a website, enquiry capture and a basic CRM.', 'monthly' => '999', 'annual' => '833', 'unit' => '/ month', 'monthly_setup' => 'Flat rate. Audit and standard build included.', 'annual_setup' => 'Flat rate. Audit and standard build included.', 'features' => ['Website that captures enquiries', 'AI receptionist, available 24/7', 'Lead capture and basic CRM', 'WhatsApp connected', 'Standard build and onboarding']],
-        ['key' => 'growth', 'name' => 'Growth', 'for' => 'The full operating flow', 'description' => 'For growing teams connecting their clients, quotes, jobs and finances in one workspace.', 'monthly' => '299', 'annual' => '249', 'unit' => '/ user / month', 'monthly_setup' => 'Setup fee depends on the build scope.', 'annual_setup' => 'Setup fee waived with annual billing.', 'features' => ['Everything in Starter', 'Full CRM and deal pipeline', 'Quote and proposal builder', 'Job scheduling', 'Invoicing and expenses', 'Business reports', 'Priority onboarding and support']],
-        ['key' => 'scale', 'name' => 'Scale', 'for' => 'Built around your operation', 'description' => 'For established businesses managing multiple teams, locations or high job volumes.', 'monthly' => null, 'annual' => null, 'unit' => '', 'monthly_setup' => 'Audit, enterprise build and dedicated onboarding.', 'annual_setup' => 'Audit, enterprise build and dedicated onboarding.', 'features' => ['Everything in Growth', 'Multi-location support', 'Custom integrations', 'Advanced analytics', 'Dedicated account manager', '4-hour SLA support', 'White-glove onboarding']],
+        [
+            'key' => 'starter', 'name' => 'Starter', 'for' => 'A digital front door',
+            'description' => 'For solo operators who need a website, enquiry capture and a basic CRM.',
+            'monthly' => '999', 'annual' => '833', 'unit' => '/ month, flat',
+            'extra_monthly' => null, 'extra_annual' => null,
+            'monthly_setup' => 'Audit and standard build included.', 'annual_setup' => 'Audit and standard build included.',
+            'features' => ['Website that captures enquiries', 'AI receptionist, available 24/7', 'Lead capture and basic CRM', 'WhatsApp connected', 'Standard build and onboarding'],
+        ],
+        [
+            'key' => 'business', 'name' => 'Business', 'for' => 'The full operating flow',
+            'description' => 'For teams connecting their clients, quotes, jobs and finances in one workspace.',
+            'monthly' => '1,799', 'annual' => '1,499', 'unit' => '/ month, 3 users included',
+            'extra_monthly' => '+ R299 per extra user / month', 'extra_annual' => '+ R249 per extra user / month',
+            'monthly_setup' => 'Setup fee depends on the build scope.', 'annual_setup' => 'Setup fee waived with annual billing.',
+            'features' => ['Everything in Starter', 'Full CRM and deal pipeline', 'Quote and proposal builder', 'Job scheduling', 'Invoicing and expenses', 'Business reports', 'Priority onboarding and support'],
+        ],
     ];
 @endphp
 
@@ -31,14 +47,12 @@
                         <p class="lp-rates__description">{{ $plan['description'] }}</p>
                     </div>
                     <div class="lp-rates__price-block">
-                        @if($plan['monthly'])
-                            <div class="lp-rates__price"><span>R</span><strong data-rate-price data-monthly="{{ $plan['monthly'] }}" data-annual="{{ $plan['annual'] }}">{{ $plan['monthly'] }}</strong></div>
-                            <p class="lp-rates__unit">{{ $plan['unit'] }}</p>
-                        @else
-                            <div class="lp-rates__price lp-rates__price--custom">Custom</div>
-                            <p class="lp-rates__unit">For your team size and scope</p>
+                        <div class="lp-rates__price"><span>R</span><strong data-rate-swap data-monthly="{{ $plan['monthly'] }}" data-annual="{{ $plan['annual'] }}">{{ $plan['monthly'] }}</strong></div>
+                        <p class="lp-rates__unit">{{ $plan['unit'] }}</p>
+                        @if($plan['extra_monthly'])
+                            <p class="lp-rates__extra" data-rate-swap data-monthly="{{ $plan['extra_monthly'] }}" data-annual="{{ $plan['extra_annual'] }}">{{ $plan['extra_monthly'] }}</p>
                         @endif
-                        <p class="lp-rates__setup" data-rate-setup data-monthly="{{ $plan['monthly_setup'] }}" data-annual="{{ $plan['annual_setup'] }}">{{ $plan['monthly_setup'] }}</p>
+                        <p class="lp-rates__setup" data-rate-swap data-monthly="{{ $plan['monthly_setup'] }}" data-annual="{{ $plan['annual_setup'] }}">{{ $plan['monthly_setup'] }}</p>
                     </div>
                     <div class="lp-rates__features">
                         <span class="lp-rates__features-label">What's included</span>
@@ -48,9 +62,18 @@
                             @endforeach
                         </ul>
                     </div>
-                    <a href="{{ url('/') }}?plan={{ $plan['key'] }}#booking" class="lp-rates__link" aria-label="{{ $plan['key'] === 'scale' ? 'Discuss the Scale plan' : 'Book a demo of ' . $plan['name'] }}">{{ $plan['key'] === 'scale' ? 'Discuss your requirements' : 'Book a demo' }}<i class="ph ph-arrow-up-right" aria-hidden="true"></i></a>
+                    <a href="{{ url('/') }}?plan={{ $plan['key'] }}#booking" class="lp-rates__link" aria-label="Book a demo of {{ $plan['name'] }}">Book a demo<i class="ph ph-arrow-up-right" aria-hidden="true"></i></a>
                 </article>
             @endforeach
+        </div>
+
+        {{-- Scale: scoped, not a priced plan --}}
+        <div class="lp-rates__scale">
+            <div>
+                <h3>Larger operation? <em>Let's scope it.</em></h3>
+                <p>For established businesses with multiple teams, locations or high job volumes: multi-location support, custom integrations, advanced analytics, a dedicated account manager and 4-hour SLA support.</p>
+            </div>
+            <a href="{{ url('/') }}?plan=scale#booking">Discuss your requirements <i class="ph ph-arrow-up-right" aria-hidden="true"></i></a>
         </div>
 
         <div class="lp-rates__footer"><p>Not sure which plan fits? We can work through it with you.</p><a href="{{ url('/') }}#booking">Talk to us <i class="ph ph-arrow-right" aria-hidden="true"></i></a></div>
@@ -67,7 +90,7 @@
         button.addEventListener('click', function () {
             var period = button.getAttribute('data-rate-billing');
             buttons.forEach(function (item) { item.setAttribute('aria-pressed', String(item === button)); });
-            section.querySelectorAll('[data-rate-price], [data-rate-setup]').forEach(function (item) {
+            section.querySelectorAll('[data-rate-swap]').forEach(function (item) {
                 item.textContent = item.getAttribute('data-' + period);
             });
             section.querySelector('[data-rate-note]').textContent = period === 'annual'

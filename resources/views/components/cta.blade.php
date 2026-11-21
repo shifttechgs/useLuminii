@@ -44,9 +44,9 @@
                 <p class="lp-cta__sub">Show us how your business works today. We'll walk through the platform with you and discuss the plan, setup and next steps that fit.</p>
 
                 <ul class="lp-cta__trust">
-                    <li class="lp-cta__trust-item">A walkthrough from enquiry to invoice</li>
-                    <li class="lp-cta__trust-item">A conversation about your team and current tools</li>
-                    <li class="lp-cta__trust-item">Clear pricing and setup requirements</li>
+                    <li class="lp-cta__trust-item"><i class="ph ph-check" aria-hidden="true"></i>A walkthrough from enquiry to invoice</li>
+                    <li class="lp-cta__trust-item"><i class="ph ph-check" aria-hidden="true"></i>A conversation about your team and current tools</li>
+                    <li class="lp-cta__trust-item"><i class="ph ph-check" aria-hidden="true"></i>Clear pricing and setup requirements</li>
                 </ul>
                 @endif
 

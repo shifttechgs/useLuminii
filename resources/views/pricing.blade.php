@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
 @section('title', 'Pricing - useLuminii for Service Businesses in South Africa')
-@section('description', 'Simple, transparent pricing for South African service businesses. Starter from R999/mo. Growth from R299/user/mo. Connect leads, quotes, jobs, invoicing, expenses, and reporting in one flow.')
+@section('description', 'Simple, transparent pricing for South African service businesses. Starter R999/mo flat. Business from R1,799/mo with 3 users included. Connect leads, quotes, jobs, invoicing, expenses, and reporting in one flow.')
 @section('keywords', 'CRM pricing South Africa, service business software cost, job management software pricing, useLuminii pricing, CRM for contractors price')
 @section('og_title', 'useLuminii Pricing - Transparent Plans for Service Businesses')
-@section('og_description', 'From R999/mo flat or R299/user/mo. One operating system for service businesses.')
+@section('og_description', 'Starter R999/mo flat, or Business from R1,799/mo with 3 users included. One operating system for service businesses.')
 
 @push('head-scripts')
 <script type="application/ld+json">
@@ -33,10 +33,10 @@
         "position": 2,
         "item": {
           "@@type": "Offer",
-          "name": "Growth Plan",
-          "price": "299",
+          "name": "Business Plan",
+          "price": "1799",
           "priceCurrency": "ZAR",
-          "description": "Full CRM, pipeline, quoting, job scheduling, invoicing, expenses, and reports."
+          "description": "Everything in Starter plus full CRM, pipeline, quoting, job scheduling, invoicing, expenses and reports. 3 users included, R299 per extra user."
         }
       }
     ]
@@ -114,7 +114,7 @@
             <div class="lp-faq__list" data-aos="fade-up" data-aos-delay="80">
                 <div class="lp-faq-item">
                     <button class="lp-faq-btn" aria-expanded="false">
-                        <span>Is the setup fee always required on Growth?</span>
+                        <span>Is the setup fee always required on Business?</span>
                         <span class="lp-faq-icon"><i class="ph ph-plus"></i></span>
                     </button>
                     <div class="lp-faq-body">
@@ -124,11 +124,11 @@
 
                 <div class="lp-faq-item">
                     <button class="lp-faq-btn" aria-expanded="false">
-                        <span>What counts as a user on the Growth plan?</span>
+                        <span>What counts as a user on the Business plan?</span>
                         <span class="lp-faq-icon"><i class="ph ph-plus"></i></span>
                     </button>
                     <div class="lp-faq-body">
-                        <div class="lp-faq-body-inner">A user is anyone who logs into the system to manage jobs, quotes, clients, or operations. Client portal access does not count as a paid user seat.</div>
+                        <div class="lp-faq-body-inner">A user is anyone who logs into the system to manage jobs, quotes, clients, or operations. Business includes 3 users; each extra user is R299 per month (R249 on annual billing). Client portal access does not count as a paid user seat.</div>
                     </div>
                 </div>
 
@@ -138,7 +138,7 @@
                         <span class="lp-faq-icon"><i class="ph ph-plus"></i></span>
                     </button>
                     <div class="lp-faq-body">
-                        <div class="lp-faq-body-inner">Yes. Many businesses start on Starter, then upgrade to Growth once they are ready to connect the full operating flow.</div>
+                        <div class="lp-faq-body-inner">Yes. Many businesses start on Starter, then upgrade to Business once they are ready to connect the full operating flow.</div>
                     </div>
                 </div>
 
@@ -148,17 +148,17 @@
                         <span class="lp-faq-icon"><i class="ph ph-plus"></i></span>
                     </button>
                     <div class="lp-faq-body">
-                        <div class="lp-faq-body-inner">Annual plans are billed upfront for 10 months, giving you 2 months free. On Growth, the setup fee is also waived when you pay annually.</div>
+                        <div class="lp-faq-body-inner">Annual plans are billed upfront for 10 months, giving you 2 months free. On Business, the setup fee is also waived when you pay annually.</div>
                     </div>
                 </div>
 
                 <div class="lp-faq-item">
                     <button class="lp-faq-btn" aria-expanded="false">
-                        <span>What does Scale pricing look like?</span>
+                        <span>What about larger operations?</span>
                         <span class="lp-faq-icon"><i class="ph ph-plus"></i></span>
                     </button>
                     <div class="lp-faq-body">
-                        <div class="lp-faq-body-inner">Scale pricing depends on team size, number of locations, and integration scope. We provide a custom proposal after a scoping call.</div>
+                        <div class="lp-faq-body-inner">For multiple teams, locations or high job volumes, pricing depends on team size, number of locations, and integration scope. We provide a custom proposal after a scoping call.</div>
                     </div>
                 </div>
             </div>
@@ -257,4 +257,27 @@
 }
 .lp-section--white { background: #fff; }
 </style>
+@endpush
+
+@push('body-scripts')
+<script>
+// Pricing FAQ: one answer open at a time. (This handler used to live only on the
+// homepage, so these questions never opened here.)
+(function () {
+    document.querySelectorAll('#pricing-faq .lp-faq-btn').forEach(function (faqBtn) {
+        faqBtn.addEventListener('click', function () {
+            var item = faqBtn.closest('.lp-faq-item');
+            var isOpen = item.classList.contains('open');
+            document.querySelectorAll('#pricing-faq .lp-faq-item.open').forEach(function (openItem) {
+                openItem.classList.remove('open');
+                openItem.querySelector('.lp-faq-btn').setAttribute('aria-expanded', 'false');
+            });
+            if (!isOpen) {
+                item.classList.add('open');
+                faqBtn.setAttribute('aria-expanded', 'true');
+            }
+        });
+    });
+})();
+</script>
 @endpush

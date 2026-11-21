@@ -9,8 +9,8 @@
         ['q' => 'How long does setup take?', 'a' => 'Timing depends on the workspace, data migration and connections your business needs. We agree the scope and timeline with you before the build, then guide your team through the handover.'],
         ['q' => 'Can I bring my existing client data?', 'a' => 'We review your spreadsheets or current system with you and agree what can be brought into the new workspace. The migration requirements form part of your setup plan.'],
         ['q' => 'Does my team need technical experience?', 'a' => 'No. We configure the workspace and train your team in plain language, using the jobs and tasks they work with every day.'],
-        ['q' => 'Which plan should I choose?', 'a' => 'Starter covers your website, enquiry capture and basic CRM. Growth adds the full flow across quotes, jobs, invoices and reports. Scale is scoped for larger or more complex operations. We can work through the choice during your demo.'],
-        ['q' => 'How do billing and setup fees work?', 'a' => 'You can choose monthly or annual billing. Standard setup is included with Starter. Growth setup depends on build scope on monthly billing and is waived with annual billing. Scale is quoted for your requirements. Full plan details are on the Pricing page.'],
+        ['q' => 'Which plan should I choose?', 'a' => 'Starter covers your website, enquiry capture and basic CRM for a solo operator. Business adds the full flow across quotes, jobs, invoices and reports, with 3 users included. Larger operations are scoped to their requirements. We can work through the choice during your demo.'],
+        ['q' => 'How do billing and setup fees work?', 'a' => 'You can choose monthly or annual billing, and annual gives you 2 months free. Standard setup is included with Starter. Business setup depends on build scope on monthly billing and is waived with annual billing. Larger operations are quoted for their requirements. Full plan details are on the Pricing page.'],
     ];
 
     $faqSchema = [
@@ -33,7 +33,7 @@
 @else
 @section('title', 'useLuminii - Business Operating System for Service Businesses')
 @section('description', 'useLuminii is the business operating system for service businesses. Connect website leads, quotes, jobs, invoices, expenses, compliance, and reports in one controlled flow.')
-@section('keywords', 'service business software, business operating system, CRM for service businesses, quote automation, invoicing, compliance, South Africa')
+@section('keywords', 'service business software, business operating system, CRM for service businesses, quote automation, invoicing, compliance')
 @section('og_title', 'useLuminii - Business Operating System for Service Businesses')
 @section('og_description', 'Connect website leads, quotes, jobs, invoices, expenses, compliance, and reports in one controlled flow built for service businesses.')
 @endif
@@ -58,10 +58,10 @@
     },
     {
       "@@type": "Offer",
-      "name": "Growth",
-      "price": "299",
+      "name": "Business",
+      "price": "1799",
       "priceCurrency": "ZAR",
-      "description": "Full CRM, pipeline, quoting, job scheduling, invoicing, expenses, and reports."
+      "description": "Everything in Starter plus full CRM, pipeline, quoting, job scheduling, invoicing, expenses and reports. 3 users included, R299 per extra user."
     }
   ],
   "provider": {
@@ -120,70 +120,220 @@
 @push('body-scripts')
 <script>
 (function () {
-    document.querySelectorAll('.lp-faq-btn').forEach(function (faqBtn) {
-        faqBtn.addEventListener('click', function () {
-            var item = faqBtn.closest('.lp-faq-item');
-            var isOpen = item.classList.contains('open');
-
-            document.querySelectorAll('.lp-faq-item.open').forEach(function (openItem) {
-                openItem.classList.remove('open');
-                openItem.querySelector('.lp-faq-btn').setAttribute('aria-expanded', 'false');
-            });
-
-            if (!isOpen) {
-                item.classList.add('open');
-                faqBtn.setAttribute('aria-expanded', 'true');
-            }
-        });
-    });
-
-    document.querySelectorAll('.lp-ftabs__btn').forEach(function (tabBtn) {
-        tabBtn.addEventListener('click', function () {
-            var tab = tabBtn.getAttribute('data-tab');
-            var container = tabBtn.closest('.lp-ftabs');
-            container.querySelectorAll('.lp-ftabs__btn').forEach(function (button) {
-                button.classList.remove('lp-ftabs__btn--active');
-            });
-            container.querySelectorAll('.lp-ftabs__panel').forEach(function (panel) {
-                panel.classList.remove('lp-ftabs__panel--active');
-            });
-            tabBtn.classList.add('lp-ftabs__btn--active');
-            container.querySelector('[data-panel="' + tab + '"]').classList.add('lp-ftabs__panel--active');
-        });
-    });
-
+    // Platform: the record window follows whichever chapter crosses the middle of the viewport.
     (function () {
-        var stack = document.querySelector('[data-gap-stack]');
-        var stage = stack && stack.querySelector('.lp-gap__stack-stage');
-        var cards = document.querySelectorAll('[data-gap-stack-card]');
-        if (!stack || !stage || !cards.length) return;
+        var story = document.querySelector('[data-pf]');
+        if (!story || !('IntersectionObserver' in window)) return;
+        var chapters = story.querySelectorAll('[data-pf-chapter]');
+        var navItems = story.querySelectorAll('[data-pf-nav]');
+        var screens = story.querySelectorAll('[data-pf-screen]');
+        var crumb = story.querySelector('[data-pf-crumb]');
+        var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+        story.classList.add('is-ready');
 
-        var compact = window.matchMedia('(max-width: 900px)');
+        function setActive(key) {
+            chapters.forEach(function (c) { c.classList.toggle('is-active', c.getAttribute('data-pf-chapter') === key); });
+            navItems.forEach(function (n) {
+                var on = n.getAttribute('data-pf-nav') === key;
+                n.classList.toggle('is-active', on);
+                if (on && crumb) crumb.textContent = n.textContent.trim();
+            });
+            screens.forEach(function (s) { s.classList.toggle('is-active', s.getAttribute('data-pf-screen') === key); });
+        }
+
+        var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (entry.isIntersecting) setActive(entry.target.getAttribute('data-pf-chapter'));
+            });
+        }, { rootMargin: '-48% 0px -48% 0px' });
+        chapters.forEach(function (c) { io.observe(c); });
+
+        // Clicking a view in the window scrolls its chapter into focus.
+        navItems.forEach(function (n) {
+            n.addEventListener('click', function () {
+                var target = story.querySelector('[data-pf-chapter="' + n.getAttribute('data-pf-nav') + '"]');
+                if (target) target.scrollIntoView({ block: 'center', behavior: reduce.matches ? 'auto' : 'smooth' });
+            });
+        });
+    })();
+
+    // Impact: circles drift together and figures roll in; hover re-rolls the figure (the ring sweep is CSS).
+    (function () {
+        var field = document.querySelector('[data-impact]');
+        if (!field || !('IntersectionObserver' in window)) return;
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        var items = field.querySelectorAll('[data-impact-item]');
+        field.classList.add('is-armed');
+
+        var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (!entry.isIntersecting) return;
+                field.classList.add('is-in');
+                items.forEach(function (item) { item.classList.add('is-rolled'); });
+                io.disconnect();
+            });
+        }, { threshold: 0.35 });
+        io.observe(field);
+
+        // Scroll-out: once the cluster's top reaches 8% of the viewport, the circles
+        // drift apart and fade over the next 120% of its height. Scrolling back reverses it.
+        var wide = window.matchMedia('(min-width: 561px)');
+        var outTicking = false;
+        function updateOut() {
+            outTicking = false;
+            if (!wide.matches) { field.style.removeProperty('--out'); return; }
+            var r = field.getBoundingClientRect();
+            var out = (window.innerHeight * 0.08 - r.top) / (r.height * 1.2);
+            out = Math.max(0, Math.min(1, out));
+            field.style.setProperty('--out', (out * out * (3 - 2 * out)).toFixed(3)); // smoothstep
+        }
+        function requestOut() {
+            if (outTicking) return;
+            outTicking = true;
+            requestAnimationFrame(updateOut);
+        }
+        window.addEventListener('scroll', requestOut, { passive: true });
+        window.addEventListener('resize', requestOut);
+        updateOut();
+
+        if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+        items.forEach(function (item) {
+            var timer;
+            item.addEventListener('pointerenter', function () {
+                if (!field.classList.contains('is-in')) return;
+                clearTimeout(timer);
+                item.classList.add('is-rerolling');
+                item.classList.remove('is-rolled');
+                var reel = item.querySelector('.lp-impact__reel');
+                reel.style.transition = 'none';
+                void reel.offsetHeight; // commit the reset before rolling again
+                reel.style.transition = '';
+                item.classList.add('is-rolled');
+                timer = setTimeout(function () { item.classList.remove('is-rerolling'); }, 1200);
+            });
+        });
+    })();
+
+    // Paths: hovering or focusing a row unfolds it; the last one opened stays open.
+    (function () {
+        var index = document.querySelector('[data-paths]');
+        if (!index) return;
+        var rows = index.querySelectorAll('[data-paths-row]');
+        var desktop = window.matchMedia('(min-width: 901px)');
+        index.classList.add('is-ready', 'has-open');
+
+        function open(row) {
+            rows.forEach(function (r) { r.classList.toggle('is-open', r === row); });
+        }
+        rows.forEach(function (row) {
+            row.addEventListener('mouseenter', function () { if (desktop.matches) open(row); });
+            row.addEventListener('focusin', function () { open(row); });
+        });
+    })();
+
+    // Workflow: slide the stage line sideways with scroll; light the word nearest the centre.
+    (function () {
+        var band = document.querySelector('[data-flow]');
+        if (!band) return;
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        var track = band.querySelector('[data-flow-track]');
+        var words = band.querySelectorAll('[data-flow-word]');
+        band.classList.add('is-kinetic');
+        var ticking = false;
+        var lit = null;
+
+        function update() {
+            ticking = false;
+            var vh = window.innerHeight;
+            var r = band.getBoundingClientRect();
+            if (r.bottom < -200 || r.top > vh + 200) return;
+            // 0 when the band enters at the bottom, 1 when it leaves at the top
+            var p = Math.max(0, Math.min(1, (vh - r.top) / (vh + r.height)));
+            // start with the second pass's "Enquiry" centred, then travel exactly one pass,
+            // so the stages light up in order: Enquiry, Quote, Job, Invoice, Payment
+            var anchor = words[5];
+            var pass = words[10].offsetLeft - anchor.offsetLeft;
+            var start = band.clientWidth / 2 - (anchor.offsetLeft + anchor.offsetWidth / 2);
+            track.style.transform = 'translate3d(' + (start - p * pass).toFixed(1) + 'px,0,0)';
+
+            var mid = band.clientWidth / 2, best = null, bestD = Infinity;
+            words.forEach(function (w) {
+                var wr = w.getBoundingClientRect();
+                var d = Math.abs(wr.left + wr.width / 2 - mid);
+                if (d < bestD) { bestD = d; best = w; }
+            });
+            if (best !== lit) {
+                if (lit) lit.classList.remove('is-lit');
+                if (best) best.classList.add('is-lit');
+                lit = best;
+            }
+        }
+        function request() {
+            if (ticking) return;
+            ticking = true;
+            requestAnimationFrame(update);
+        }
+        window.addEventListener('scroll', request, { passive: true });
+        window.addEventListener('resize', request);
+        update();
+    })();
+
+    // Setup: steps fade up in turn as they enter (IntersectionObserver, so late layout shifts can't strand them).
+    (function () {
+        var list = document.querySelector('.lp-setup__steps');
+        if (!list || !('IntersectionObserver' in window)) return;
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        list.classList.add('is-armed');
+        var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add('is-in');
+                io.unobserve(entry.target);
+            });
+        }, { threshold: 0.2 });
+        list.querySelectorAll('[data-setup-step]').forEach(function (step) { io.observe(step); });
+    })();
+
+    // Execution gap: pin the frame, advance scenes, and resolve each one halfway through its scroll range.
+    (function () {
+        var track = document.querySelector('[data-gap]');
+        if (!track) return;
+        var pin = track.querySelector('.lp-gap__pin');
+        var scenes = track.querySelectorAll('[data-gap-scene]');
+        var steps = track.querySelectorAll('[data-gap-step]');
+        var total = scenes.length;
+        if (!pin || !total) return;
+
+        var canPin = window.matchMedia('(min-width: 901px) and (min-height: 640px) and (prefers-reduced-motion: no-preference)');
         var ticking = false;
 
-        function setActive(index) {
-            cards.forEach(function (card) {
-                var cardIndex = Number(card.getAttribute('data-gap-stack-card'));
-                card.classList.toggle('is-active', cardIndex === index);
-                card.classList.toggle('is-past', cardIndex < index);
+        function render(progress) {
+            var position = progress * total;
+            var active = Math.min(total - 1, Math.floor(position));
+            scenes.forEach(function (scene, i) {
+                var local = Math.max(0, Math.min(1, position - i));
+                scene.classList.toggle('is-active', i === active);
+                scene.classList.toggle('is-past', i < active);
+                scene.classList.toggle('is-resolved', i < active || (i === active && local > 0.42));
+            });
+            steps.forEach(function (step, i) {
+                var fill = Math.max(0, Math.min(1, position - i));
+                step.style.setProperty('--fill', fill.toFixed(3));
+                step.classList.toggle('is-active', i === active);
+                step.classList.toggle('is-done', i < active);
             });
         }
 
         function update() {
             ticking = false;
-            if (compact.matches) {
-                stack.classList.remove('is-scroll-ready');
-                setActive(0);
+            if (!canPin.matches) {
+                track.classList.remove('is-pinned');
                 return;
             }
-
-            stack.classList.add('is-scroll-ready');
-            var topOffset = parseFloat(window.getComputedStyle(stage).top) || 0;
-            var rect = stack.getBoundingClientRect();
-            var range = Math.max(1, stack.offsetHeight - stage.offsetHeight);
-            var progress = Math.max(0, Math.min(1, (topOffset - rect.top) / range));
-            var index = Math.min(cards.length - 1, Math.floor(progress * cards.length));
-            setActive(index);
+            track.classList.add('is-pinned');
+            var rect = track.getBoundingClientRect();
+            var range = Math.max(1, track.offsetHeight - pin.offsetHeight);
+            render(Math.max(0, Math.min(0.9999, -rect.top / range)));
         }
 
         function requestUpdate() {
@@ -194,7 +344,7 @@
 
         window.addEventListener('scroll', requestUpdate, { passive: true });
         window.addEventListener('resize', requestUpdate);
-        if (compact.addEventListener) compact.addEventListener('change', requestUpdate);
+        if (canPin.addEventListener) canPin.addEventListener('change', requestUpdate);
         update();
     })();
 })();
