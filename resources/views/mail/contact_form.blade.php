@@ -42,6 +42,22 @@
 <meta name="color-scheme" content="light">
 <meta name="supported-color-schemes" content="light">
 <title>{{ $kind }}: {{ $name }}</title>
+<style>
+    /* Mobile. The base layout is already fluid (100% up to 600px) and the buttons wrap on
+       their own, so clients that ignore <style> still get a usable email. */
+    @media only screen and (max-width: 600px) {
+        .outer { padding: 16px 10px !important; }
+        .px { padding-left: 20px !important; padding-right: 20px !important; }
+        .hd { padding-top: 20px !important; padding-bottom: 20px !important; }
+        .logo { width: 112px !important; }
+        .h1 { font-size: 24px !important; line-height: 1.25 !important; }
+        .ctx { font-size: 16px !important; }
+        .btn { display: block !important; width: auto !important; margin: 0 0 10px !important; text-align: center !important; }
+        .dt, .dd { display: block !important; width: auto !important; }
+        .dt { padding: 12px 0 2px !important; border-bottom: 0 !important; }
+        .dd { padding: 0 0 12px !important; }
+    }
+</style>
 </head>
 <body style="margin:0;padding:0;background:{{ $mint }};-webkit-text-size-adjust:100%;">
 {{-- Inbox preview line (hidden in the body) --}}
@@ -50,20 +66,20 @@
 </div>
 
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:{{ $mint }};">
-<tr><td align="center" style="padding:40px 16px;">
+<tr><td align="center" class="outer" style="padding:40px 16px;">
 
 <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:100%;max-width:600px;">
 
     {{-- Header --}}
     <tr>
-        <td style="background:{{ $navy }};border-radius:10px 10px 0 0;padding:26px 36px;">
+        <td class="px hd" style="background:{{ $navy }};border-radius:10px 10px 0 0;padding:24px 32px;">
             <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
                 <tr>
                     <td align="left" style="vertical-align:middle;">
-                        <img src="{{ $logo }}" width="132" alt="useLuminii" style="display:block;width:132px;height:auto;border:0;font-family:{{ $font }};font-size:18px;font-weight:600;color:#ffffff;">
+                        <img src="{{ $logo }}" width="116" class="logo" alt="useLuminii" style="display:block;width:116px;height:auto;border:0;font-family:{{ $font }};font-size:18px;font-weight:600;color:#ffffff;">
                     </td>
                     <td align="right" style="vertical-align:middle;">
-                        <span style="display:inline-block;padding:6px 12px;border-radius:999px;background:{{ $gold }};color:{{ $navy }};font-family:{{ $font }};font-size:12px;font-weight:600;letter-spacing:.2px;">{{ $kind }}</span>
+                        <span style="display:inline-block;padding:6px 10px;border-radius:999px;background:{{ $gold }};color:{{ $navy }};font-family:{{ $font }};font-size:12px;font-weight:600;letter-spacing:.2px;text-align:center;">{{ $kind }}</span>
                     </td>
                 </tr>
             </table>
@@ -72,39 +88,32 @@
 
     {{-- Headline + actions --}}
     <tr>
-        <td style="background:#ffffff;padding:36px 36px 8px;font-family:{{ $font }};">
+        <td class="px" style="background:#ffffff;padding:34px 32px 8px;font-family:{{ $font }};">
             <p style="margin:0 0 10px;color:{{ $faint }};font-size:13px;">{{ $sentAt }}</p>
-            <h1 style="margin:0;color:{{ $navy }};font-size:28px;line-height:1.2;font-weight:600;letter-spacing:-.6px;">{{ $headline }}</h1>
+            <h1 class="h1" style="margin:0;color:{{ $navy }};font-size:28px;line-height:1.2;font-weight:600;letter-spacing:-.6px;">{{ $headline }}</h1>
             @if($context)
-            <p style="margin:10px 0 0;color:{{ $muted }};font-size:17px;line-height:1.5;">{{ $context }}</p>
+            <p class="ctx" style="margin:10px 0 0;color:{{ $muted }};font-size:17px;line-height:1.5;">{{ $context }}</p>
             @endif
 
-            <table role="presentation" cellpadding="0" cellspacing="0" style="margin:28px 0 0;">
-                <tr>
-                    @if($replyHref)
-                    <td style="border-radius:999px;background:{{ $navy }};">
-                        <a href="{{ $replyHref }}" style="display:inline-block;padding:14px 24px;color:#ffffff;font-family:{{ $font }};font-size:15px;font-weight:600;text-decoration:none;border-radius:999px;">Reply to {{ $first }} &rarr;</a>
-                    </td>
-                    <td style="width:10px;font-size:0;line-height:0;">&nbsp;</td>
-                    @endif
-                    @if(!empty($data['crm_url']))
-                    <td style="border-radius:999px;border:1px solid #CBD5E4;">
-                        <a href="{{ $data['crm_url'] }}" style="display:inline-block;padding:13px 22px;color:{{ $navy }};font-family:{{ $font }};font-size:15px;font-weight:600;text-decoration:none;border-radius:999px;">Open in CRM</a>
-                    </td>
-                    @endif
-                </tr>
-            </table>
+            <div style="margin:28px 0 0;">
+                @if($replyHref)
+                <a href="{{ $replyHref }}" class="btn" style="display:inline-block;margin:0 8px 10px 0;padding:14px 24px;border-radius:999px;background:{{ $navy }};color:#ffffff;font-family:{{ $font }};font-size:15px;font-weight:600;line-height:1.2;text-decoration:none;">Reply to {{ $first }} &rarr;</a>
+                @endif
+                @if(!empty($data['crm_url']))
+                <a href="{{ $data['crm_url'] }}" class="btn" style="display:inline-block;margin:0 0 10px;padding:13px 22px;border:1px solid #CBD5E4;border-radius:999px;color:{{ $navy }};font-family:{{ $font }};font-size:15px;font-weight:600;line-height:1.2;text-decoration:none;">Open in CRM</a>
+                @endif
+            </div>
         </td>
     </tr>
 
     {{-- Details --}}
     <tr>
-        <td style="background:#ffffff;padding:28px 36px 4px;font-family:{{ $font }};">
+        <td class="px" style="background:#ffffff;padding:18px 32px 4px;font-family:{{ $font }};">
             <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-top:1px solid {{ $rule }};">
                 @foreach($details as $label => $value)
                 <tr>
-                    <td style="width:150px;padding:14px 0;border-bottom:1px solid {{ $rule }};color:{{ $faint }};font-size:13px;vertical-align:top;">{{ $label }}</td>
-                    <td style="padding:14px 0;border-bottom:1px solid {{ $rule }};color:{{ $navy }};font-size:15px;line-height:1.45;vertical-align:top;">
+                    <td class="dt" style="width:120px;padding:14px 0;border-bottom:1px solid {{ $rule }};color:{{ $faint }};font-size:13px;vertical-align:top;">{{ $label }}</td>
+                    <td class="dd" style="padding:14px 0;border-bottom:1px solid {{ $rule }};color:{{ $navy }};font-size:15px;line-height:1.45;vertical-align:top;word-break:break-word;">
                         @if($label === 'Email')
                             <a href="mailto:{{ $value }}" style="color:{{ $navy }};text-decoration:underline;text-decoration-color:{{ $gold }};">{{ $value }}</a>
                         @else
@@ -120,7 +129,7 @@
     {{-- What they want --}}
     @if(filled($focus))
     <tr>
-        <td style="background:#ffffff;padding:24px 36px 8px;font-family:{{ $font }};">
+        <td class="px" style="background:#ffffff;padding:24px 32px 8px;font-family:{{ $font }};">
             <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
                 <tr>
                     <td style="background:{{ $mint }};border-left:3px solid {{ $gold }};border-radius:0 8px 8px 0;padding:18px 20px;">
@@ -135,7 +144,7 @@
 
     {{-- Next step --}}
     <tr>
-        <td style="background:#ffffff;border-radius:0 0 10px 10px;padding:24px 36px 34px;font-family:{{ $font }};">
+        <td class="px" style="background:#ffffff;border-radius:0 0 10px 10px;padding:24px 32px 34px;font-family:{{ $font }};">
             <p style="margin:0;color:{{ $muted }};font-size:14px;line-height:1.6;">
                 <strong style="color:{{ $navy }};">Next step:</strong>
                 {{ $isDemo ? 'reply to confirm a demo time.' : 'reply to their enquiry.' }}
