@@ -69,4 +69,30 @@ class DemoBookingEmailTest extends TestCase
 
         Mail::assertNothingSent();
     }
+
+    public function test_without_javascript_a_booking_shows_the_confirmation_panel(): void
+    {
+        Mail::fake();
+
+        $this->followingRedirects()
+            ->post(route('demo.submit'), [
+                'fullname' => 'Amina Dlamini',
+                'email' => 'amina@example.com',
+                'business_type' => 'Plumbing',
+                'team_size' => '2–5 people',
+                'pain_point' => 'Chasing late payments',
+            ])
+            ->assertOk()
+            ->assertSee('lp-cta__card is-done', false)      // form swapped for the panel
+            ->assertSeeText('Thanks, Amina. Your demo request is in.')
+            ->assertSeeText('amina@example.com')
+            ->assertSeeText('What happens next');
+    }
+
+    public function test_the_visitor_never_sees_internal_wording(): void
+    {
+        Mail::fake();
+
+        $this->book()->assertOk()->assertJson(['message' => 'Thanks. Your demo request is in.']);
+    }
 }

@@ -397,6 +397,38 @@ document.addEventListener('DOMContentLoaded', function () {
         host.appendChild(box);
     }
 
+    // Business demo form: swap the form for the confirmation panel (same markup as the
+    // server-rendered one, cloned from <template id="booking-done-tpl">).
+    function showDonePanel(form, name, email) {
+        var tpl = document.getElementById('booking-done-tpl');
+        var card = form.closest('.lp-cta__card');
+        var body = form.closest('.lp-cta__card-body');
+        if (!tpl || !card || !body) return false;
+
+        var old = body.querySelector('[data-booking-done]');
+        if (old) old.remove();
+
+        var panel = tpl.content.firstElementChild.cloneNode(true);
+        var first = (name || '').trim().split(/\s+/)[0];
+        panel.querySelector('[data-done-name]').textContent = first ? ', ' + first : '';
+        if (email) {
+            panel.querySelector('[data-done-email]').textContent = email;
+            panel.querySelector('[data-done-email-wrap]').hidden = false;
+        }
+        panel.querySelector('[data-booking-again]').addEventListener('click', function () {
+            panel.remove();
+            card.classList.remove('is-done');
+            var firstField = form.querySelector('input:not([type="hidden"])');
+            if (firstField) firstField.focus();
+        });
+
+        body.appendChild(panel);
+        card.classList.add('is-done');
+        panel.focus({ preventScroll: true });
+        card.scrollIntoView({ block: 'nearest', behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+        return true;
+    }
+
     function bindBookingForm(form) {
         if (!form) return;
         var inlineOnly = !!form.closest('.lp-cta--business');
@@ -429,7 +461,9 @@ document.addEventListener('DOMContentLoaded', function () {
             })
             .then(function (result) {
                 if (result.ok) {
+                    var sentName = body.get('fullname'), sentEmail = body.get('email');
                     form.reset();
+                    if (inlineOnly && showDonePanel(form, sentName, sentEmail)) return;
                     showInlineMessage(form, 'success', result.payload.message || 'Booking successful.');
                     if (!inlineOnly) showToast('success', result.payload.message || 'Booking successful.');
                     return;
