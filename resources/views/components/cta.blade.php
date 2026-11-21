@@ -26,7 +26,7 @@
         <div class="lp-cta__grid">
 
             <!-- Left: sticky heading + trust list -->
-            <div class="lp-cta__left" data-aos="fade-up">
+            <div class="lp-cta__left">
                 @if($isPersonal)<div class="lp-cta__plus">+</div>@else<div class="lp-section__label">Let's talk</div>@endif
                 @if($isPersonal)
                 <h2 class="lp-cta__h2" id="booking-heading">Ready to get your<br>evenings back?</h2>
@@ -69,7 +69,7 @@
             </div>
 
             <!-- Right: booking form card -->
-            <div class="lp-cta__card{{ session('demo_success') && !$isPersonal ? ' is-done' : '' }}" data-aos="fade-up" data-aos-delay="100">
+            <div class="lp-cta__card{{ session('demo_success') && !$isPersonal ? ' is-done' : '' }}">
                 <div class="lp-cta__card-accent"></div>
 
                 <div class="lp-cta__card-body">

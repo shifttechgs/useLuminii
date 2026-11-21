@@ -26,98 +26,86 @@
 
 @if($isPersonal)
 @section('title', 'useLuminii Personal - Quotes and Invoices for Sole Traders')
-@section('description', 'Create professional quotes and invoices, send them to clients, and see what has been paid. useLuminii Personal is built for freelancers and sole traders anywhere. Free to start.')
+@section('description', 'Free quote and invoice maker for freelancers and sole traders. Create professional quotes and invoices, send them to clients and see what has been paid.')
 @section('keywords', 'quotes and invoices app, invoicing for sole traders, freelancer invoicing, quote software, invoice app, free invoice app')
 @section('og_title', 'useLuminii Personal - Quotes and Invoices for Sole Traders')
 @section('og_description', 'Professional quotes and invoices your clients can accept and pay online. Built for freelancers and sole traders anywhere. Free to start.')
 @else
 @section('title', 'useLuminii - Business Operating System for Service Businesses')
-@section('description', 'useLuminii is the business operating system for service businesses. Connect website leads, quotes, jobs, invoices, expenses, compliance, and reports in one controlled flow.')
+@section('description', 'useLuminii is the business operating system for service businesses: website leads, quotes, jobs, invoices and reports in one connected flow.')
 @section('keywords', 'service business software, business operating system, CRM for service businesses, quote automation, invoicing, compliance')
 @section('og_title', 'useLuminii - Business Operating System for Service Businesses')
 @section('og_description', 'Connect website leads, quotes, jobs, invoices, expenses, compliance, and reports in one controlled flow built for service businesses.')
 @endif
 
+{{-- Lean page: Bootstrap reboot only, no AOS (see layouts/app) --}}
+@section('lean_css', '1')
+
 @push('head-scripts')
+@php
+    $orgRef = ['@id' => url('/') . '#organization'];
+    $monthly = fn (string $price, string $unit) => [
+        '@type' => 'UnitPriceSpecification',
+        'price' => $price,
+        'priceCurrency' => 'ZAR',
+        'billingDuration' => 'P1M',
+        'unitText' => $unit,
+    ];
+    $appSchema = $isPersonal ? [
+        '@context' => 'https://schema.org',
+        '@type' => 'SoftwareApplication',
+        'name' => 'useLuminii Personal',
+        'url' => route('personal'),
+        'operatingSystem' => 'Web',
+        'applicationCategory' => 'BusinessApplication',
+        'description' => 'A free quote and invoice maker for freelancers and sole traders. Create professional quotes and invoices, send them to clients and see what has been paid. No sign-up needed.',
+        'offers' => [[
+            '@type' => 'Offer',
+            'name' => 'Personal',
+            'price' => '0',
+            'priceCurrency' => 'ZAR',
+            'description' => 'Free quote and invoice maker. No sign-up.',
+        ]],
+        'provider' => $orgRef,
+    ] : [
+        '@context' => 'https://schema.org',
+        '@type' => 'SoftwareApplication',
+        'name' => 'useLuminii',
+        'url' => url('/'),
+        'operatingSystem' => 'Web',
+        'applicationCategory' => 'BusinessApplication',
+        'description' => 'The business operating system for service businesses. useLuminii connects website leads, quotes, jobs, invoices, expenses, compliance, and reports in one controlled flow.',
+        'offers' => [
+            [
+                '@type' => 'Offer',
+                'name' => 'Starter',
+                'url' => route('pricing'),
+                'price' => '999',
+                'priceCurrency' => 'ZAR',
+                'priceSpecification' => $monthly('999', 'per month, flat'),
+                'description' => 'For solo operators: website, AI receptionist, lead capture, basic CRM and WhatsApp connection. Standard build included.',
+            ],
+            [
+                '@type' => 'Offer',
+                'name' => 'Business',
+                'url' => route('pricing'),
+                'price' => '1799',
+                'priceCurrency' => 'ZAR',
+                'priceSpecification' => $monthly('1799', 'per month, 3 users included; R299 per extra user'),
+                'description' => 'Everything in Starter plus full CRM, pipeline, quoting, job scheduling, invoicing, expenses and reports. 3 users included, R299 per extra user per month.',
+            ],
+        ],
+        'provider' => $orgRef,
+    ];
+@endphp
 <script type="application/ld+json">
-@if($isPersonal)
-{
-  "@@context": "https://schema.org",
-  "@@type": "SoftwareApplication",
-  "name": "useLuminii Personal",
-  "url": "{{ route('personal') }}",
-  "operatingSystem": "Web",
-  "applicationCategory": "BusinessApplication",
-  "description": "A free quote and invoice maker for freelancers and sole traders. Create professional quotes and invoices, send them to clients and see what has been paid. No sign-up needed.",
-  "offers": [
-    {
-      "@@type": "Offer",
-      "name": "Personal",
-      "price": "0",
-      "priceCurrency": "ZAR",
-      "description": "Free quote and invoice maker. No sign-up."
-    }
-  ],
-  "provider": {
-    "@@type": "Organization",
-    "name": "useLuminii",
-    "url": "{{ url('/') }}"
-  }
-}
-@else
-{
-  "@@context": "https://schema.org",
-  "@@type": "SoftwareApplication",
-  "name": "useLuminii",
-  "url": "{{ url('/') }}",
-  "operatingSystem": "Web",
-  "applicationCategory": "BusinessApplication",
-  "description": "The business operating system for service businesses. useLuminii connects website leads, quotes, jobs, invoices, expenses, compliance, and reports in one controlled flow.",
-  "offers": [
-    {
-      "@@type": "Offer",
-      "name": "Starter",
-      "price": "999",
-      "priceCurrency": "ZAR",
-      "description": "Website, AI receptionist, lead capture, basic CRM, and WhatsApp connection."
-    },
-    {
-      "@@type": "Offer",
-      "name": "Business",
-      "price": "1799",
-      "priceCurrency": "ZAR",
-      "description": "Everything in Starter plus full CRM, pipeline, quoting, job scheduling, invoicing, expenses and reports. 3 users included, R299 per extra user."
-    }
-  ],
-  "provider": {
-    "@@type": "Organization",
-    "name": "useLuminii",
-    "url": "{{ url('/') }}"
-  }
-}
-@endif
+{!! json_encode($appSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG) !!}
 </script>
 @if(count($faqs))
 <script type="application/ld+json">
 {!! json_encode($faqSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT | JSON_HEX_TAG) !!}
 </script>
 @endif
-<script type="application/ld+json">
-{
-  "@@context": "https://schema.org",
-  "@@type": "Organization",
-  "name": "useLuminii",
-  "url": "{{ url('/') }}",
-  "logo": "{{ asset('assets/images/logo/useluminii.png') }}",
-  "contactPoint": {
-    "@@type": "ContactPoint",
-    "telephone": "+27814303023",
-    "contactType": "sales",
-    "areaServed": "ZA",
-    "availableLanguage": "English"
-  }
-}
-</script>
 @endpush
 
 @section('content')

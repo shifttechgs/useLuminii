@@ -18,14 +18,27 @@
     <meta property="og:type" content="@yield('og_type', 'website')">
     <meta property="og:title" content="@yield('og_title', 'useLuminii - Business Operating System for Service Businesses')">
     <meta property="og:description" content="@yield('og_description', 'Connect website leads, quotes, jobs, invoices, expenses, compliance, and reports in one controlled flow.')">
-    <meta property="og:image" content="@yield('og_image', asset('assets/images/logo/useluminii.png'))">
+    {{-- 1200x630 social preview (rendered from the brand design); pages can override og_image.
+         Built from APP_URL so shared links always point at https://useluminii.com (not a preview
+         host or http), with ?v= so WhatsApp/LinkedIn/Facebook refetch when the image changes. --}}
+    @php
+        $ogFile = 'assets/images/og/useluminii-og.png';
+        $ogDefault = rtrim(config('app.url'), '/') . '/' . $ogFile . '?v=' . @filemtime(public_path($ogFile));
+    @endphp
+    <meta property="og:image" content="@yield('og_image', $ogDefault)">
+    <meta property="og:image:secure_url" content="@yield('og_image', $ogDefault)">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="useLuminii: stop losing jobs between enquiry and invoice">
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:site_name" content="useLuminii">
 
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="@yield('twitter_title', 'useLuminii - Business Operating System for Service Businesses')">
     <meta name="twitter:description" content="@yield('twitter_description', 'Connect website leads, quotes, jobs, invoices, expenses, compliance, and reports in one controlled flow.')">
-    <meta name="twitter:image" content="@yield('twitter_image', asset('assets/images/logo/useluminii.png'))">
+    <meta name="twitter:image" content="@yield('twitter_image', $ogDefault)">
+    <meta name="twitter:image:alt" content="useLuminii: stop losing jobs between enquiry and invoice">
 
     <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
     <link rel="apple-touch-icon" href="{{ asset('favicon.svg') }}">
@@ -35,10 +48,69 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 
+    {{-- Lean pages (home, personal) use no Bootstrap grid/components and no AOS: they load only
+         Bootstrap's 10 KB reboot (verified identical layout) instead of the full 232 KB file. --}}
+    @hasSection('lean_css')
+    <link rel="stylesheet" href="{{ asset('css/bootstrap-reboot.min.css') }}">
+    @else
     <link rel="stylesheet" href="{{ asset('useluminii/assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('useluminii/assets/css/aos.css') }}">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
+    @endif
+    {{-- Icons: every page on this layout uses only the regular Phosphor weight. Load just that one
+         stylesheet, without blocking (the old loader script pulled in all six weights). --}}
+    <link rel="preconnect" href="https://unpkg.com" crossorigin>
+    <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css"></noscript>
+    {{-- toast styles are only needed after a form submit: load without blocking the first paint --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"></noscript>
     <link rel="stylesheet" href="{{ asset('css/lp.css') }}?v={{ filemtime(public_path('css/lp.css')) }}">
+
+    {{-- Site-wide identity for search engines and AI answer engines: who we are (Organization,
+         with our social profiles as sameAs) and the site itself (WebSite). Page-specific
+         schema (SoftwareApplication, FAQPage, BreadcrumbList...) is pushed by each page. --}}
+    <script type="application/ld+json">
+    {!! json_encode([
+        '@context' => 'https://schema.org',
+        '@graph' => [
+            [
+                '@type' => 'Organization',
+                '@id' => url('/') . '#organization',
+                'name' => 'useLuminii',
+                'url' => url('/'),
+                'logo' => asset('assets/images/logo/useluminii.png'),
+                'description' => 'useLuminii is the business operating system for service businesses: website leads, quotes, jobs, invoices, expenses and reports in one connected flow.',
+                'email' => 'sales@shifttechgs.com',
+                'sameAs' => [
+                    'https://facebook.com/useluminii',
+                    'https://linkedin.com/company/useluminii',
+                    'https://instagram.com/useluminii',
+                ],
+                'parentOrganization' => [
+                    '@type' => 'Organization',
+                    'name' => 'ShiftTech',
+                    'url' => 'https://shifttechgs.com',
+                ],
+                'contactPoint' => [
+                    '@type' => 'ContactPoint',
+                    'telephone' => '+27814303023',
+                    'email' => 'sales@shifttechgs.com',
+                    'contactType' => 'sales',
+                    'areaServed' => 'ZA',
+                    'availableLanguage' => 'English',
+                ],
+            ],
+            [
+                '@type' => 'WebSite',
+                '@id' => url('/') . '#website',
+                'name' => 'useLuminii',
+                'url' => url('/'),
+                'inLanguage' => 'en',
+                'publisher' => ['@id' => url('/') . '#organization'],
+            ],
+        ],
+    ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG) !!}
+    </script>
 
     @stack('head-styles')
     @stack('head-scripts')
@@ -51,24 +123,28 @@
 
 @include('components.footer')
 
-<script src="{{ asset('useluminii/assets/js/jquery-3.7.1.min.js') }}"></script>
-<script src="{{ asset('useluminii/assets/js/phosphor-icon.js') }}"></script>
-<script src="{{ asset('useluminii/assets/js/boostrap.bundle.min.js') }}"></script>
-<script src="{{ asset('useluminii/assets/js/aos.js') }}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+{{-- Non-critical scripts are deferred (they run after parsing, before DOMContentLoaded). jQuery is
+     only here for toastr; the Bootstrap JS bundle was unused by every page on this layout. --}}
+<script src="{{ asset('useluminii/assets/js/jquery-3.7.1.min.js') }}" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" defer></script>
+@unless(View::hasSection('lean_css'))
+<script src="{{ asset('useluminii/assets/js/aos.js') }}" defer></script>
+@endunless
 
 <script>
-AOS.init({ duration: 700, easing: 'ease-out-cubic', once: true, offset: 60 });
-
-@if(session('success'))
-toastr.success("{{ session('success') }}");
-@elseif(session('error'))
-toastr.error("{{ session('error') }}");
-@elseif(session('warning'))
-toastr.warning("{{ session('warning') }}");
-@elseif(session('info'))
-toastr.info("{{ session('info') }}");
-@endif
+document.addEventListener('DOMContentLoaded', function () {
+    if (window.AOS) AOS.init({ duration: 700, easing: 'ease-out-cubic', once: true, offset: 60 });
+    if (!window.toastr) return;
+    @if(session('success'))
+    toastr.success("{{ session('success') }}");
+    @elseif(session('error'))
+    toastr.error("{{ session('error') }}");
+    @elseif(session('warning'))
+    toastr.warning("{{ session('warning') }}");
+    @elseif(session('info'))
+    toastr.info("{{ session('info') }}");
+    @endif
+});
 </script>
 
 <style>
@@ -209,7 +285,9 @@ toastr.info("{{ session('info') }}");
 (function () {
     if (!window.fetch) return;
 
-    if (window.toastr) {
+    function toastrOptions() {
+        if (!window.toastr || toastrOptions.done) return;
+        toastrOptions.done = true;
         toastr.options = {
             closeButton: true,
             progressBar: true,
@@ -221,6 +299,7 @@ toastr.info("{{ session('info') }}");
     }
 
     function showToast(type, message) {
+        toastrOptions();
         if (window.toastr && typeof toastr[type] === 'function') {
             toastr[type](message);
             return;
