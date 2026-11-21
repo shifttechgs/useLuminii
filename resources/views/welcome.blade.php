@@ -38,6 +38,9 @@
 @section('og_description', 'Connect website leads, quotes, jobs, invoices, expenses, compliance, and reports in one controlled flow built for service businesses.')
 @endif
 
+{{-- Lean page: Bootstrap reboot only, no AOS (see layouts/app) --}}
+@section('lean_css', '1')
+
 @push('head-scripts')
 @php
     $orgRef = ['@id' => url('/') . '#organization'];

@@ -71,7 +71,7 @@
 <!-- EXECUTION GAP: each moment shows the slip, then closes it as you scroll -->
 <section class="lp-gap" id="pain" aria-labelledby="lp-gap-title">
     <div class="lp-wrap">
-        <header class="lp-gap__intro" data-aos="fade-up">
+        <header class="lp-gap__intro">
             <div class="lp-section__label">The execution gap</div>
             <h2 class="lp-gap__h2" id="lp-gap-title">The work gets done.<br><em>The follow-through doesn't.</em></h2>
             <div class="lp-gap__intro-foot">
