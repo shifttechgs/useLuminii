@@ -126,7 +126,7 @@
                                 <span class="lp-sol__eyebrow">Personal</span>
                                 <span class="lp-sol__title">Solo operators <i class="ph ph-arrow-right"></i></span>
                                 <span class="lp-sol__desc">For freelancers and sole traders who want to get found, quote fast and get paid on time, from their phone.</span>
-                                <span class="lp-sol__meta">From R999 / month, flat</span>
+                                <span class="lp-sol__meta">Free to start, no sign-up</span>
                             </a>
                             <div class="lp-menu__list">
                                 <span class="lp-menu__list-label">Built for</span>

@@ -40,6 +40,31 @@
 
 @push('head-scripts')
 <script type="application/ld+json">
+@if($isPersonal)
+{
+  "@@context": "https://schema.org",
+  "@@type": "SoftwareApplication",
+  "name": "useLuminii Personal",
+  "url": "{{ route('personal') }}",
+  "operatingSystem": "Web",
+  "applicationCategory": "BusinessApplication",
+  "description": "A free quote and invoice maker for freelancers and sole traders. Create professional quotes and invoices, send them to clients and see what has been paid. No sign-up needed.",
+  "offers": [
+    {
+      "@@type": "Offer",
+      "name": "Personal",
+      "price": "0",
+      "priceCurrency": "ZAR",
+      "description": "Free quote and invoice maker. No sign-up."
+    }
+  ],
+  "provider": {
+    "@@type": "Organization",
+    "name": "useLuminii",
+    "url": "{{ url('/') }}"
+  }
+}
+@else
 {
   "@@context": "https://schema.org",
   "@@type": "SoftwareApplication",
@@ -70,6 +95,7 @@
     "url": "{{ url('/') }}"
   }
 }
+@endif
 </script>
 @if(count($faqs))
 <script type="application/ld+json">
