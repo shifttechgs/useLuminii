@@ -34,10 +34,8 @@ class ContactController extends Controller
 
         $data = $validator->validated();
 
-        $contactEmail = env('CONTACT_EMAIL');
-
         try {
-            Mail::to($contactEmail)->send(new ContactFormMail($data));
+            $this->notifySales(new ContactFormMail($data));
         } catch (\Exception $e) {
             return redirect('/contact')->with('error', 'An error occurred while sending your message. Please try again later.');
         }
@@ -103,9 +101,8 @@ class ContactController extends Controller
             ]);
         }
 
-        $contactEmail = env('CONTACT_EMAIL');
         try {
-            Mail::to($contactEmail)->send(new ContactFormMail($data));
+            $this->notifySales(new ContactFormMail($data));
 
             if ($submission) {
                 $submission->update(['email_sent_to_admin' => true]);
@@ -158,5 +155,16 @@ class ContactController extends Controller
                 ->with('demo_error', true)
                 ->withInput();
         }
+    }
+
+    /**
+     * Email a website enquiry to sales, copying the configured addresses
+     * (config/mail.php "notifications": sales@shifttechgs.com, cc shifttechgs1@gmail.com).
+     */
+    private function notifySales(ContactFormMail $mail): void
+    {
+        Mail::to(config('mail.notifications.to'))
+            ->cc(config('mail.notifications.cc', []))
+            ->send($mail);
     }
 }

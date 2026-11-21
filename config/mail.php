@@ -122,4 +122,23 @@ return [
         'name' => env('MAIL_FROM_NAME', 'Example'),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Website Enquiry Notifications
+    |--------------------------------------------------------------------------
+    |
+    | Who is told about demo bookings and contact form enquiries. Read here
+    | (not with env() in controllers) so it still works when config is
+    | cached in production. CONTACT_CC_EMAIL accepts a comma-separated list.
+    |
+    */
+
+    'notifications' => [
+        'to' => env('CONTACT_EMAIL', 'sales@shifttechgs.com'),
+        'cc' => array_values(array_filter(array_map(
+            'trim',
+            explode(',', (string) env('CONTACT_CC_EMAIL', 'shifttechgs1@gmail.com'))
+        ))),
+    ],
+
 ];

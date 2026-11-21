@@ -25,7 +25,6 @@ class ContactsController extends Controller
     public function submitForm(ContactFormRequest $request): JsonResponse
     {
         $data      = $request->validated();
-        $adminEmail = env('CONTACT_EMAIL', config('mail.from.address'));
 
         // 1. Save to local CRM database
         try {
@@ -50,7 +49,9 @@ class ContactsController extends Controller
         // 2. Send admin email notification
         $emailSent = false;
         try {
-            Mail::to($adminEmail)->send(new ContactFormNotification($data, true));
+            Mail::to(config('mail.notifications.to'))
+                ->cc(config('mail.notifications.cc', []))
+                ->send(new ContactFormNotification($data, true));
             $emailSent = true;
             if (isset($submission)) {
                 $submission->update(['email_sent_to_admin' => true]);
